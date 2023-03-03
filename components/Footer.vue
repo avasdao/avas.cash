@@ -4,15 +4,15 @@
             <div class="w-full border-t border-gray-300"></div>
         </div>
 
-        <div class="-mt-5 relative flex justify-center">
+        <div class="-mt-3 relative flex justify-center">
             <span class="bg-white px-3 text-gray-500">
-                <img src="~/assets/nexa.svg" class="w-8 h-8" />
+                <img src="~/assets/logo.png" class="w-5 h-5" />
             </span>
         </div>
 
         <section class="mt-5 px-3 flex justify-between">
             <span class="text-sm text-gray-400">
-                &copy; 2022-{{new Date().getFullYear()}} NexaJS developers - MIT License
+                &copy; 2022-{{new Date().getFullYear()}} Ava's DAO - MIT License
             </span>
 
             <div class="flex flex-row items-center gap-2">
