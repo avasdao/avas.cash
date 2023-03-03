@@ -6,12 +6,15 @@ export default defineNuxtConfig({
         head: {
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
-            title: 'Welcome to Nexa!',
+            title: `Ava's Cash`,
             meta: [
-                { name: 'description', content: 'NexaJS boilerplate Nuxt template.' },
+                { name: 'description', content: 'Best Crypto Experience (CX) For Your Money®' },
             ],
             link: [
                 { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+            ],
+            script: [
+                { src: '/js/matomo.js' },
             ],
         },
     },
