@@ -2,8 +2,8 @@
   "ticker": "AVAS",
   "name": "Ava's Cash",
   "summary": "Official Governance Token of Ava's DAO",
-  "description": "TBD",
-  "legal": "Every AVAS holder is permitted to vote on-chain for public proposals. 'Qualified' AVAS holders receive Daily Payouts to their Nexa address from revenues paid to Ava's Treasury.",
+  "description": "Ava's DAO is a non-profit organization on a mission to build and manage a comprehensive suite of products & services for maximizing the utility and availability of financial instruments to every man, woman and child in the world.",
+  "legal": "Every AVAS holder is permitted to vote on-chain for public proposals. 'Qualified' AVAS holders receive Daily Payouts to their Nexa address from revenues deposited into Ava's Treasury.",
   "creator": "Ava's DAO",
   "contact": { "address": "3455 Peachtree Rd NE, Suite #500, Atlanta, GA 30326", "email": "support@avasdao.org", "twitter.com": "@AvasDAO" },
   "icon": "/icon.svg"
