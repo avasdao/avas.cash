@@ -1,42 +1,25 @@
-# NexaJS Vue + TypeScript Boilerplate
+# Ava's Cash
 
-Look at the [NexaJS documentation](https://docs.nexajs.org) to learn more.
+### https://avas.cash
 
-## Setup
+### Official Governance Token of Ava's DAO
 
-Make sure to install the dependencies:
+## Purpose
 
-```bash
-# yarn
-yarn install
+Every $AVAS holder is permitted to vote _(on-chain)_ for public proposals.
 
-# npm
-npm install
+"Qualified" $AVAS holders receive Daily Payouts _(directly to the respective Nexa address)_ from revenues deposited into Ava's Treasury.
 
-# pnpm
-pnpm install
-```
+## About
 
-## Development Server
+Ava's DAO is a non-profit organization on a mission to build and manage a comprehensive suite of products & services with the primary purpose of assuring financial freedom for every man, woman and child in our world.
 
-Start the development server on http://localhost:3000
+## Contact
 
-```bash
-npm run dev
-```
+3455 Peachtree Rd NE
+Suite #500
+Atlanta, GA 30326
 
-## Production
+support [at] avasdao [dot] org
 
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://docs.nexajs.org/deployment) for more information.
+[https://twitter.com/@AvasDAO](https://twitter.com/@AvasDAO)
