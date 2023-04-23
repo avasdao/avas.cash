@@ -16,8 +16,8 @@ Ava's DAO is a non-profit organization on a mission to build and manage a compre
 
 ## Contact
 
-3455 Peachtree Rd NE
-Suite #500
+3455 Peachtree Rd NE  
+Suite #500  
 Atlanta, GA 30326
 
 support [at] avasdao [dot] org
