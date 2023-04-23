@@ -8,11 +8,11 @@
 
 1. Every $AVAS holder is permitted to vote _(on-chain)_ for public proposals.
 
-2. "Qualified" $AVAS holders receive Daily Payouts _(to the respective Nexa or Meta address)_ from revenues deposited into Ava's Treasury.
+2. "Qualified" $AVAS holders receive Daily Payouts _(to their respective Nexa or Meta address)_ from revenues deposited into Ava's Treasury.
 
 ## About
 
-Ava's DAO is a non-profit organization on a mission to build and manage a comprehensive suite of products & services with the prime directive of assuring financial freedom for every man, woman and child in our world.
+[__Ava's DAO__](https://avasdao.org) is a non-profit organization on a mission to build and manage a comprehensive suite of products & services with the prime directive of assuring financial freedom for every man, woman and child in our world.
 
 ## Contact
 
