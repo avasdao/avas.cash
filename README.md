@@ -8,7 +8,7 @@
 
 Every $AVAS holder is permitted to vote _(on-chain)_ for public proposals.
 
-"Qualified" $AVAS holders receive Daily Payouts _(directly to the respective Nexa address)_ from revenues deposited into Ava's Treasury.
+"Qualified" $AVAS holders receive Daily Payouts _(to the respective Nexa or Meta address)_ from revenues deposited into Ava's Treasury.
 
 ## About
 
