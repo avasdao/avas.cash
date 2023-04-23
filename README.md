@@ -12,7 +12,7 @@
 
 ## About
 
-[__Ava's DAO__](https://avasdao.org) is a non-profit organization on a mission to build and manage a comprehensive suite of products & services with the prime directive of assuring financial freedom for every man, woman and child in our world.
+[__Ava's DAO__](https://avasdao.org) is a non-profit organization on a mission to build and manage a comprehensive suite of products & services with the prime directive of assuring financial freedom for every man, woman and child.
 
 ## Contact
 
