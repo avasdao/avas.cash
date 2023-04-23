@@ -6,7 +6,7 @@
 
 ## Purpose
 
-1. Every $AVAS holder is permitted to vote _(on-chain)_ for public proposals.
+1. Every $AVAS holder is permitted to Vote _(on-chain)_ for public proposals.
 
 2. "Qualified" $AVAS holders receive Daily Payouts _(to their respective Nexa or Meta address)_ from revenues deposited into Ava's Treasury.
 
