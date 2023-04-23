@@ -12,7 +12,7 @@ Every $AVAS holder is permitted to vote _(on-chain)_ for public proposals.
 
 ## About
 
-Ava's DAO is a non-profit organization on a mission to build and manage a comprehensive suite of products & services with the primary purpose of assuring financial freedom for every man, woman and child in our world.
+Ava's DAO is a non-profit organization on a mission to build and manage a comprehensive suite of products & services with the prime directive of assuring financial freedom for every man, woman and child in our world.
 
 ## Contact
 
