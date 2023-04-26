@@ -10,19 +10,21 @@
             </h1>
 
             <p class="mt-3 w-10/12 py-2 text-sm sm:text-base">
-                The "official" governance and revenue sharing token of Ava's DAO.
+                <h2 class="text-2xl">
+                    Official Governance Token of Ava's DAO
+                </h2>
 
-                <span class="mt-3 sm:mt-0 block sm:inline">
-                    Participate in <strong>Community Voting</strong> proposals that shape the direction of the DAO.
+                    <span class="mt-3 sm:mt-0 block sm:inline">
+                    Every $AVAS holder is permitted to <strong>Vote</strong> <em>(on-chain)</em> for public proposals.
                 </span>
 
                 <span class="mt-3 sm:mt-0 block sm:inline">
-                    Qualified stakers receive <strong>Daily Payouts</strong> from each DAO revenue channel.
+                    "Qualified" $AVAS holders receive <strong>Daily Payouts</strong> <em>(to their respective Nexa or Meta address)</em> from revenues deposited into Ava's Treasury.
                 </span>
             </p>
 
             <h2 class="mt-5 text-3xl font-medium">
-                Primary Details
+                Token Details
             </h2>
 
             <ul class="mt-2 pl-2 sm:pl-5 text-sm leading-6 sm:leading-8">
@@ -89,45 +91,45 @@
 
                 <li>
                     <span class="text-rose-500 text-2xl font-bold">
-                        1,000,000,000
+                        21,000,000
                     </span>
 
                     <p class="flex flex-row text-base">
-                        <small class="text-rose-500">(1 BILLION)</small>
+                        <small class="text-rose-500">(21 MILLION)</small>
                         Total Supply
                     </p>
 
                     <ul class="pl-3 sm:pl-10 list-disc leading-6">
                         <li>
-                            500,000,000 (NexaPOW) Token Mining
+                            50% (NexaPOW) Token Mining
                         </li>
 
                         <li>
-                            100,000,000 Management Team <em>(3yr vesting)</em>
+                            10% Management Team <em>(3yr vesting)</em>
                         </li>
 
                         <li>
-                            100,000,000 Legal / Regulatory Fees
+                            10% Legal / Regulatory Fees
                         </li>
 
                         <li>
-                            50,000,000 Crowdfunding Allocation <em>(5x bootstrapping campaigns)</em>
+                            5% Crowdfunding Allocation <em>(5x bootstrapping campaigns)</em>
                         </li>
 
                         <li>
-                            50,000,000 Nexa/BU Treasury
+                            5% Nexa/BU Treasury
                         </li>
 
                         <li>
-                            50,000,000 Community Rewards
+                            5% Community Rewards
                         </li>
 
                         <li>
-                            50,000,000 Event Planning <em>(Creator Festivals)</em>
+                            5% Event Planning <em>(Creator Festivals)</em>
                         </li>
 
                         <li>
-                            100,000,000 Unallocated
+                            10% Unallocated
                         </li>
                     </ul>
 
