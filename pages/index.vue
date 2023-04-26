@@ -35,58 +35,22 @@
                     </svg>
 
                     <p class="w-full flex flex-col sm:flex-row gap-2 leading-3">
-                        <span class="truncate text-ellipsis">
-                            nexa:tzt4kqdnpykrhqedcutnka90ylpc8fjv9jp0gvfjxvxhj4yelgqqqehaff0k3
-                        </span>
-
-                        <em>(Token ID)</em>
-                    </p>
-                </li>
-
-                <li class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"></path>
-                    </svg>
-
-                    <p>
                         <NuxtLink
                             class="text-blue-500 font-medium hover:underline"
-                            to="https://explorer.nexa.org/tx/7e0dfe6a3cc364250423149c3957abf5eca63e716ffbf13d058f208f83beb0f0"
+                            to="https://tokenapi.otoplo.com/api/v1/tokens/nexa%3Atptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x/metadata"
                             target="_blank"
                         >
                             <span class="sm:hidden">
-                                7e0dfe6a3cc3 ... 208f83beb0f0
+                                nexa:tptlgmqhvmwqppaj ... 540vcqqqcra40x0x
                             </span>
                             <span class="hidden sm:block">
-                                7e0dfe6a3cc364250423149c3957abf5eca63e716ffbf13d058f208f83beb0f0
+                                nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x
                             </span>
 
                         </NuxtLink>
 
-                        <em class="block sm:inline">(Genesis Transaction)</em>
+                        <em>(Token ID)</em>
                     </p>
-                </li>
-
-                <li class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"></path>
-                    </svg>
-
-                    <NuxtLink
-                        class="text-blue-500 font-medium hover:underline"
-                        to="https://explorer.nexa.org/address/nexa:nqtsq5g5tg5pxkzn0llyrmqc0aukkj3aj5svses8lwtex89n"
-                        target="_blank"
-                    >
-                        <span class="sm:hidden">
-                            nexa:nqtsq5g5tg5p ... ses8lwtex89n
-                        </span>
-                        <span class="hidden sm:block">
-                            nexa:nqtsq5g5tg5pxkzn0llyrmqc0aukkj3aj5svses8lwtex89n
-                        </span>
-
-                    </NuxtLink>
-
-                    <em>(Minting Authority)</em>
                 </li>
 
                 <li>
