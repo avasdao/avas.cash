@@ -18,11 +18,11 @@
 
         <section class="px-3 sm:px-10 py-3">
             <h1 class="text-2xl font-medium">
-                Backup Your Wally Dice Seed Phrase
+                How to Backup your Wally Dice seed phrase
             </h1>
 
             <p class="mt-3">
-                It's critically important to backup your seed phrase <span class="font-bold">-OR-</span> you risk losing <span class="font-bold">ALL OF YOUR ASSETS</span>
+                It's critically important to backup your seed phrase <span class="font-bold">-OR-</span> you risk losing <span class="font-bold">ALL OF YOUR ASSETS.</span>
             </p>
 
             <ol class="mt-3 ml-10 list-decimal">
