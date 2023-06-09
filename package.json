@@ -1,6 +1,6 @@
 {
-  "name": "nexajs-nuxt-ts",
-  "version": "0.0.0",
+  "name": "avas-cash",
+  "version": "23.6.9",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -10,11 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nexajs/address": "23.6.7",
+    "@nexajs/rostrum": "23.6.7",
+    "@nexajs/utils": "23.5.15",
     "ethers": "6.0.8",
-    "nexajs": "22.12.23",
     "nuxt": "3.0.0"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.4.1"
+    "@nuxtjs/tailwindcss": "6.4.1"
   }
 }
