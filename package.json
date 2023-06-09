@@ -13,8 +13,10 @@
     "@nexajs/address": "23.6.7",
     "@nexajs/rostrum": "23.6.7",
     "@nexajs/utils": "23.5.15",
+    "@pinia/nuxt": "0.4.11",
     "ethers": "6.0.8",
-    "nuxt": "3.0.0"
+    "nuxt": "3.0.0",
+    "pinia": "2.0.36"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "6.4.1"
