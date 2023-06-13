@@ -31,11 +31,11 @@
 
                 <li class="flex items-center">
                     <NuxtLink
-                        class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow"
+                        class="px-3 py-2 w-full flex flex-col items-center bg-blue-200 border-2 border-blue-400 rounded-lg shadow"
                         to="https://tokenapi.otoplo.com/api/v1/tokens/57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000/metadata"
                         target="_blank"
                     >
-                        <h3 class="text-sm text-amber-700 font-medium uppercase">
+                        <h3 class="text-sm text-blue-700 font-medium uppercase">
                             Token ID
                         </h3>
 
@@ -103,12 +103,12 @@
                     </div>
 
                     <NuxtLink
-                        class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow"
+                        class="px-3 py-2 w-full flex flex-col items-center bg-blue-200 border-2 border-blue-400 rounded-lg shadow"
                         to="/bootstrap"
                     >
-                        <h3 class="text-sm text-amber-700 font-medium uppercase text-center">
+                        <h3 class="text-sm text-blue-700 font-medium uppercase text-center">
                             Crowdfunding Allocation
-                            <em class="block text-xs text-amber-600">5x bootstrapping campaigns</em>
+                            <em class="block text-xs text-blue-600">5x bootstrapping campaigns</em>
                         </h3>
 
                         <h3 class="text-3xl font-medium">
