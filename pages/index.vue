@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="px-3 sm:px-10 py-5">
-            <svg class="w-48 h-48 float-right rotate-45 text-rose-500 opacity-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg class="w-20 sm:w-48 h-20 sm:h-48 float-right rotate-45 text-rose-500 opacity-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"></path>
             </svg>
 
@@ -23,79 +23,139 @@
                 </span>
             </p>
 
-            <h2 class="mt-5 text-3xl font-medium">
+            <h2 class="my-5 text-4xl sm:text-5xl font-medium text-center">
                 Token Details
             </h2>
 
-            <ul class="mt-2 pl-2 sm:pl-5 text-sm leading-6 sm:leading-8">
+            <ul class="mt-2 pl-2 sm:pl-5 flex flex-col gap-4 leading-6 sm:leading-8">
 
-                <li class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"></path>
-                    </svg>
+                <li class="flex items-center">
+                    <NuxtLink
+                        class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow"
+                        to="https://tokenapi.otoplo.com/api/v1/tokens/57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000/metadata"
+                        target="_blank"
+                    >
+                        <h3 class="text-sm text-amber-700 font-medium uppercase">
+                            Token ID
+                        </h3>
 
-                    <p class="w-full flex flex-col sm:flex-row gap-2 leading-3">
-                        <NuxtLink
-                            class="text-blue-500 font-medium hover:underline"
-                            to="https://tokenapi.otoplo.com/api/v1/tokens/nexa%3Atptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x/metadata"
-                            target="_blank"
-                        >
-                            <span class="sm:hidden">
-                                nexa:tptlgmqhvmwqppaj ... 540vcqqqcra40x0x
-                            </span>
-                            <span class="hidden sm:block">
-                                nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x
-                            </span>
+                        <span class="sm:hidden text-lg">
+                            tptlgmqhvmwqp...vcqqqcra40x0x
+                        </span>
+                        <span class="hidden sm:block text-lg">
+                            tptlgmqhvmwqppajq7kduxen...sn9wdzde540vcqqqcra40x0x
+                        </span>
 
-                        </NuxtLink>
-
-                        <em>(Token ID)</em>
-                    </p>
+                    </NuxtLink>
                 </li>
 
                 <li>
-                    <span class="text-rose-500 text-2xl font-bold">
-                        21,000,000
-                    </span>
+                    <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                        <h3 class="text-sm text-amber-700 font-medium uppercase">
+                            Max Token Supply
+                        </h3>
 
-                    <p class="flex flex-row text-base">
-                        <small class="text-rose-500">(21 MILLION)</small>
-                        Total Supply
-                    </p>
+                        <h3 class="text-3xl font-medium">
+                            21,000,000
+                        </h3>
+                    </div>
+                </li>
+            </ul>
 
-                    <ul class="pl-3 sm:pl-10 list-disc leading-6">
-                        <li>
-                            50% (NexaPOW) Token Mining
-                        </li>
+            <div class="my-8 mx-10 border border-amber-500" />
 
-                        <li>
-                            10% Management Team <em>(3yr vesting)</em>
-                        </li>
+            <h2 class="my-5 text-4xl sm:text-5xl font-medium text-center">
+                Token Allocation
+            </h2>
 
-                        <li>
-                            10% Legal / Regulatory Fees
-                        </li>
+            <ul class="mt-2 pl-2 sm:pl-5 leading-6 sm:leading-8">
 
-                        <li>
-                            5% Crowdfunding Allocation <em>(5x bootstrapping campaigns)</em>
-                        </li>
+                <li class="flex flex-col gap-4">
+                    <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                        <h3 class="text-sm text-amber-700 font-medium uppercase">
+                            (NexaPOW) Token Mining
+                        </h3>
 
-                        <li>
-                            5% Nexa/BU Treasury
-                        </li>
+                        <h3 class="text-3xl font-medium">
+                            &gt;50%
+                        </h3>
+                    </div>
 
-                        <li>
-                            5% Community Rewards
-                        </li>
+                    <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                        <h3 class="text-sm text-amber-700 font-medium uppercase text-center">
+                            Management Team
+                            <em class="block text-xs text-amber-600">3-year vesting schedule</em>
+                        </h3>
 
-                        <li>
-                            5% Event Planning <em>(Creator Festivals)</em>
-                        </li>
+                        <h3 class="text-3xl font-medium">
+                            10%
+                        </h3>
+                    </div>
 
-                        <li>
-                            10% Unallocated
-                        </li>
-                    </ul>
+                    <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                        <h3 class="text-sm text-amber-700 font-medium uppercase">
+                            Legal / Regulatory Fees
+                        </h3>
+
+                        <h3 class="text-3xl font-medium">
+                            10%
+                        </h3>
+                    </div>
+
+                    <NuxtLink
+                        class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow"
+                        to="/bootstrap"
+                    >
+                        <h3 class="text-sm text-amber-700 font-medium uppercase text-center">
+                            Crowdfunding Allocation
+                            <em class="block text-xs text-amber-600">5x bootstrapping campaigns</em>
+                        </h3>
+
+                        <h3 class="text-3xl font-medium">
+                            5%
+                        </h3>
+                    </NuxtLink>
+
+                    <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                        <h3 class="text-sm text-amber-700 font-medium uppercase">
+                            Nexa/BU Treasury
+                        </h3>
+
+                        <h3 class="text-3xl font-medium">
+                            5%
+                        </h3>
+                    </div>
+
+                    <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                        <h3 class="text-sm text-amber-700 font-medium uppercase">
+                            Community Rewards
+                        </h3>
+
+                        <h3 class="text-3xl font-medium">
+                            5%
+                        </h3>
+                    </div>
+
+                    <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                        <h3 class="text-sm text-amber-700 font-medium uppercase">
+                            Event Planning
+                            <em class="block text-xs text-amber-600">Creator Festivals</em>
+                        </h3>
+
+                        <h3 class="text-3xl font-medium">
+                            5%
+                        </h3>
+                    </div>
+
+                    <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                        <h3 class="text-sm text-amber-700 font-medium uppercase">
+                            Unallocated
+                        </h3>
+
+                        <h3 class="text-3xl font-medium">
+                            5%
+                        </h3>
+                    </div>
 
                 </li>
 

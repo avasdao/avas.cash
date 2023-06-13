@@ -74,7 +74,7 @@ onMounted(() => {
 
 <template>
     <main class="max-w-7xl mx-auto py-5">
-        <h1 class="text-5xl font-medium">
+        <h1 class="text-5xl font-medium text-center">
             Bootstrap Campaigns
         </h1>
 
