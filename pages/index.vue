@@ -9,19 +9,19 @@
                 $AVAS
             </h1>
 
-            <p class="mt-3 w-10/12 py-2 text-sm sm:text-base">
+            <div class="mt-3 w-10/12 py-2 text-sm sm:text-base">
                 <h2 class="text-2xl">
                     Official Governance Token of Ava's DAO
                 </h2>
 
-                    <span class="mt-3 sm:mt-0 block sm:inline">
+                <span class="mt-3 sm:mt-0 block sm:inline">
                     Every $AVAS holder is permitted to <strong>Vote</strong> <em>(on-chain)</em> for public proposals.
                 </span>
 
                 <span class="mt-3 sm:mt-0 block sm:inline">
                     "Qualified" $AVAS holders receive <strong>Daily Payouts</strong> <em>(to their respective Nexa or Meta address)</em> from revenues deposited into Ava's Treasury.
                 </span>
-            </p>
+            </div>
 
             <h2 class="my-5 text-4xl sm:text-5xl font-medium text-center">
                 Token Details
@@ -31,7 +31,7 @@
 
                 <li class="flex items-center">
                     <NuxtLink
-                        class="px-3 py-2 w-full flex flex-col items-center bg-blue-200 border-2 border-blue-400 rounded-lg shadow"
+                        class="px-3 py-2 w-full flex flex-col items-center bg-blue-200 border-2 border-blue-400 rounded-lg shadow hover:bg-blue-300"
                         to="https://tokenapi.otoplo.com/api/v1/tokens/57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000/metadata"
                         target="_blank"
                     >
@@ -103,7 +103,7 @@
                     </div>
 
                     <NuxtLink
-                        class="px-3 py-2 w-full flex flex-col items-center bg-blue-200 border-2 border-blue-400 rounded-lg shadow"
+                        class="px-3 py-2 w-full flex flex-col items-center bg-blue-200 border-2 border-blue-400 rounded-lg shadow hover:bg-blue-300"
                         to="/bootstrap"
                     >
                         <h3 class="text-sm text-blue-700 font-medium uppercase text-center">
