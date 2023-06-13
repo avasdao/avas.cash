@@ -32,18 +32,21 @@
                 <li class="flex items-center">
                     <NuxtLink
                         class="px-3 py-2 w-full flex flex-col items-center bg-blue-300 border-2 border-blue-500 rounded-lg shadow hover:bg-blue-200"
-                        to="https://tokenapi.otoplo.com/api/v1/tokens/57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000/metadata"
+                        to="https://nexa.exchange/tokens/57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000"
                         target="_blank"
                     >
-                        <h3 class="text-sm text-blue-700 font-medium uppercase">
+                        <h3 class="text-sm sm:text-lg text-blue-700 font-medium uppercase">
                             Token ID
                         </h3>
 
                         <span class="sm:hidden text-lg">
                             tptlgmqhvmwqp...vcqqqcra40x0x
                         </span>
-                        <span class="hidden sm:block text-lg">
+                        <span class="hidden sm:block lg:hidden text-lg">
                             tptlgmqhvmwqppajq7kduxen...sn9wdzde540vcqqqcra40x0x
+                        </span>
+                        <span class="hidden lg:block text-xl">
+                            nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x
                         </span>
 
                     </NuxtLink>
@@ -106,9 +109,9 @@
                         class="px-3 py-2 w-full flex flex-col items-center bg-blue-300 border-2 border-blue-500 rounded-lg shadow hover:bg-blue-200"
                         to="/bootstrap"
                     >
-                        <h3 class="text-sm text-blue-700 font-medium uppercase text-center">
-                            Crowdfunding Allocation
-                            <em class="block text-xs text-blue-600">5x bootstrapping campaigns</em>
+                        <h3 class="text-sm sm:text-lg text-blue-700 font-medium uppercase text-center">
+                            Bootstrap Allocation
+                            <em class="block text-xs sm:text-base text-blue-600">5x crowdfunding campaigns</em>
                         </h3>
 
                         <h3 class="text-3xl font-medium">
