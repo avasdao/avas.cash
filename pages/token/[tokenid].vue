@@ -16,8 +16,8 @@ if (process.client) {
 </script>
 
 <template>
-    <main class="p-15">
-        <h1 class="text-rose-700 text-2xl font-medium tracking-widest">
+    <main>
+        <h1 class="m-15 block text-rose-500 text-2xl font-medium tracking-widest">
             redirecting...
         </h1>
     </main>
