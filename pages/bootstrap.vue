@@ -84,13 +84,22 @@ onMounted(() => {
             </span>
         </h1>
 
-        <p class="px-3 py-2 text-sm text-rose-900 font-medium">
-            Ava's Team needs your financial support to help bootstrap our ambitious plans for Nexa's 100K TPS L1 blockchain.
-        </p>
+        <section class="w-full sm:max-w-xl mx-auto text-sm sm:text-lg">
+            <p class="px-3 py-2 text-rose-900 font-medium">
+                Ava's Team needs your financial support to help bootstrap our ambitious plans for Nexa's 100K TPS L1 blockchain.
+            </p>
 
-        <p class="px-3 py-2 text-sm text-rose-900 font-medium">
-            <strong>Supporters will INSTANTLY receive $AVAS</strong> for ALL pledges made towards an "active" campaign.
-        </p>
+            <div class="my-3 flex justify-center">
+                <NuxtLink to="https://avasdao.org/roadmap" target="_blank" class="px-3 py-1 bg-blue-200 border-2 border-blue-500 text-blue-900 font-medium text-center hover:bg-blue-100 rounded-lg shadow">
+                    View Ava's Roadmap 👀
+                </NuxtLink>
+            </div>
+
+            <p class="px-3 py-2 text-rose-900 font-medium">
+                <strong>Supporters will INSTANTLY receive $AVAS</strong> for ALL pledges made towards an "active" campaign.
+            </p>
+
+        </section>
 
         <div class="py-5 flex flex-col gap-6">
             <section class="mx-3 px-3 py-2 bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
