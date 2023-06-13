@@ -1,6 +1,24 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
 
+/* Import modules. */
+import { encodeAddress } from '@nexajs/address'
+import { getTransaction } from '@nexajs/rostrum'
+import { binToHex } from '@nexajs/utils'
+import { hexToBin } from '@nexajs/utils'
+import { sha256 } from '@nexajs/crypto'
+
+/* Libauth helpers. */
+import { instantiateRipemd160 } from '@bitauth/libauth'
+const ripemd160 = await instantiateRipemd160()
+
+
+/* Libauth helpers. */
+import {
+    encodeDataPush,
+} from '@bitauth/libauth'
+
+
 /**
  * System Store
  */
@@ -25,7 +43,7 @@ export const useSystemStore = defineStore('system', {
         /**
          * Application Starts
          */
-        appStarts: 0,
+        _appStarts: 0,
 
         /**
          * Application Version
@@ -71,8 +89,43 @@ export const useSystemStore = defineStore('system', {
          *
          * Performs startup activities.
          */
-        initApp(state) {
-            state.appStarts++
+        initApp() {
+            this._appStarts++
         },
+
+        getSender(_tx) {
+            const inputs = _tx?.vin
+            console.log('INPUTS', inputs)
+
+            const hex = inputs[0]?.scriptSig.hex
+            console.log('HEX', hex)
+
+            const publicKey = hexToBin(hex.slice(4, 70))
+            // console.log('PUBLIC KEY', binToHex(publicKey))
+
+            /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
+            const scriptPushPubKey = encodeDataPush(publicKey)
+            // console.log('SCRIPT PUSH PUBLIC KEY', scriptPushPubKey);
+
+            const publicKeyHash = ripemd160.hash(sha256(scriptPushPubKey))
+            // console.log('PUBLIC KEY HASH (hex)', binToHex(publicKeyHash))
+
+            const pkhScript = hexToBin('17005114' + binToHex(publicKeyHash))
+            // console.info('  Public key hash Script:', binToHex(pkhScript))
+
+            const address = encodeAddress(
+                'nexa', 'TEMPLATE', pkhScript)
+            console.info('ADDRESS', address)
+
+            /* Set sender. */
+            const sender = {
+                address,
+                inputs,
+            }
+
+            /* Return sender. */
+            return sender
+        },
+
     },
 })
