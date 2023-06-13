@@ -11,7 +11,7 @@ const target = `https://nexa.exchange/token/${tokenid}`
 /* Validate client. */
 if (process.client) {
     // NOTE: `window` is ONLY available on client.
-    window.location.replace(target)
+    // window.location.replace(target)
 }
 </script>
 
