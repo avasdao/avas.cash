@@ -31,7 +31,7 @@
 
                 <li class="flex items-center">
                     <NuxtLink
-                        class="px-3 py-2 w-full flex flex-col items-center bg-blue-200 border-2 border-blue-400 rounded-lg shadow hover:bg-blue-300"
+                        class="px-3 py-2 w-full flex flex-col items-center bg-blue-300 border-2 border-blue-500 rounded-lg shadow hover:bg-blue-200"
                         to="https://tokenapi.otoplo.com/api/v1/tokens/57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000/metadata"
                         target="_blank"
                     >
@@ -103,7 +103,7 @@
                     </div>
 
                     <NuxtLink
-                        class="px-3 py-2 w-full flex flex-col items-center bg-blue-200 border-2 border-blue-400 rounded-lg shadow hover:bg-blue-300"
+                        class="px-3 py-2 w-full flex flex-col items-center bg-blue-300 border-2 border-blue-500 rounded-lg shadow hover:bg-blue-200"
                         to="/bootstrap"
                     >
                         <h3 class="text-sm text-blue-700 font-medium uppercase text-center">
