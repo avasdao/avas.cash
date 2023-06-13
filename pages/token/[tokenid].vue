@@ -2,14 +2,11 @@
 /* Initialize route. */
 const route = useRoute()
 
-/* Initialize route. */
-const router = useRouter()
-
 /* Set (route) path. */
-const value = route?.params.tokenid
+const tokenid = route?.params.tokenid
 
 /* Set (token display) target. */
-const target = `https://nexa.exchange/token/${tokenid.value}`
+const target = `https://nexa.exchange/token/${tokenid}`
 
 /* Validate client. */
 if (process.client) {
