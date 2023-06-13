@@ -85,7 +85,7 @@ onMounted(() => {
         </h1>
 
         <p class="px-3 py-2 text-sm text-rose-900 font-medium">
-            Our team needs your financial support to help bootstrap our ambitious plans for Nexa's 100K TPS L1 blockchain.
+            Ava's Team needs your financial support to help bootstrap our ambitious plans for Nexa's 100K TPS L1 blockchain.
         </p>
 
         <p class="px-3 py-2 text-sm text-rose-900 font-medium">
