@@ -14,3 +14,11 @@ if (process.client) {
     window.location.replace(target)
 }
 </script>
+
+<template>
+    <main>
+        <h1 class="text-2xl font-medium tracking-widest">
+            redirecting...
+        </h1>
+    </main>
+</template>
