@@ -90,7 +90,7 @@ onMounted(() => {
                     <h3>Cost: <strong>~1,428</strong> NEXA <strong>(~$0.01)</strong> per AVAS <small>@ $7.00 mNEXA/USD</small></h3>
                 </div>
 
-                <h3 class="text-xl font-medium">
+                <h3 class="text-xl font-medium truncate">
                     {{campaign1.address}}
                 </h3>
 
@@ -114,7 +114,7 @@ onMounted(() => {
                     <h3>Cost: <strong>~2,857</strong> NEXA <strong>(~$0.02)</strong> per AVAS <small>@ $7.00 mNEXA/USD</small></h3>
                 </div>
 
-                <h3 class="text-xl font-medium">
+                <h3 class="text-xl font-medium truncate">
                     {{campaign2.address}}
                 </h3>
 
@@ -131,7 +131,7 @@ onMounted(() => {
                     <h3>Cost: <strong>~2,857</strong> NEXA <strong>(~$0.02)</strong> per AVAS <small>@ $7.00 mNEXA/USD</small></h3>
                 </div>
 
-                <h3 class="text-xl font-medium">
+                <h3 class="text-xl font-medium truncate">
                     {{campaign3.address}}
                 </h3>
 
@@ -148,7 +148,7 @@ onMounted(() => {
                     <h3>Cost: <strong>~19,047</strong> NEXA <strong>(~$0.13)</strong> per AVAS <small>@ $7.00 mNEXA/USD</small></h3>
                 </div>
 
-                <h3 class="text-xl font-medium">
+                <h3 class="text-xl font-medium truncate">
                     {{campaign4.address}}
                 </h3>
 
@@ -165,7 +165,7 @@ onMounted(() => {
                     <h3>Cost: <strong>TBD</strong> NEXA per AVAS <small>@ $7.00 mNEXA/USD</small></h3>
                 </div>
 
-                <h3 class="text-xl font-medium">
+                <h3 class="text-xl font-medium truncate">
                     {{campaign5.address}}
                 </h3>
 
@@ -173,6 +173,4 @@ onMounted(() => {
         </div>
 
     </main>
-
-    <Footer />
 </template>
