@@ -75,20 +75,29 @@ onMounted(() => {
 <template>
     <main class="max-w-7xl mx-auto py-5">
         <h1 class="font-medium text-center">
-            <span class="text-5xl text-rose-900">
+            <span class="text-5xl text-rose-900 uppercase sm:normal-case">
                 Bootstrap
             </span>
 
-            <span class="block sm:inline text-lg sm:text-5xl text-rose-600 sm:text-rose-900">
+            <span class="block sm:inline text-2xl sm:text-5xl text-rose-500 sm:text-rose-900 uppercase sm:normal-case">
                 Campaigns
             </span>
         </h1>
 
+        <p class="px-3 py-2 text-sm text-rose-900 font-medium">
+            Our team needs your financial support to help bootstrap our present &amp; future plans on Nexa's 100K TPS L1 blockchain.
+        </p>
+
+        <p class="px-3 py-2 text-sm text-rose-900 font-medium">
+            <strong>Supporters will receive $AVAS</strong> for ALL pledges made towards an "active" campaign.
+        </p>
+
         <div class="py-5 flex flex-col gap-6">
             <section class="mx-3 px-3 py-2 bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
-                <h2 class="text-2xl font-medium">
-                    Campaign 1/5 <span class="hidden sm:inline"> • </span>
-                    <span class="block sm:inline">Causes.Cash</span>
+                <h2 class="font-medium">
+                    <span class="text-base sm:text-2xl">Campaign 1/5</span>
+                    <span class="hidden sm:inline"> • </span>
+                    <span class="block text-2xl sm:inline">Causes.Cash</span>
                 </h2>
 
                 <div class="pl-5 py-2 text-sm">

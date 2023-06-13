@@ -31,7 +31,7 @@ getBlockHeight()
         <header class="mt-10 flex flex-col items-center">
             <img src="~/assets/logo.png" class="w-24 h-24" />
 
-            <h1 class="mt-3 text-3xl sm:text-6xl tracking-wide font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+            <h1 class="mt-3 text-5xl sm:text-7xl tracking-wide font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                 Ava's Cash
             </h1>
         </header>
