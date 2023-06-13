@@ -89,7 +89,7 @@ onMounted(() => {
         </p>
 
         <p class="px-3 py-2 text-sm text-rose-900 font-medium">
-            <strong>Supporters will receive $AVAS</strong> for ALL pledges made towards an "active" campaign.
+            <strong>Supporters will INSTANTLY receive $AVAS</strong> for ALL pledges made towards an "active" campaign.
         </p>
 
         <div class="py-5 flex flex-col gap-6">
