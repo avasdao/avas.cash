@@ -74,14 +74,21 @@ onMounted(() => {
 
 <template>
     <main class="max-w-7xl mx-auto py-5">
-        <h1 class="text-5xl font-medium text-center">
-            Bootstrap Campaigns
+        <h1 class="font-medium text-center">
+            <span class="text-5xl text-rose-900">
+                Bootstrap
+            </span>
+
+            <span class="block sm:inline text-lg sm:text-5xl text-rose-600 sm:text-rose-900">
+                Campaigns
+            </span>
         </h1>
 
-        <div class="py-5 flex flex-col gap-4">
+        <div class="py-5 flex flex-col gap-6">
             <section class="mx-3 px-3 py-2 bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
                 <h2 class="text-2xl font-medium">
-                    Campaign 1/5 • Causes.Cash
+                    Campaign 1/5 <span class="hidden sm:inline"> • </span>
+                    <span class="block sm:inline">Causes.Cash</span>
                 </h2>
 
                 <div class="pl-5 py-2 text-sm">
