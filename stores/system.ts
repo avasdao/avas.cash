@@ -10,8 +10,6 @@ import { sha256 } from '@nexajs/crypto'
 
 /* Libauth helpers. */
 import { instantiateRipemd160 } from '@bitauth/libauth'
-const ripemd160 = await instantiateRipemd160()
-
 
 /* Libauth helpers. */
 import {
@@ -93,12 +91,12 @@ export const useSystemStore = defineStore('system', {
             this._appStarts++
         },
 
-        getSender(_tx) {
+        async getSender(_tx) {
             const inputs = _tx?.vin
-            console.log('INPUTS', inputs)
+            // console.log('INPUTS', inputs)
 
             const hex = inputs[0]?.scriptSig.hex
-            console.log('HEX', hex)
+            // console.log('HEX', hex)
 
             const publicKey = hexToBin(hex.slice(4, 70))
             // console.log('PUBLIC KEY', binToHex(publicKey))
@@ -106,6 +104,8 @@ export const useSystemStore = defineStore('system', {
             /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
             const scriptPushPubKey = encodeDataPush(publicKey)
             // console.log('SCRIPT PUSH PUBLIC KEY', scriptPushPubKey);
+
+            const ripemd160 = await instantiateRipemd160()
 
             const publicKeyHash = ripemd160.hash(sha256(scriptPushPubKey))
             // console.log('PUBLIC KEY HASH (hex)', binToHex(publicKeyHash))
