@@ -43,7 +43,7 @@ const campaign3 = {
 const campaign4 = {
     id: 'f900d1b8-1ae0-4e18-8a2f-212631b62562',
     address: 'nexa:nqtsq5g5k99c8530p4a0znzph6rckj6rfw456e3kqefv60lu',
-    title: `MetaNet: Nexa EVM Sidechain`,
+    title: `MetaNet: Nexa EVM Sidechain + Bridge`,
 }
 
 const campaign5 = {
