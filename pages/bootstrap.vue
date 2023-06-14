@@ -102,11 +102,15 @@ onMounted(() => {
         </section>
 
         <div class="py-5 flex flex-col gap-6">
-            <section class="mx-3 px-3 py-2 bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
-                <h2 class="font-medium">
-                    <span class="text-base sm:text-2xl">Campaign 1/5</span>
+            <section class="mx-3 px-3 py-2 bg-amber-100 border-2 border-amber-300 rounded-lg shadow">
+                <h2 class="font-medium text-amber-900">
+                    <span class="text-sm sm:text-2xl uppercase sm:normal-case text-amber-600 sm:text-amber-900">
+                        Campaign 1/5
+                    </span>
                     <span class="hidden sm:inline"> • </span>
-                    <span class="block text-2xl sm:inline">Causes.Cash</span>
+                    <span class="block text-2xl sm:inline">
+                        Causes.Cash
+                    </span>
                 </h2>
 
                 <div class="pl-5 py-2 text-sm">
@@ -115,20 +119,28 @@ onMounted(() => {
                     <h3>Cost: <strong>~1,428</strong> NEXA <strong>(~$0.01)</strong> per AVAS <small>@ $7.00 mNEXA/USD</small></h3>
                 </div>
 
-                <h3 class="text-xl font-medium truncate">
-                    {{campaign1.address}}
-                </h3>
+                <div class="my-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <NuxtLink :to="campaign1.address" target="_blank" class="block w-full px-3 py-2 text-lg text-center text-green-900 font-medium bg-green-400 border-2 border-green-600 hover:bg-green-300 rounded-lg shadow">
+                            Open My Wallet
+                        </NuxtLink>
 
-                <NuxtLink :to="'https://explorer.nexa.org/address/' + campaign1HistorySender?.address" target="_blank" class="block mx-3 my-2 text-blue-500 font-medium hover:underline">
-                    {{campaign1HistorySender?.address}}
-                </NuxtLink>
+                        <h3 class="mt-1 px-5 text-xs text-amber-900 text-center font-medium truncate">
+                            {{campaign1.address}}
+                        </h3>
+                    </div>
+
+                    <NuxtLink :to="'https://causes.cash/'" target="_blank" class="block w-full h-fit px-3 py-2 text-lg text-center text-amber-900 font-medium bg-amber-400 border-2 border-amber-600 hover:bg-amber-300 rounded-lg shadow">
+                        Open Campaign
+                    </NuxtLink>
+                </div>
 
                 <!-- <pre>{{campaign1HistoryDetails}}</pre> -->
 
                 <!-- <pre>{{campaign1History}}</pre> -->
             </section>
 
-            <section class="mx-3 px-3 py-2 bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+            <section class="mx-3 px-3 py-2 bg-amber-100 border-2 border-amber-300 rounded-lg shadow">
                 <h2 class="text-2xl font-medium">
                     Campaign 2/5 • Ledger (HW) Wallet
                 </h2>
@@ -145,7 +157,7 @@ onMounted(() => {
 
             </section>
 
-            <section class="mx-3 px-3 py-2 bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+            <section class="mx-3 px-3 py-2 bg-amber-100 border-2 border-amber-300 rounded-lg shadow">
                 <h2 class="text-2xl font-medium">
                     Campaign 3/5 • Privacy
                 </h2>
@@ -162,7 +174,7 @@ onMounted(() => {
 
             </section>
 
-            <section class="mx-3 px-3 py-2 bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+            <section class="mx-3 px-3 py-2 bg-amber-100 border-2 border-amber-300 rounded-lg shadow">
                 <h2 class="text-2xl font-medium">
                     Campaign 4/5 • MetaNet EVM Sidechain
                 </h2>
@@ -179,9 +191,15 @@ onMounted(() => {
 
             </section>
 
-            <section class="mx-3 px-3 py-2 bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
-                <h2 class="text-2xl font-medium">
-                    Campaign 5/5 • Hackathon / Builder Festival
+            <section class="mx-3 px-3 py-2 bg-amber-100 border-2 border-amber-300 rounded-lg shadow">
+                <h2 class="font-medium text-amber-900">
+                    <span class="text-sm sm:text-2xl uppercase sm:normal-case text-amber-600 sm:text-amber-900">
+                        Campaign 5/5
+                    </span>
+                    <span class="hidden sm:inline"> • </span>
+                    <span class="block text-2xl sm:inline">
+                        Nexa Builder Festival
+                    </span>
                 </h2>
 
                 <div class="pl-5 py-2 text-sm">
