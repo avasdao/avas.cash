@@ -27,4 +27,10 @@ export default defineNuxtConfig({
         /* Pinia */
         '@pinia/nuxt',
     ],
+
+    /* Route Rules */
+    routeRules: {
+        /* Add CORS headers to API. */
+        '/**': { cors: true },
+    },
 })
