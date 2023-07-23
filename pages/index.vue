@@ -1,3 +1,61 @@
+<script setup lang="ts">
+/* Import modules. */
+import moment from 'moment'
+
+/* Initialize stores. */
+import { useSystemStore } from '@/stores/system'
+
+/* Initialize System. */
+const System = useSystemStore()
+
+const GENESIS_TIMESTAMP = 1682532180
+
+const richList = ref(null)
+
+const timeSinceGenesis = computed(() => {
+    let duration = GENESIS_TIMESTAMP - moment().unix()
+    console.log('duration', duration)
+    return duration
+})
+
+const timeSinceGenesisDisplay = computed(() => {
+    if (!timeSinceGenesis.value) {
+        return 'loading...'
+    }
+
+    return moment
+        .duration(timeSinceGenesis.value, 'seconds')
+        .humanize(true)
+})
+
+const walletsCreated = computed(() => {
+    if (!richList.value) {
+        return 'n/a'
+    }
+
+    const numDays = Math.abs(((timeSinceGenesis.value / 60.0) / 60.0) / 24.0)
+
+    const numWallets = richList.value.length
+
+    return (numWallets / numDays).toFixed(2)
+})
+
+const init = async () => {
+    richList.value = await $fetch('/api/getRichList')
+        .catch(err => console.error(err))
+    console.log('RICH LIST', richList.value)
+}
+
+onMounted(() => {
+    init()
+})
+
+// onBeforeUnmount(() => {
+//     console.log('Before Unmount!')
+//     // Now is the time to perform all cleanup operations.
+// })
+</script>
+
 <template>
     <main class="isolate">
         <!-- Hero section -->
@@ -22,16 +80,28 @@
                 ></div>
             </div>
             <div class="overflow-hidden">
-                <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+                <div class="mx-auto max-w-7xl px-6 pb-32 pt-24 sm:pt-32 lg:px-8 lg:pt-16">
                     <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                         <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
-                            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">We’re changing the way people connect.</h1>
+                            <h1 class="text-6xl font-bold tracking-tight text-rose-400 sm:text-8xl">
+                                Ava's Cash
+                            </h1>
+
+                            <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                                a hybrid utility token delivering <em class="text-3xl sm:text-5xl text-lime-500">Daily</em> $NEXA <em class="text-3xl sm:text-5xl text-lime-500">Payouts</em> to HODLers
+                            </h2>
+
                             <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
-                                Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et labore commodo nulla aliqua proident mollit ullamco exercitation tempor. Sint aliqua anim nulla sunt mollit id
-                                pariatur in voluptate cillum. Eu voluptate tempor esse minim amet fugiat veniam occaecat aliqua.
+                                Enjoy an opportunity to share in the growth and success of <span class="font-extrabold">Nexa's Premier Decentralized Autonomous Organization (DAO),</span> working tirelessly to deliver critical infrastrucutrue to a nascent Nexican community.
+
+                                <ul class="list-disc pl-10 pt-2 leading-8 text-gray-600">
+                                    <li>Vote on governance proposals</li>
+                                    <li>HODL your $AVAS for payouts</li>
+                                    <li>Receive future $TOKEN airdrops</li>
+                                </ul>
                             </p>
                         </div>
-                        <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
+                        <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-20 lg:pl-0">
                             <div class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
                                 <div class="relative">
                                     <img
@@ -105,19 +175,49 @@
                             </p>
                         </div>
                     </div>
+
                     <div class="lg:flex lg:flex-auto lg:justify-center">
                         <dl class="w-64 space-y-8 xl:w-80">
                             <div class="flex flex-col-reverse gap-y-4">
-                                <dt class="text-base leading-7 text-gray-600">Transactions every 24 hours</dt>
-                                <dd class="text-5xl font-semibold tracking-tight text-gray-900">44 million</dd>
+                                <dt class="text-base leading-7 text-gray-600">
+                                    Total Value Locked (TVL)
+                                    <span class="block">
+                                        in
+                                        <NuxtLink to="https://nexa.sh/contracts" target="_blank" class="text-blue-500 font-extrabold hover:underline">
+                                            non-custodial HODL Vaults
+                                        </NuxtLink>
+                                    </span>
+                                </dt>
+
+                                <dd class="text-5xl font-semibold tracking-tight text-gray-900">
+                                    13.37 million
+                                </dd>
                             </div>
+
                             <div class="flex flex-col-reverse gap-y-4">
-                                <dt class="text-base leading-7 text-gray-600">Assets under holding</dt>
-                                <dd class="text-5xl font-semibold tracking-tight text-gray-900">$119 trillion</dd>
+                                <dt class="text-base leading-7 text-gray-600">
+                                    Total Payouts to HODLers
+                                    <NuxtLink to="/payouts" class="block text-blue-500 font-extrabold hover:underline">
+                                        delivered on-chain
+                                    </NuxtLink>
+                                </dt>
+
+                                <dd class="text-5xl font-semibold tracking-tight text-gray-900">
+                                    1.23 million
+                                </dd>
                             </div>
+
                             <div class="flex flex-col-reverse gap-y-4">
-                                <dt class="text-base leading-7 text-gray-600">New users annually</dt>
-                                <dd class="text-5xl font-semibold tracking-tight text-gray-900">46,000</dd>
+                                <dt class="text-base leading-7 text-gray-600">
+                                    New wallets per day since
+                                    <NuxtLink to="https://nexa.sh/tx/a61b7879fa31487f767eec5c895be3c68a6402f42ba96ad2d982d88453df7b39" target="_blank" class="block text-blue-500 font-extrabold hover:underline">
+                                        Token Genesis <small>{{ timeSinceGenesisDisplay }}</small>
+                                    </NuxtLink>
+                                </dt>
+
+                                <dd class="text-5xl font-semibold tracking-tight text-gray-900">
+                                    {{walletsCreated}}
+                                </dd>
                             </div>
                         </dl>
                     </div>
@@ -195,65 +295,5 @@
             </div>
         </div>
 
-        <!-- Team section -->
-        <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8">
-            <div class="mx-auto max-w-2xl lg:mx-0">
-                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our team</h2>
-                <p class="mt-6 text-lg leading-8 text-gray-600">Sit facilis neque ab nulla vel. Cum eos in laudantium. Temporibus eos totam in dolorum. Nemo vel facere repellendus ut eos dolores similique.</p>
-            </div>
-            <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6">
-                <li>
-                    <img class="mx-auto h-24 w-24 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80" alt="" />
-                    <h3 class="mt-6 text-base font-semibold leading-7 tracking-tight text-gray-900">Michael Foster</h3>
-                    <p class="text-sm leading-6 text-gray-600">Co-Founder / CTO</p>
-                </li>
-
-                <!-- More people... -->
-            </ul>
-        </div>
-
-        <!-- Blog section -->
-        <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
-            <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">From the blog</h2>
-                <p class="mt-2 text-lg leading-8 text-gray-600">Vel dolorem qui facilis soluta sint aspernatur totam cumque.</p>
-            </div>
-            <div class="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
-                    <img
-                        src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80"
-                        alt=""
-                        class="absolute inset-0 -z-10 h-full w-full object-cover"
-                    />
-                    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-                    <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
-
-                    <div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
-                        <time datetime="2020-03-16" class="mr-8">Mar 16, 2020</time>
-                        <div class="-ml-4 flex items-center gap-x-4">
-                            <svg viewBox="0 0 2 2" class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50">
-                                <circle cx="1" cy="1" r="1" />
-                            </svg>
-                            <div class="flex gap-x-2.5">
-                                <img
-                                    src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt=""
-                                    class="h-6 w-6 flex-none rounded-full bg-white/10"
-                                />
-                                Michael Foster
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="mt-3 text-lg font-semibold leading-6 text-white">
-                        <a href="javascript://">
-                            <span class="absolute inset-0"></span>
-                            Vel expedita assumenda placeat aut nisi optio voluptates quas
-                        </a>
-                    </h3>
-                </article>
-
-                <!-- More posts... -->
-            </div>
-        </div>
     </main>
 </template>
