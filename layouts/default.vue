@@ -28,6 +28,6 @@ getBlockHeight()
 
         <slot />
 
-        <Footer />>
+        <Footer />
     </main>
 </template>
