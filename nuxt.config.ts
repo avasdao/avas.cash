@@ -30,7 +30,8 @@ export default defineNuxtConfig({
 
     /* Route Rules */
     routeRules: {
-        /* Add CORS headers to API. */
+        /* Add CORS headers to root. */
+        // NOTE: We need this to make avas.json available to web apps.
         '/**': { cors: true },
     },
 })
