@@ -11,6 +11,10 @@ const emits = defineEmits(['toggleWallet'])
 
 const isShowingMobileMenu = ref(false)
 
+const toggleWallet = () => {
+    emits('toggleWallet')
+}
+
 onMounted(() => {
     // TODO
 })
@@ -32,6 +36,7 @@ onMounted(() => {
                     <img class="h-10 w-auto" src="~/assets/logo.png" alt="" />
                 </NuxtLink>
             </div>
+
             <div class="flex lg:hidden">
                 <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
                     <span class="sr-only">Open main menu</span>
@@ -46,12 +51,12 @@ onMounted(() => {
                     Payouts
                 </NuxtLink>
 
-                <NuxtLink to="/bootstrap" class="text-xl font-semibold leading-6 text-gray-900">
-                    Bootstrap
+                <NuxtLink to="/staking" class="text-xl font-semibold leading-6 text-gray-900">
+                    Staking
                 </NuxtLink>
 
-                <NuxtLink to="/manager" class="text-xl font-semibold leading-6 text-gray-900">
-                    Manager
+                <NuxtLink to="/bootstrap" class="text-xl font-semibold leading-6 text-gray-900">
+                    Bootstrap
                 </NuxtLink>
 
                 <NuxtLink to="/help" class="text-xl font-semibold leading-6 text-gray-900">

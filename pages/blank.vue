@@ -1,8 +1,8 @@
 <script setup lang="ts">
 useHead({
-    title: 'Blank — Nexa Studio',
+    title: `Blank — Ava's Cash`,
     meta: [
-        { name: 'description', content: 'Nexa Studio makes building your next BIG idea effortless.' }
+        { name: 'description', content: `Ava's Cash makes building your next BIG idea effortless.` }
     ],
 })
 
@@ -21,7 +21,6 @@ const System = useSystemStore()
 //     console.log('Before Unmount!')
 //     // Now is the time to perform all cleanup operations.
 // })
-
 </script>
 
 <template>
