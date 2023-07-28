@@ -298,7 +298,7 @@ onMounted(() => {
                     <figure>
                         <blockquote class="mt-6 text-lg font-semibold text-white sm:text-xl sm:leading-8">
                             <p>
-                                “We have the technology, the experience and the commitment to guarantee financial freedom for every man, woman and child.
+                                “We possess the technology, the experience and the commitment to guarantee financial freedom for every man, woman and child.
                                 If you don't believe me or don't get it, I don't have the time to try to convince you, sorry.”
                             </p>
                         </blockquote>
