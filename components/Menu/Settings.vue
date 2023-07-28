@@ -76,7 +76,7 @@ currency.value = 'USD'
                 </span>
 
                 <span class="text-xs sm:text-sm text-gray-500" id="availability-description">
-                    Activate a password that will be required when performing any sensitive activities.
+                    Activate a password that will be required before performing ALL sensitive actions.
                 </span>
             </span>
 
