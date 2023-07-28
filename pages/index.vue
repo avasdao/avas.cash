@@ -80,7 +80,7 @@ onMounted(() => {
                 ></div>
             </div>
             <div class="overflow-hidden">
-                <div class="mx-auto max-w-7xl px-6 pb-32 pt-24 sm:pt-32 lg:px-8 lg:pt-16">
+                <div class="mx-auto max-w-7xl px-6 pb-32 pt-10 sm:pt-16 lg:px-8 lg:pt-0">
                     <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                         <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                             <h1 class="text-6xl font-bold tracking-tight text-rose-400 sm:text-8xl">
@@ -94,7 +94,7 @@ onMounted(() => {
                             <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
                                 Enjoy an opportunity to share in the growth and success of <span class="font-extrabold">Nexa's Premier Decentralized Autonomous Organization (DAO),</span> working tirelessly to deliver critical infrastrucutrue to a nascent Nexican community.
 
-                                <ul class="list-disc pl-10 pt-2 leading-8 text-gray-600">
+                                <ul class="list-disc pl-10 pt-2 leading-8 text-lg text-gray-600">
                                     <li>Vote on governance proposals</li>
                                     <li>HODL your $AVAS for payouts</li>
                                     <li>Receive future $TOKEN airdrops</li>
@@ -157,18 +157,21 @@ onMounted(() => {
         <!-- Content section -->
         <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
             <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our mission</h2>
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    Mission Statement
+                </h2>
+
                 <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
                     <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
                         <p class="text-xl leading-8 text-gray-600">
-                            Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend
-                            egestas fringilla sapien.
+                            Ava's DAO is a non-profit organization on a mission to build and manage a comprehensive suite of products & services with the prime directive of assuring financial freedom for every man, woman and child.
                         </p>
+
                         <div class="mt-10 max-w-xl text-base leading-7 text-gray-700">
                             <p>
-                                Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque
-                                erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id.
+                                Every $AVAS holder is permitted to Vote (on-chain) for public proposals. 'Qualified' $AVAS holders receive Daily Payouts (to their respective Nexa or Meta address) from revenues deposited into Ava's Treasury.
                             </p>
+
                             <p class="mt-10">
                                 Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac
                                 adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.
@@ -270,16 +273,24 @@ onMounted(() => {
                     <dd class="mt-1 text-gray-600">
                         Mollitia delectus a omnis. Quae velit aliquid. Qui nulla maxime adipisci illo id molestiae. Cumque cum ut minus rerum architecto magnam consequatur. Quia quaerat minima.
                     </dd>
+
+                    <NuxtLink to="https://causes.cash/c/b8fac25d-e619-4ddf-b474-af084e8250ce" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
+                        Open Campaign
+                    </NuxtLink>
                 </div>
 
                 <div>
                     <dt class="text-2xl font-semibold text-gray-900">
-                        #3 CashFusion
+                        #3 Decentralized Coin Mixer
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
                         Aut repellendus et officiis dolor possimus. Deserunt velit quasi sunt fuga error labore quia ipsum. Commodi autem voluptatem nam. Quos voluptatem totam.
                     </dd>
+
+                    <NuxtLink to="https://causes.cash/c/707e2a8c-4eea-4c26-9ea2-c548e9e91726" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
+                        Open Campaign
+                    </NuxtLink>
                 </div>
 
                 <div>
@@ -290,6 +301,10 @@ onMounted(() => {
                     <dd class="mt-1 text-gray-600">
                         Magnam provident veritatis odit. Vitae eligendi repellat non. Eum fugit impedit veritatis ducimus. Non qui aspernatur laudantium modi. Praesentium rerum error deserunt harum.
                     </dd>
+
+                    <NuxtLink to="https://causes.cash/c/f900d1b8-1ae0-4e18-8a2f-212631b62562" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
+                        Open Campaign
+                    </NuxtLink>
                 </div>
 
                 <div>
@@ -300,6 +315,10 @@ onMounted(() => {
                     <dd class="mt-1 text-gray-600">
                         Sit minus expedita quam in ullam molestiae dignissimos in harum. Tenetur dolorem iure. Non nesciunt dolorem veniam necessitatibus laboriosam voluptas perspiciatis error.
                     </dd>
+
+                    <NuxtLink to="/" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow opacity-50 cursor-not-allowed">
+                        Open Campaign
+                    </NuxtLink>
                 </div>
             </dl>
         </div>
