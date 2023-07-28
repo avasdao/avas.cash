@@ -68,14 +68,15 @@ currency.value = 'USD'
 
 <template>
     <main class="flex flex-col gap-4">
-        <div class="flex items-center justify-between gap-4">
+
+        <section class="flex items-center justify-between gap-4">
             <span class="flex flex-grow flex-col">
                 <span class="text-sm font-medium leading-6 text-gray-900" id="availability-label">
-                    Enable PRO Trader
+                    ENABLE password protection
                 </span>
 
                 <span class="text-sm text-gray-500" id="availability-description">
-                    Fully control the <strong>SPEED</strong> of trade execution w/ advanced wallet features.
+                    Will activate your chosen Wallet password, that will be required when performing any sensitive activities.
                 </span>
             </span>
 
@@ -84,8 +85,45 @@ currency.value = 'USD'
                 <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
                 <span aria-hidden="true" class="translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 duration-200 ease-in-out"></span>
             </button>
-        </div>
+        </section>
 
+        <section class="flex items-center justify-between gap-4">
+            <span class="flex flex-grow flex-col">
+                <span class="text-sm font-medium leading-6 text-gray-900" id="availability-label">
+                    ENABLE address privacy
+                </span>
+
+                <span class="text-sm text-gray-500" id="availability-description">
+                    Will generate a new wallet address after each transaction.
+                </span>
+            </span>
+
+            <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
+            <button type="button" class="bg-gray-200 relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" role="switch" aria-checked="false" aria-labelledby="availability-label" aria-describedby="availability-description">
+                <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
+                <span aria-hidden="true" class="translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 duration-200 ease-in-out"></span>
+            </button>
+        </section>
+
+        <section class="flex items-center justify-between gap-4">
+            <span class="flex flex-grow flex-col">
+                <span class="text-sm font-medium leading-6 text-gray-900" id="availability-label">
+                    ENABLE transaction privacy
+                </span>
+
+                <span class="text-sm text-gray-500" id="availability-description">
+                    Utilize the CoinJoin protocol to protect your individual transactions.
+                </span>
+            </span>
+
+            <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
+            <button type="button" class="bg-gray-200 relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2" role="switch" aria-checked="false" aria-labelledby="availability-label" aria-describedby="availability-description">
+                <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
+                <span aria-hidden="true" class="translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 duration-200 ease-in-out"></span>
+            </button>
+        </section>
+
+        <div class="mx-5 my-5 border-t border-gray-300" />
 
         <fieldset v-if="1 === 2">
             <legend class="block text-sm font-medium leading-6 text-gray-900">
@@ -238,7 +276,7 @@ currency.value = 'USD'
             </div>
         </div>
 
-        <section v-if="Wallet.mnemonic" class="mt-20 mb-5 px-3 py-2 bg-red-300 border-2 border-red-500 rounded-lg shadow">
+        <section v-if="Wallet.mnemonic" class="mb-5 px-3 py-2 bg-red-300 border-2 border-red-500 rounded-lg shadow">
             <h2 class="text-2xl text-red-900 font-bold">
                 Danger Zone
             </h2>
