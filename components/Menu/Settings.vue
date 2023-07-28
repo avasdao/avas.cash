@@ -94,7 +94,7 @@ currency.value = 'USD'
                 </span>
 
                 <span class="text-xs sm:text-sm text-gray-500" id="availability-description">
-                    Auto-select the next <em>(unused)</em> wallet address, to be used as change, for every transaction.
+                    Auto-select the next <em>(unused)</em> wallet address, to be used for change, before every transaction.
                 </span>
             </span>
 
