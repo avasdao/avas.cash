@@ -26,8 +26,8 @@ onMounted(() => {
 
 <template>
     <!-- Header -->
-    <header class="absolute inset-x-0 top-0 z-20">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <header class="absolute inset-x-0 sticky top-0 z-20 bg-white border-b border-gray-100 bg-opacity-90 backdrop-blur-md">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1">
                 <NuxtLink to="/" class="-m-1.5 p-1.5">
                     <span class="sr-only">Ava's Cash</span>
