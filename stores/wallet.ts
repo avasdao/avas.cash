@@ -8,7 +8,6 @@ import {
 } from '@nexajs/hdnode'
 
 import {
-    getAddressBalance,
     getAddressMempool,
     subscribeAddress,
 } from '@nexajs/rostrum'
@@ -17,7 +16,7 @@ import { listUnspent } from '@nexajs/address'
 import { sha256 } from '@nexajs/crypto'
 import { Wallet } from '@nexajs/wallet'
 
-// import _createWallet from './wallet/create.ts'
+import _createWallet from './wallet/create.ts'
 // import _transfer from './wallet/transfer.ts'
 
 
@@ -42,9 +41,6 @@ const getCoinBalance = async (_address) => {
  */
 export const useWalletStore = defineStore('wallet', {
     state: () => ({
-        MAX_OPRETURN_DATA_BYTES: 220,
-        DUST_LIMIT: 546,
-
         /* Initialize entropy (used for HD wallet). */
         // NOTE: This is a cryptographically-secure "random" 32-byte (256-bit) value. */
         _entropy: null,
@@ -124,18 +120,6 @@ export const useWalletStore = defineStore('wallet', {
         balance(_state) {
             // return _state._balance
         },
-
-        // satoshis(_state) {
-        //     return _state._satoshis
-        // },
-
-        // nex(_state) {
-        //     return _state._satoshis / 100.0
-        // },
-
-        // mex(_state) {
-        //     return _state._satoshis / 100000000.0
-        // },
     },
 
     actions: {
@@ -293,7 +277,8 @@ export const useWalletStore = defineStore('wallet', {
         },
 
         async transfer(_receiver, _satoshis) {
-            return await _transfer.bind(this)(_receiver, _satoshis)
+            return await this.wallet.send(_receiver, _satoshis)
+            // return await _transfer.bind(this)(_receiver, _satoshis)
         },
 
         setEntropy(_entropy) {

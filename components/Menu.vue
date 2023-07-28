@@ -1,6 +1,6 @@
 <script setup>
 const props = defineProps({
-    isShowingWallet: Boolean,
+    isShowingMenu: Boolean,
 })
 
 /* Initialize stores. */
@@ -24,7 +24,7 @@ curTab.value = 'wallet'
 </script>
 
 <template>
-    <main v-if="isShowingWallet" class="relative z-10" role="dialog" aria-modal="true">
+    <main v-if="isShowingMenu" class="relative z-10" role="dialog" aria-modal="true">
         <!-- Background backdrop, show/hide based on slide-over state. -->
         <div class="fixed inset-0"></div>
 

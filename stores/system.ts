@@ -75,6 +75,13 @@ export const useSystemStore = defineStore('system', {
          *       of this storage field.
          */
         notices: null,
+
+        /**
+         * Tickers
+         *
+         * Support for multiple exchange tickers across multiple currencies.
+         */
+        _tickers: null,
     }),
 
     getters: {
@@ -87,8 +94,25 @@ export const useSystemStore = defineStore('system', {
          *
          * Performs startup activities.
          */
-        initApp() {
+        init() {
             this._appStarts++
+
+            if (!this._tickers) {
+                this._tickers = {}
+            }
+
+            setInterval(this.updateTicker, 30000)
+
+            this.updateTicker()
+        },
+
+        async updateTicker () {
+            if (!this._tickers.NEXA) {
+                this._tickers.NEXA = {}
+            }
+
+            this._tickers.NEXA = await $fetch('https://nexa.exchange/ticker')
+            // console.log('TICKERS', this._tickers)
         },
 
         async getSender(_tx) {

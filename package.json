@@ -15,7 +15,7 @@
     "@nexajs/crypto": "23.5.22",
     "@nexajs/rostrum": "23.7.20",
     "@nexajs/utils": "23.7.22",
-    "@nexajs/wallet": "23.7.26",
+    "@nexajs/wallet": "23.7.29",
     "@pinia/nuxt": "0.4.7",
     "moment": "2.29.4",
     "numeral": "2.0.6",
