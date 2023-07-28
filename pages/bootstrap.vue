@@ -121,7 +121,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="mx-auto max-w-7xl px-6 pt-18 sm:pt-16 lg:px-8">
+    <main class="mx-auto max-w-7xl px-3 sm:px-6 pt-18 sm:pt-16 lg:px-8">
         <div class="mx-auto mt-8 max-w-7xl px-0 sm:mt-0 lg:px-8">
             <div class="mx-auto max-w-4xl text-center">
                 <h1 class="text-2xl font-semibold leading-7 text-indigo-600">
@@ -159,11 +159,11 @@ onMounted(() => {
 
                 <section
                     v-for="(campaign, index) of campaigns" :key="campaign.id"
-                    class="rounded-3xl p-8 ring-1 ring-gray-200 bg-gradient-to-b from-gray-200 to-gray-50 border border-gray-300 shadow-md"
+                    class="rounded-3xl p-8 ring-1 ring-gray-200 bg-gradient-to-b from-gray-200 to-gray-50 border border-gray-300 shadow-sm"
                     :class="[ campaign.asking === 0 ? 'opacity-30 cursor-not-allowed' : '' ]"
                 >
-                    <div class="h-[160px]">
-                        <h2 class="font-medium text-gray-900 h-[80px]">
+                    <div class="h-[160px] sm:h-[130px] lg:h-[160px]">
+                        <h2 class="font-medium text-gray-900 h-[80px] sm:h-[50px] lg:h-[80px]">
                             <h4 class="text-sm uppercase sm:normal-case text-gray-600 sm:text-gray-900">
                                 Campaign {{(index + 1)}}/5
                             </h4>
@@ -187,23 +187,23 @@ onMounted(() => {
                         </span>
                     </p>
 
-                    <div v-if="campaign.asking !== 0" class="my-3 grid grid-cols-2 sm:grid-cols-1 gap-4">
+                    <div v-if="campaign.asking !== 0" class="my-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
                         <div>
                             <NuxtLink :to="campaign.address" target="_blank" class="block w-full px-3 py-2 text-lg text-center text-green-900 font-medium bg-green-400 border-2 border-green-600 hover:bg-green-300 rounded-lg shadow">
                                 Open My Wallet
                             </NuxtLink>
-
-                            <h3 class="mt-1 px-5 text-xs text-amber-900 text-center font-medium truncate">
-                                {{campaign.address}}
-                            </h3>
                         </div>
 
                         <NuxtLink :to="'https://causes.cash/c/' + campaign.id" target="_blank" class="block w-full h-fit px-3 py-2 text-lg text-center text-amber-900 font-medium bg-amber-400 border-2 border-amber-600 hover:bg-amber-300 rounded-lg shadow">
                             Open Campaign
                         </NuxtLink>
+
+                        <h3 class="sm:col-span-2 lg:col-span-1 -mt-1 px-5 text-xs text-blue-500 text-center font-medium truncate">
+                            {{campaign.address}}
+                        </h3>
                     </div>
 
-                    <ul role="list" class="mt-8 space-y-3 text-sm leading-6 text-gray-600">
+                    <ul role="list" class="mt-6 space-y-3 text-sm leading-6 text-gray-600">
                         <li class="flex gap-x-3">
                             <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
