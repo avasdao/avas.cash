@@ -134,8 +134,9 @@ onMounted(() => {
             </div>
 
             <p class="mx-auto mt-6 w-full lg:max-w-2xl text-center text-lg leading-8 text-gray-600">
-                Our team is looking for your support to get <span class="font-extrabold">5 Core Products &amp; Services</span> off-the-ground.
-                Supporters will receive <span class="text-rose-500 font-extrabold">$AVAS</span> sent to their wallet <span class="font-extrabold">INSTANTLY!</span>
+                We're asking for your support to get <span class="text-2xl text-indigo-500 font-extrabold">5 Core Platforms</span> off-the-ground.
+                We appreciate you making time to check out and/or share one or more campaigns listed below.
+                For every contribution, supporters will receive <span class="text-2xl text-rose-500 font-extrabold">$AVAS</span> sent to their Nexa wallet <span class="text-2xl text-indigo-500 font-extrabold">INSTANTLY!</span>
             </p>
 
             <div class="mt-16 flex justify-center">

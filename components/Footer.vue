@@ -3,31 +3,31 @@
         <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
             <nav class="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
                 <div class="pb-6">
-                    <NuxtLink to="/bootstrap" class="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                    <NuxtLink to="/bootstrap" class="text-sm sm:text-lg leading-6 text-gray-600 hover:text-gray-900">
                         Bootstrap
                     </NuxtLink>
                 </div>
 
                 <div class="pb-6">
-                    <NuxtLink to="/payouts" class="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                    <NuxtLink to="/payouts" class="text-sm sm:text-lg leading-6 text-gray-600 hover:text-gray-900">
                         Payouts
                     </NuxtLink>
                 </div>
 
                 <div class="pb-6">
-                    <NuxtLink to="/staking" class="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                    <NuxtLink to="/staking" class="text-sm sm:text-lg leading-6 text-gray-600 hover:text-gray-900">
                         Staking
                     </NuxtLink>
                 </div>
 
                 <div class="pb-6">
-                    <NuxtLink to="/token" class="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                    <NuxtLink to="/token" class="text-sm sm:text-lg leading-6 text-gray-600 hover:text-gray-900">
                         $AVAS
                     </NuxtLink>
                 </div>
 
                 <div class="pb-6">
-                    <NuxtLink to="/help" class="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                    <NuxtLink to="/help" class="text-sm sm:text-lg leading-6 text-gray-600 hover:text-gray-900">
                         Help
                     </NuxtLink>
                 </div>
