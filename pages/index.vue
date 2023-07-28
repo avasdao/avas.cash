@@ -337,7 +337,7 @@ onMounted(() => {
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        Aut illo quae. Ut et harum ea animi natus. Culpa maiores et sed sint et magnam exercitationem quia. Ullam voluptas nihil vitae dicta molestiae et. Aliquid velit porro vero.
+                        Causes Cash introduces a full-service P2P crowdfunding platform to the Nexa community; built & managed by a team with years of experience servicing the Bitcoin Cash (BCH) community.
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/475b4cfc-ae95-419d-9681-cf378c083963" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
@@ -351,7 +351,7 @@ onMounted(() => {
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        Mollitia delectus a omnis. Quae velit aliquid. Qui nulla maxime adipisci illo id molestiae. Cumque cum ut minus rerum architecto magnam consequatur. Quia quaerat minima.
+                        We're introducing the #1 market leader in Crypto hardware wallet security to secure the bags of Nexa's investors and manage their digital assets in a user-friendly and straightforward manner.
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/b8fac25d-e619-4ddf-b474-af084e8250ce" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
@@ -365,7 +365,7 @@ onMounted(() => {
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        Aut repellendus et officiis dolor possimus. Deserunt velit quasi sunt fuga error labore quia ipsum. Commodi autem voluptatem nam. Quos voluptatem totam.
+                        Shuffle.cash is introducing Fungibility to your Nexa transactions by merging the MOST advanced Crypto privacy protocols & specifications (i.e. CoinJoin, CashShuffle and CashFusion).
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/707e2a8c-4eea-4c26-9ea2-c548e9e91726" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
@@ -379,7 +379,7 @@ onMounted(() => {
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        Magnam provident veritatis odit. Vitae eligendi repellat non. Eum fugit impedit veritatis ducimus. Non qui aspernatur laudantium modi. Praesentium rerum error deserunt harum.
+                        A comprehensive plan to build, test and deploy a SmartBCH-style sidechain for Nexa, powered by an Avalanche Subnet.
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/f900d1b8-1ae0-4e18-8a2f-212631b62562" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
@@ -393,7 +393,7 @@ onMounted(() => {
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        Sit minus expedita quam in ullam molestiae dignissimos in harum. Tenetur dolorem iure. Non nesciunt dolorem veniam necessitatibus laboriosam voluptas perspiciatis error.
+                        TBD
                     </dd>
 
                     <NuxtLink to="/" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow opacity-50 cursor-not-allowed">
