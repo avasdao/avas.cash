@@ -26,13 +26,48 @@
                     <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                         <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                             <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                We’re changing the way people receive Daily Payouts
+                                Help Center
                             </h1>
 
-                            <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
-                                Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et labore commodo nulla aliqua proident mollit ullamco exercitation tempor. Sint aliqua anim nulla sunt mollit id
-                                pariatur in voluptate cillum. Eu voluptate tempor esse minim amet fugiat veniam occaecat aliqua.
-                            </p>
+                            <div class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
+                                <section class="mt-5 px-3 sm:px-10 py-3">
+                                    <h2 class="text-xl font-medium">
+                                        Don't hesitate to reach our for support
+                                    </h2>
+
+                                    <a href="mailto:support@avasdao.org" class="text-2xl text-blue-500 font-bold hover:underline">
+                                        support@avasdao.org
+                                    </a>
+                                </section>
+
+                                <section class="px-3 sm:px-10 py-3">
+                                    <h1 class="text-2xl font-medium">
+                                        How to Backup your Wally Dice seed phrase
+                                    </h1>
+
+                                    <p class="mt-3">
+                                        It's critically important to backup your seed phrase <span class="font-bold">-OR-</span> you risk losing <span class="font-bold">ALL OF YOUR ASSETS.</span>
+                                    </p>
+
+                                    <ol class="mt-3 ml-10 list-decimal">
+                                        <li>
+                                            Under <span class="font-bold">Accounts</span>, click on one of your accounts.
+                                        </li>
+
+                                        <li>
+                                            Click on the <span class="font-bold">gear icon</span> that appears on the right-hand side of your respective account.
+                                        </li>
+
+                                        <li>
+                                            Click on <span class="font-bold">"View Account Recovery Secret Phrase".</span>
+                                        </li>
+
+                                        <li>
+                                            Write down the <span class="font-bold">12 words</span> shown in red and store them in a <span class="font-bold">VERY SAFE PLACE.</span>
+                                        </li>
+                                    </ol>
+                                </section>
+                            </div>
                         </div>
                         <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
                             <div class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
@@ -86,49 +121,5 @@
                 </div>
             </div>
         </div>
-
-        <div class="mt-5 flex justify-center">
-            <h2 class="text-3xl font-bold">
-                Help Center
-            </h2>
-        </div>
-
-        <section class="mt-5 px-3 sm:px-10 py-3">
-            <h2 class="text-xl font-medium">
-                Don't hesitate to reach our for support
-            </h2>
-
-            <a href="mailto:support@avasdao.org" class="text-2xl text-blue-500 font-bold hover:underline">
-                support@avasdao.org
-            </a>
-        </section>
-
-        <section class="px-3 sm:px-10 py-3">
-            <h1 class="text-2xl font-medium">
-                How to Backup your Wally Dice seed phrase
-            </h1>
-
-            <p class="mt-3">
-                It's critically important to backup your seed phrase <span class="font-bold">-OR-</span> you risk losing <span class="font-bold">ALL OF YOUR ASSETS.</span>
-            </p>
-
-            <ol class="mt-3 ml-10 list-decimal">
-                <li>
-                    Under <span class="font-bold">Accounts</span>, click on one of your accounts.
-                </li>
-
-                <li>
-                    Click on the <span class="font-bold">gear icon</span> that appears on the right-hand side of your respective account.
-                </li>
-
-                <li>
-                    Click on <span class="font-bold">"View Account Recovery Secret Phrase".</span>
-                </li>
-
-                <li>
-                    Write down the <span class="font-bold">12 words</span> shown in red and store them in a <span class="font-bold">VERY SAFE PLACE.</span>
-                </li>
-            </ol>
-        </section>
     </main>
 </template>
