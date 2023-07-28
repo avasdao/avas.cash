@@ -27,11 +27,11 @@ const displayBalance = computed(() => {
     }
 
     const satoshis = Wallet.coins.reduce(
-        (totalSatoshis, coin) => (totalSatoshis + coin.satoshis), 0
+        (totalSatoshis, coin) => (totalSatoshis + coin.satoshis), BigInt(0)
     )
 
     /* Calculate (NEX) total. */
-    const nex = (satoshis / 100.0)
+    const nex = (parseInt(satoshis) / 100.0)
 
     /* Return formatted value. */
     return numeral(nex).format('0,0.00')
@@ -43,11 +43,11 @@ const displayBalanceUsd = computed(() => {
     }
 
     const satoshis = Wallet.coins.reduce(
-        (totalSatoshis, coin) => (totalSatoshis + coin.satoshis), 0
+        (totalSatoshis, coin) => (totalSatoshis + coin.satoshis), BigInt(0)
     )
 
     /* Calculate (NEX) total. */
-    const mex = (satoshis / 10**8)
+    const mex = (parseInt(satoshis) / 10**8)
 
     const mexUsd = mex * System.usd
 
@@ -56,15 +56,16 @@ const displayBalanceUsd = computed(() => {
 })
 
 const pendingBalance = computed(() => {
-    if (!Wallet.satoshis) {
-        return '0.00 NEXA'
-    }
+    return '0.00 NEXA'
+    // if (!Wallet.satoshis) {
+    //     return '0.00 NEXA'
+    // }
 
-    /* Calculate (NEX) total. */
-    const nex = (Wallet.satoshis / 100.0)
+    // /* Calculate (NEX) total. */
+    // const nex = (Wallet.satoshis / 100.0)
 
-    /* Return formatted value. */
-    return numeral(nex).format('0,0.00') + ' NEXA'
+    // /* Return formatted value. */
+    // return numeral(nex).format('0,0.00') + ' NEXA'
 })
 
 const tokensBalanceUsd = computed(() => {
@@ -98,8 +99,8 @@ const tokensBalanceUsd = computed(() => {
 })
 
 const importWallet = () => {
-    const success = Wallet.setMnemonic(mnemonic.value)
-    console.log('SUCCESS', success)
+    const response = Wallet.setMnemonic(mnemonic.value)
+    console.log('WALLET', response)
 }
 
 
