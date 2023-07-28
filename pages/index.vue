@@ -246,7 +246,7 @@ onMounted(() => {
 
                 <p class="mt-6 text-lg leading-8 text-gray-600">
                     During our early years, it's critical to lay a <span class="text-2xl text-indigo-500 font-medium">SOLID</span> foundation for which we can then build upon for decades to come.
-                    Ava's DAO is committed to building, deploying and supporting <span class="text-2xl text-indigo-500 font-medium">critical infrastructure and services</span> to ensure that <span class="text-2xl text-indigo-500 font-medium">ALL</span> Nexcicans will be entitled to <span class="text-2xl text-indigo-500 font-medium">ALWAYS</span> have nice things too.
+                    Ava's DAO is committed to building, deploying and supporting <span class="text-2xl text-indigo-500 font-medium">critical infrastructure &amp; services</span> to ensure that <span class="text-2xl text-indigo-500 font-medium">ALL</span> Nexicans will be entitled to <span class="text-2xl text-indigo-500 font-medium">ALWAYS</span> have nice things too.
                 </p>
             </div>
 
