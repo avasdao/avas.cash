@@ -255,29 +255,29 @@ currency.value = 'USD'
                         <h3 class="text-lg font-medium text-red-700">
                             Mnemonic Seed Phrase
                         </h3>
+                    </div>
+                </div>
 
-                        <div class="mt-2 text-sm text-amber-700">
-                            <div v-if="isShowingMnemonic">
-                                <div class="grid grid-cols-2 gap-3">
-                                    <h3 v-for="(word, index) of wordList" :key="word" class="text-xl font-medium">
-                                        {{(index + 1).toString().padStart(2, '0')}}: {{word}}
-                                    </h3>
-                                </div>
-
-                                <p class="mt-2 text-sm text-gray-500 font-medium">
-                                    Backup the words shown above to a safe place in order to recovery your Wallet.
-                                </p>
-                            </div>
-
-                            <SkeletonMnemonic v-else />
+                <div class="mt-2 text-sm text-amber-700">
+                    <div v-if="isShowingMnemonic">
+                        <div class="grid grid-cols-2 gap-3">
+                            <h3 v-for="(word, index) of wordList" :key="word" class="text-xl font-medium">
+                                {{(index + 1).toString().padStart(2, '0')}}: {{word}}
+                            </h3>
                         </div>
 
-                        <div class="mt-4">
-                            <div class="-mx-2 -my-1.5 flex">
-                                <button v-if="isShowingMnemonic" @click="isShowingMnemonic = false" type="button" class="ml-3 rounded-md bg-amber-50 px-2 py-1.5 text-sm font-medium text-amber-800 hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 focus:ring-offset-amber-50">Hide Secret</button>
-                                <button v-else @click="isShowingMnemonic = true" type="button" class="rounded-md bg-amber-50 px-2 py-1.5 text-sm font-medium text-amber-800 hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 focus:ring-offset-amber-50">Show Secret</button>
-                            </div>
-                        </div>
+                        <p class="mt-2 text-sm text-gray-500 font-medium">
+                            Backup the words shown above to a safe place in order to recovery your Wallet.
+                        </p>
+                    </div>
+
+                    <SkeletonMnemonic v-else />
+                </div>
+
+                <div class="mt-4">
+                    <div class="-mx-2 -my-1.5 flex">
+                        <button v-if="isShowingMnemonic" @click="isShowingMnemonic = false" type="button" class="ml-3 rounded-md bg-amber-50 px-2 py-1.5 text-sm font-medium text-amber-800 hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 focus:ring-offset-amber-50">Hide Secret</button>
+                        <button v-else @click="isShowingMnemonic = true" type="button" class="rounded-md bg-amber-50 px-2 py-1.5 text-sm font-medium text-amber-800 hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 focus:ring-offset-amber-50">Show Secret</button>
                     </div>
                 </div>
             </div>

@@ -24,7 +24,7 @@ curTab.value = 'wallet'
 </script>
 
 <template>
-    <main v-if="isShowingMenu" class="relative z-10" role="dialog" aria-modal="true">
+    <main v-if="isShowingMenu" class="relative z-30" role="dialog" aria-modal="true">
         <!-- Background backdrop, show/hide based on slide-over state. -->
         <div class="fixed inset-0"></div>
 
@@ -100,10 +100,10 @@ curTab.value = 'wallet'
                                 </section>
 
                                 <div class="mt-3 px-3 sm:mt-4">
-                                    <!-- <MenuProfile v-if="curTab == 'profile'" class="w-full" /> -->
-                                    <!-- <MenuSettings v-if="curTab == 'settings'" class="w-full" /> -->
+                                    <MenuProfile v-if="curTab == 'profile'" class="w-full" />
+                                    <MenuSettings v-if="curTab == 'settings'" class="w-full" />
                                     <MenuWallet v-if="curTab == 'wallet'" class="w-full" />
-                                    <!-- <MenuHelp v-if="curTab == 'help'" class="w-full" /> -->
+                                    <MenuHelp v-if="curTab == 'help'" class="w-full" />
                                 </div>
                             </div>
 
