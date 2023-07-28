@@ -112,7 +112,7 @@ currency.value = 'USD'
                 </span>
 
                 <span class="text-xs sm:text-sm text-gray-500" id="availability-description">
-                    Automatically manage <em>"un-mixed"</em> coins within Nexa's decentralized CoinJoin pools.
+                    Automatically send &amp; manage <em>"un-mixed"</em> coins to Nexa's decentralized CoinJoin pools.
                 </span>
             </span>
 
