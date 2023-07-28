@@ -237,39 +237,75 @@ onMounted(() => {
         <!-- Values section -->
         <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
             <div class="mx-auto max-w-2xl lg:mx-0">
-                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our values</h2>
-                <p class="mt-6 text-lg leading-8 text-gray-600">Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam.</p>
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    Nexican Bootstrap
+                </h2>
+
+                <p class="mt-6 text-lg leading-8 text-gray-600">
+                    During our early years, it's critical to lay a <span class="text-2xl text-indigo-500 font-medium">SOLID</span> foundation for which we can then build upon for decades to come.
+                    Ava's DAO is committed to building, deploying and supporting <span class="text-2xl text-indigo-500 font-medium">critical infrastructure and services</span> to ensure that <span class="text-2xl text-indigo-500 font-medium">ALL</span> Nexcicans will be entitled to <span class="text-2xl text-indigo-500 font-medium">ALWAYS</span> have nice things too.
+                </p>
             </div>
+
             <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                 <div>
-                    <dt class="font-semibold text-gray-900">Be world-class</dt>
-                    <dd class="mt-1 text-gray-600">Aut illo quae. Ut et harum ea animi natus. Culpa maiores et sed sint et magnam exercitationem quia. Ullam voluptas nihil vitae dicta molestiae et. Aliquid velit porro vero.</dd>
+                    <dt class="text-2xl font-semibold text-gray-900">
+                        #1 Causes Cash
+                    </dt>
+
+                    <dd class="mt-1 text-gray-600">
+                        Aut illo quae. Ut et harum ea animi natus. Culpa maiores et sed sint et magnam exercitationem quia. Ullam voluptas nihil vitae dicta molestiae et. Aliquid velit porro vero.
+                    </dd>
+
+                    <NuxtLink to="https://causes.cash/c/475b4cfc-ae95-419d-9681-cf378c083963" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
+                        Open Campaign
+                    </NuxtLink>
                 </div>
+
                 <div>
-                    <dt class="font-semibold text-gray-900">Share everything you know</dt>
-                    <dd class="mt-1 text-gray-600">Mollitia delectus a omnis. Quae velit aliquid. Qui nulla maxime adipisci illo id molestiae. Cumque cum ut minus rerum architecto magnam consequatur. Quia quaerat minima.</dd>
+                    <dt class="text-2xl font-semibold text-gray-900">
+                        #2 Ledger Developer SDK
+                    </dt>
+
+                    <dd class="mt-1 text-gray-600">
+                        Mollitia delectus a omnis. Quae velit aliquid. Qui nulla maxime adipisci illo id molestiae. Cumque cum ut minus rerum architecto magnam consequatur. Quia quaerat minima.
+                    </dd>
                 </div>
+
                 <div>
-                    <dt class="font-semibold text-gray-900">Always learning</dt>
-                    <dd class="mt-1 text-gray-600">Aut repellendus et officiis dolor possimus. Deserunt velit quasi sunt fuga error labore quia ipsum. Commodi autem voluptatem nam. Quos voluptatem totam.</dd>
+                    <dt class="text-2xl font-semibold text-gray-900">
+                        #3 CashFusion
+                    </dt>
+
+                    <dd class="mt-1 text-gray-600">
+                        Aut repellendus et officiis dolor possimus. Deserunt velit quasi sunt fuga error labore quia ipsum. Commodi autem voluptatem nam. Quos voluptatem totam.
+                    </dd>
                 </div>
+
                 <div>
-                    <dt class="font-semibold text-gray-900">Be supportive</dt>
-                    <dd class="mt-1 text-gray-600">Magnam provident veritatis odit. Vitae eligendi repellat non. Eum fugit impedit veritatis ducimus. Non qui aspernatur laudantium modi. Praesentium rerum error deserunt harum.</dd>
+                    <dt class="text-2xl font-semibold text-gray-900">
+                        #4 MetaNet: EVM Sidechain
+                    </dt>
+
+                    <dd class="mt-1 text-gray-600">
+                        Magnam provident veritatis odit. Vitae eligendi repellat non. Eum fugit impedit veritatis ducimus. Non qui aspernatur laudantium modi. Praesentium rerum error deserunt harum.
+                    </dd>
                 </div>
+
                 <div>
-                    <dt class="font-semibold text-gray-900">Take responsibility</dt>
-                    <dd class="mt-1 text-gray-600">Sit minus expedita quam in ullam molestiae dignissimos in harum. Tenetur dolorem iure. Non nesciunt dolorem veniam necessitatibus laboriosam voluptas perspiciatis error.</dd>
-                </div>
-                <div>
-                    <dt class="font-semibold text-gray-900">Enjoy downtime</dt>
-                    <dd class="mt-1 text-gray-600">Ipsa in earum deserunt aut. Quos minus aut animi et soluta. Ipsum dicta ut quia eius. Possimus reprehenderit iste aspernatur ut est velit consequatur distinctio.</dd>
+                    <dt class="text-2xl font-semibold text-gray-900">
+                        #5 Hackathon Festivals
+                    </dt>
+
+                    <dd class="mt-1 text-gray-600">
+                        Sit minus expedita quam in ullam molestiae dignissimos in harum. Tenetur dolorem iure. Non nesciunt dolorem veniam necessitatibus laboriosam voluptas perspiciatis error.
+                    </dd>
                 </div>
             </dl>
         </div>
 
         <!-- Logo cloud -->
-        <div class="relative isolate -z-10 mt-32 sm:mt-48">
+        <div class="hidden relative isolate -z-10 mt-32 sm:mt-48">
             <div class="absolute inset-x-0 top-1/2 -z-10 flex -translate-y-1/2 justify-center overflow-hidden [mask-image:radial-gradient(50%_45%_at_50%_55%,white,transparent)]">
                 <svg class="h-[40rem] w-[80rem] flex-none stroke-gray-200" aria-hidden="true">
                     <defs>
@@ -283,8 +319,12 @@ onMounted(() => {
                     <rect width="100%" height="100%" stroke-width="0" fill="url(#e9033f3e-f665-41a6-84ef-756f6778e6fe)" />
                 </svg>
             </div>
+
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <h2 class="text-center text-lg font-semibold leading-8 text-gray-900">Trusted by the world’s most innovative teams</h2>
+                <h2 class="text-center text-lg font-semibold leading-8 text-gray-900">
+                    Supporting some of Nexa's most innovative projects &amp; teams.
+                </h2>
+
                 <div class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
                     <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg" alt="Transistor" width="158" height="48" />
                     <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg" alt="Reform" width="158" height="48" />
