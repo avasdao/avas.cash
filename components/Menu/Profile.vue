@@ -48,7 +48,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <main class="px-3 max-w-5xl mx-auto text-gray-700">
+    <main class="px-1 sm:px-3 max-w-5xl mx-auto text-gray-700">
         <h1 class="text-2xl font-medium">
             Profile
         </h1>

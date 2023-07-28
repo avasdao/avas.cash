@@ -69,14 +69,14 @@ currency.value = 'USD'
 <template>
     <main class="flex flex-col gap-4">
 
-        <section class="flex items-center justify-between gap-4">
+        <section class="pr-1 sm:px-3 flex items-center justify-between gap-4">
             <span class="flex flex-grow flex-col">
                 <span class="text-sm font-medium leading-6 text-gray-900" id="availability-label">
                     ENABLE password protection
                 </span>
 
-                <span class="text-sm text-gray-500" id="availability-description">
-                    Will activate your chosen Wallet password, that will be required when performing any sensitive activities.
+                <span class="text-xs sm:text-sm text-gray-500" id="availability-description">
+                    Activate a password that will be required when performing any sensitive activities.
                 </span>
             </span>
 
@@ -87,14 +87,14 @@ currency.value = 'USD'
             </button>
         </section>
 
-        <section class="flex items-center justify-between gap-4">
+        <section class="pr-1 sm:px-3 flex items-center justify-between gap-4">
             <span class="flex flex-grow flex-col">
                 <span class="text-sm font-medium leading-6 text-gray-900" id="availability-label">
                     ENABLE address privacy
                 </span>
 
-                <span class="text-sm text-gray-500" id="availability-description">
-                    Will generate a new wallet address after each transaction.
+                <span class="text-xs sm:text-sm text-gray-500" id="availability-description">
+                    Will select the next <em>(unused)</em> wallet address, to be used as change, for every transaction.
                 </span>
             </span>
 
@@ -105,14 +105,14 @@ currency.value = 'USD'
             </button>
         </section>
 
-        <section class="flex items-center justify-between gap-4">
+        <section class="pr-1 sm:px-3 flex items-center justify-between gap-4">
             <span class="flex flex-grow flex-col">
                 <span class="text-sm font-medium leading-6 text-gray-900" id="availability-label">
                     ENABLE transaction privacy
                 </span>
 
-                <span class="text-sm text-gray-500" id="availability-description">
-                    Utilize the CoinJoin protocol to protect your individual transactions.
+                <span class="text-xs sm:text-sm text-gray-500" id="availability-description">
+                    Automatically manage <em>"un-mixed"</em> coins within the decentralized CoinJoin protocol.
                 </span>
             </span>
 
@@ -276,12 +276,12 @@ currency.value = 'USD'
             </div>
         </div>
 
-        <section v-if="Wallet.mnemonic" class="mb-5 px-3 py-2 bg-red-300 border-2 border-red-500 rounded-lg shadow">
+        <section v-if="Wallet.mnemonic" class="mb-5 px-3 py-2 bg-red-300 border border-red-500 rounded-lg shadow">
             <h2 class="text-2xl text-red-900 font-bold">
                 Danger Zone
             </h2>
 
-            <div class="mt-3 rounded-md bg-amber-50 p-4">
+            <div class="mt-3 rounded-md bg-amber-50 p-4 border border-red-500">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg class="w-6 h-auto text-red-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -314,16 +314,21 @@ currency.value = 'USD'
 
                 <div class="mt-4">
                     <div class="-mx-2 -my-1.5 flex">
-                        <button v-if="isShowingMnemonic" @click="isShowingMnemonic = false" type="button" class="ml-3 rounded-md bg-amber-50 px-2 py-1.5 text-sm font-medium text-amber-800 hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 focus:ring-offset-amber-50">Hide Secret</button>
-                        <button v-else @click="isShowingMnemonic = true" type="button" class="rounded-md bg-amber-50 px-2 py-1.5 text-sm font-medium text-amber-800 hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 focus:ring-offset-amber-50">Show Secret</button>
+                        <button v-if="isShowingMnemonic" @click="isShowingMnemonic = false" type="button" class="ml-3 rounded-md bg-amber-50 px-2 py-1.5 text-base font-medium text-red-600 border border-red-500 hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 focus:ring-offset-amber-50">
+                            Hide Secret
+                        </button>
+
+                        <button v-else @click="isShowingMnemonic = true" type="button" class="rounded-md bg-amber-50 px-2 py-1.5 text-base font-medium text-red-600 border border-red-500 hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 focus:ring-offset-amber-50">
+                            Show Secret
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="my-10 border-t border-red-700" />
+            <div class="my-8 border-t border-red-400" />
 
             <div>
-                <div @click="destroyWallet" class="w-full px-3 py-1 bg-red-500 border-2 border-red-700 text-center text-2xl text-red-100 font-medium rounded-lg cursor-pointer hover:bg-red-600">
+                <div @click="destroyWallet" class="w-full px-3 py-1 bg-red-500 border border-red-700 text-center text-2xl text-red-100 font-medium rounded-lg cursor-pointer hover:bg-red-600">
                     Destroy Wallet
                 </div>
 
