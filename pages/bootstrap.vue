@@ -32,6 +32,7 @@ const campaign1 = {
     id: '475b4cfc-ae95-419d-9681-cf378c083963',
     address: 'nexa:nqtsq5g5kc24d57cclndrnapv3jxvl9vdjm9nh2ljgxpaw2s',
     title: `Causes Cash: Peer-to-Peer Crowdfunding`,
+    summary: `Causes Cash introduces a full-service P2P crowdfunding platform to the Nexa community; built & managed by a team with years of experience servicing the Bitcoin Cash (BCH) community.`,
     asking: 300000000,
     rewards: 210000,
     cost: 1428,
@@ -42,6 +43,7 @@ const campaign2 = {
     id: 'b8fac25d-e619-4ddf-b474-af084e8250ce',
     address: 'nexa:nqtsq5g5thmjvg2dfcuhydxs38a8js5geqeuf9mfdc6ke4zr',
     title: `Nexa Ledger Hardware Wallet`,
+    summary: `We're introducing the #1 market leader in Crypto hardware wallet security to secure the bags of Nexa's investors and manage their digital assets in a user-friendly and straightforward manner.`,
     asking: 600000000,
     rewards: 210000,
     cost: 2857,
@@ -52,6 +54,7 @@ const campaign3 = {
     id: '707e2a8c-4eea-4c26-9ea2-c548e9e91726',
     address: 'nexa:nqtsq5g5ve7r3ydnjhf78c3yttyg4zn0a9zyhejv8yv6xcx6',
     title: `Decentralized Coin Mixer`,
+    summary: `Shuffle.cash is introducing Fungibility to your Nexa transactions by merging the MOST advanced Crypto privacy protocols & specifications (i.e. CoinJoin, CashShuffle and CashFusion).`,
     asking: 600000000,
     rewards: 210000,
     cost: 2857,
@@ -62,6 +65,7 @@ const campaign4 = {
     id: 'f900d1b8-1ae0-4e18-8a2f-212631b62562',
     address: 'nexa:nqtsq5g5k99c8530p4a0znzph6rckj6rfw456e3kqefv60lu',
     title: `MetaNet: Nexa EVM Sidechain + dBridge`,
+    summary: `A comprehensive plan to build, test and deploy a SmartBCH-style sidechain for Nexa, powered by an Avalanche Subnet (https://docs.avax.network/subnets).`,
     asking: 5000000000,
     rewards: 210000,
     cost: 23810,
@@ -72,6 +76,7 @@ const campaign5 = {
     id: null,
     address: 'TBD',
     title: `Hackathon Festivals`,
+    summary: ``,
     asking: 0,
     rewards: 0,
     cost: 0,
@@ -134,10 +139,10 @@ onMounted(() => {
             </p>
 
             <div class="mt-16 flex justify-center">
-                <fieldset class="px-5 py-2 gap-x-1 bg-gray-600 rounded-full p-1 text-center text-xl font-semibold leading-5 ring-1 ring-inset ring-gray-200">
+                <fieldset class="px-5 py-3 gap-x-1 bg-gray-600 rounded-full p-1 text-center text-2xl font-semibold leading-5 ring-1 ring-inset ring-gray-200">
                     <legend class="sr-only">Payment frequency</legend>
                     <!-- Checked: "bg-indigo-600 text-white", Not Checked: "text-gray-500" -->
-                    <label class="text-gray-200 cursor-pointer rounded-full px-2.5 py-1">
+                    <label class="text-amber-300 cursor-pointer rounded-full px-2.5 py-1">
                         <input type="radio" name="frequency" value="monthly" class="sr-only" />
                         <span>Active</span>
                     </label>
@@ -157,8 +162,8 @@ onMounted(() => {
                     class="rounded-3xl p-8 ring-1 ring-gray-200 bg-gradient-to-b from-gray-200 to-gray-50 border border-gray-300 shadow-md"
                     :class="[ campaign.asking === 0 ? 'opacity-30 cursor-not-allowed' : '' ]"
                 >
-                    <div class="h-[140px]">
-                        <h2 class="font-medium text-gray-900">
+                    <div class="h-[160px]">
+                        <h2 class="font-medium text-gray-900 h-[80px]">
                             <h4 class="text-sm uppercase sm:normal-case text-gray-600 sm:text-gray-900">
                                 Campaign {{(index + 1)}}/5
                             </h4>
@@ -167,8 +172,8 @@ onMounted(() => {
                             </span>
                         </h2>
 
-                        <p class="mt-4 text-sm leading-6 text-gray-600">
-                            The essentials to provide your best work for clients.
+                        <p class="mt-4 text-sm leading-6 text-gray-600 summary-three-lines">
+                            {{campaign.summary}}
                         </p>
                     </div>
 
@@ -212,7 +217,11 @@ onMounted(() => {
                                 <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                             </svg>
 
-                            <h3>Rewards: <strong>{{numeral(campaign.rewards).format('0,0')}}</strong> AVAS <small>1% of 21M total</small></h3>
+                            <div>
+                                <h3>Rewards: <strong>{{numeral(campaign.rewards).format('0,0')}}</strong> AVAS</h3>
+
+                                <small class="-mt-2 block">1% of 21M total</small>
+                            </div>
                         </li>
 
                         <li class="flex gap-x-3">
@@ -222,7 +231,7 @@ onMounted(() => {
 
                             <div>
                                 <h3>Cost: <strong>~{{numeral(campaign.cost).format('0,0')}}</strong> NEXA <strong>(~{{numeral(campaign.costUsd).format('$0,0.00')}})</strong> per AVAS</h3>
-                                <small>@ {{numeral(costAvg).format('$0,0.00')}} mNEXA/USD</small>
+                                <small class="-mt-2 block">@ {{numeral(costAvg).format('$0,0.00')}} mNEXA/USD</small>
                             </div>
                         </li>
                     </ul>

@@ -83,3 +83,13 @@ onMounted(() => {
         :isShowingMenu="isShowingMenu"
     />
 </template>
+
+<style>
+.summary-three-lines {
+   overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 3; /* number of lines to show */
+           line-clamp: 3;
+   -webkit-box-orient: vertical;
+}
+</style>
