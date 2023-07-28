@@ -150,7 +150,7 @@ onMounted(() => {
                 </fieldset>
             </div>
 
-            <div class="isolate mx-auto mt-10 grid grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            <div class="isolate mx-auto mt-10 grid grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl lg:mx-0 lg:max-w-none xl:grid-cols-4">
 
                 <section
                     v-for="(campaign, index) of campaigns" :key="campaign.id"
