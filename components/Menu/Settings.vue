@@ -76,7 +76,7 @@ currency.value = 'USD'
                 </span>
 
                 <span class="text-xs sm:text-sm text-gray-500" id="availability-description">
-                    Activate a password that will be required before performing ALL sensitive actions.
+                    Activate a strong password that will be required before performing ALL sensitive activities.
                 </span>
             </span>
 
@@ -94,7 +94,7 @@ currency.value = 'USD'
                 </span>
 
                 <span class="text-xs sm:text-sm text-gray-500" id="availability-description">
-                    Will select the next <em>(unused)</em> wallet address, to be used as change, for every transaction.
+                    Auto-select the next <em>(unused)</em> wallet address, to be used as change, for every transaction.
                 </span>
             </span>
 
@@ -112,7 +112,7 @@ currency.value = 'USD'
                 </span>
 
                 <span class="text-xs sm:text-sm text-gray-500" id="availability-description">
-                    Automatically manage <em>"un-mixed"</em> coins within the decentralized CoinJoin protocol.
+                    Automatically manage <em>"un-mixed"</em> coins within Nexa's decentralized CoinJoin pools.
                 </span>
             </span>
 
