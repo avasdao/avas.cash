@@ -2,6 +2,11 @@
 /* Import modules. */
 import numeral from 'numeral'
 
+/* Define properties. */
+const props = defineProps({
+    isFullScreen: Boolean,
+})
+
 /* Initialize stores. */
 import { useProfileStore } from '@/stores/profile'
 import { useWalletStore } from '@/stores/wallet'
@@ -289,11 +294,11 @@ onMounted(async () => {
         </div>
 
         <div class="my-5">
-            <MenuWalletAssets v-if="isShowingAssets" />
-            <MenuWalletSend v-if="isShowingSend" />
-            <MenuWalletDeposit v-if="isShowingDeposit" />
-            <MenuWalletHistory v-if="isShowingHistory" />
-            <MenuWalletSwap v-if="isShowingSwap" />
+            <MenuWalletAssets v-if="isShowingAssets" :isFullScreen="isFullScreen" />
+            <MenuWalletSend v-if="isShowingSend" :isFullScreen="isFullScreen" />
+            <MenuWalletDeposit v-if="isShowingDeposit" :isFullScreen="isFullScreen" />
+            <MenuWalletHistory v-if="isShowingHistory" :isFullScreen="isFullScreen" />
+            <MenuWalletSwap v-if="isShowingSwap" :isFullScreen="isFullScreen" />
         </div>
 
     </main>

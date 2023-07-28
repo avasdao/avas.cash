@@ -1,4 +1,5 @@
 <script setup>
+/* Define properties. */
 const props = defineProps({
     isShowingMenu: Boolean,
 })
@@ -102,10 +103,10 @@ curTab.value = 'wallet'
                                 </section>
 
                                 <div class="mt-3 px-3 sm:mt-4">
-                                    <MenuProfile v-if="curTab == 'profile'" class="w-full" />
-                                    <MenuSettings v-if="curTab == 'settings'" class="w-full" />
-                                    <MenuWallet v-if="curTab == 'wallet'" class="w-full" />
-                                    <MenuHelp v-if="curTab == 'help'" class="w-full" />
+                                    <MenuProfile v-if="curTab == 'profile'" class="w-full" :isFullScreen="isFullScreen" />
+                                    <MenuSettings v-if="curTab == 'settings'" class="w-full" :isFullScreen="isFullScreen" />
+                                    <MenuWallet v-if="curTab == 'wallet'" class="w-full" :isFullScreen="isFullScreen" />
+                                    <MenuHelp v-if="curTab == 'help'" class="w-full" :isFullScreen="isFullScreen" />
                                 </div>
                             </div>
 
