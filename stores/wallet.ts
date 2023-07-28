@@ -140,10 +140,11 @@ export const useWalletStore = defineStore('wallet', {
 
                 _entropy = null
             }
+
             _createWallet.bind(this)(_entropy)
 
-            this._wallet = new Wallet(this.mnemonic)
-            // console.log('NEW WALLET', this._wallet)
+            /* Initialize wallet. */
+            this.init()
         },
 
         /**
