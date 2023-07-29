@@ -333,11 +333,11 @@ onMounted(() => {
             <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                 <div>
                     <dt class="text-2xl font-semibold text-gray-900">
-                        #1 Causes Cash
+                        Causes Cash
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        Causes Cash introduces a full-service P2P crowdfunding platform to the Nexa community; built & managed by a team with years of experience servicing the Bitcoin Cash (BCH) community.
+                        Causes Cash introduces a <span class="text-indigo-500 font-bold">full-service P2P crowdfunding platform</span> to the Nexa community; built & managed by a team with years of experience servicing the Bitcoin Cash (BCH) community.
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/475b4cfc-ae95-419d-9681-cf378c083963" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
@@ -347,11 +347,11 @@ onMounted(() => {
 
                 <div>
                     <dt class="text-2xl font-semibold text-gray-900">
-                        #2 Ledger Developer SDK
+                        Ledger Developer SDK
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        We're introducing the #1 market leader in Crypto hardware wallet security to secure the bags of Nexa's investors and manage their digital assets in a user-friendly and straightforward manner.
+                        We're introducing the #1 market leader in <span class="text-indigo-500 font-bold">Crypto hardware wallet security</span> to secure the bags of Nexa's investors and manage their digital assets in a user-friendly and straightforward manner.
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/b8fac25d-e619-4ddf-b474-af084e8250ce" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
@@ -361,11 +361,11 @@ onMounted(() => {
 
                 <div>
                     <dt class="text-2xl font-semibold text-gray-900">
-                        #3 Decentralized Coin Mixer
+                        Decentralized Coin Mixer
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        Shuffle.cash is introducing Fungibility to your Nexa transactions by merging the MOST advanced Crypto privacy protocols & specifications (i.e. CoinJoin, CashShuffle and CashFusion).
+                        Shuffle.cash is introducing <span class="text-indigo-500 font-bold">Fungibility to your Nexa transactions</span> by merging the MOST advanced Crypto privacy protocols & specifications (i.e. CoinJoin, CashShuffle and CashFusion).
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/707e2a8c-4eea-4c26-9ea2-c548e9e91726" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
@@ -375,11 +375,11 @@ onMounted(() => {
 
                 <div>
                     <dt class="text-2xl font-semibold text-gray-900">
-                        #4 MetaNet: EVM Sidechain
+                        MetaNet: EVM Sidechain
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        A comprehensive plan to build, test and deploy a SmartBCH-style sidechain for Nexa, powered by an Avalanche Subnet.
+                        A comprehensive plan to build, test and deploy a <span class="text-indigo-500 font-bold">SmartBCH-style sidechain for Nexa</span>, powered by an Avalanche Subnet.
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/f900d1b8-1ae0-4e18-8a2f-212631b62562" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
@@ -389,15 +389,15 @@ onMounted(() => {
 
                 <div>
                     <dt class="text-2xl font-semibold text-gray-900">
-                        #5 Seasonal Hackathon Festivals
+                        Seasonal Hackathon Festivals
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        <em>TBD</em>
+                        Spring, Summer, Fall and Winter virtual events to showcase &amp; financially support the projects and teams actively <span class="text-indigo-500 font-bold">#BUIDLingOnNexa.</span>
                     </dd>
 
                     <NuxtLink to="/" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow opacity-50 cursor-not-allowed">
-                        Visit Campaign
+                        Launching soon...
                     </NuxtLink>
                 </div>
             </dl>
