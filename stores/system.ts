@@ -85,7 +85,30 @@ export const useSystemStore = defineStore('system', {
     }),
 
     getters: {
-        // TODO
+        avasUsd() {
+            if (!this._tickers?.AVAS) {
+                return null
+            }
+
+            return this._tickers.AVAS.price
+        },
+
+        nex() {
+            if (!this._tickers?.NEXA) {
+                return null
+            }
+
+            return this._tickers.NEXA.quote.USD.price
+        },
+
+        usd() {
+            if (!this.nex) {
+                return null
+            }
+
+            return this.nex * 10**6
+        },
+
     },
 
     actions: {
@@ -107,12 +130,19 @@ export const useSystemStore = defineStore('system', {
         },
 
         async updateTicker () {
+            if (!this._tickers.AVAS) {
+                this._tickers.AVAS = {}
+            }
+
             if (!this._tickers.NEXA) {
                 this._tickers.NEXA = {}
             }
 
+            this._tickers.AVAS = await $fetch('https://nexa.exchange/v1/ticker/quote/57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000')
+
             this._tickers.NEXA = await $fetch('https://nexa.exchange/ticker')
-            // console.log('TICKERS', this._tickers)
+
+            console.log('TICKERS', this._tickers)
         },
 
         async getSender(_tx) {

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+/* Import modules. */
+import numeral from 'numeral'
+
 /* Define properties. */
 // https://vuejs.org/guide/components/props.html#props-declaration
 const props = defineProps({
@@ -6,6 +9,10 @@ const props = defineProps({
         type: [Object],
     },
 })
+
+/* Initialize stores. */
+import { useSystemStore } from '@/stores/system'
+const System = useSystemStore()
 
 const emits = defineEmits(['toggleMenu'])
 
@@ -35,7 +42,11 @@ onMounted(() => {
                 </NuxtLink>
             </div>
 
-            <div class="flex lg:hidden">
+            <div class="flex lg:hidden items-center gap-4">
+                <NuxtLink to="/markets" class="text-3xl text-rose-500 font-medium">
+                    {{numeral(System.avasUsd).format('$0,0.00')}}
+                </NuxtLink>
+
                 <button @click="toggleMenu" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
                     <span class="sr-only">Open main menu</span>
                     <svg class="w-12 h-auto" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -66,7 +77,11 @@ onMounted(() => {
                 </NuxtLink>
             </div>
 
-            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+            <div class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-4">
+                <NuxtLink to="/markets" class="text-3xl text-rose-500 font-medium">
+                    {{numeral(System.avasUsd).format('$0,0.00')}}
+                </NuxtLink>
+
                 <button @click="toggleMenu" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
                     <span class="sr-only">Open main menu</span>
                     <svg class="w-12 h-auto" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
