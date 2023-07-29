@@ -57,7 +57,7 @@ const init = async () => {
     /* Handle tokens. */
     Wallet.tokens.forEach(_token => {
         if (!tokens.value[_token.tokenid]) {
-            tokens.value[_token.tokenid] = 0
+            tokens.value[_token.tokenid] = BigInt(0)
         }
 
         /* Add tokens to total. */
