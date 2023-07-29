@@ -8,8 +8,6 @@ useHead({
 
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'
-
-/* Initialize System. */
 const System = useSystemStore()
 
 
@@ -49,18 +47,22 @@ const System = useSystemStore()
                 ></div>
             </div>
             <div class="overflow-hidden">
-                <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+                <div class="mx-auto max-w-7xl px-6 pb-32 pt-16 sm:pt-20 lg:px-8 lg:pt-16">
                     <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                         <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                             <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                We’re changing the way people receive Daily Payouts
+                                Stake your $AVAS to receive Daily $NEXA Rewards
                             </h1>
 
                             <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
-                                Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et labore commodo nulla aliqua proident mollit ullamco exercitation tempor. Sint aliqua anim nulla sunt mollit id
-                                pariatur in voluptate cillum. Eu voluptate tempor esse minim amet fugiat veniam occaecat aliqua.
+                                Ava's DAO is introducing UTXO staking with premium, on-chain rewards paid out each and every day.
+                            </p>
+
+                            <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
+                                Monitor your $AVAS balances and manage your payouts.
                             </p>
                         </div>
+
                         <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
                             <div class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
                                 <div class="relative">
@@ -114,22 +116,21 @@ const System = useSystemStore()
             </div>
         </div>
 
-        <div class="mt-5 flex justify-center">
-            <h2 class="text-3xl font-bold">
-                Asset Manager
+        <section class="px-3 sm:px-10 flex flex-col gap-1">
+            <h2 class="ml-3 text-lg text-gray-400 font-medium uppercase">
+                $AVAS Address Search
             </h2>
-        </div>
 
-        <div class="mt-10 px-3 sm:px-10">
             <input
                 type="text"
-                class="w-full px-5 py-3 text-yellow-900 bg-yellow-100 border-4 border-yellow-400 rounded-xl shadow-md placeholder:text-yellow-600"
+                class="w-full px-5 py-5 text-2xl text-yellow-900 bg-yellow-100 border-2 border-yellow-400 rounded-xl shadow-md placeholder:text-yellow-600"
                 placeholder="Enter your nexa: address here"
+                v-model="address"
             />
-        </div>
+        </section>
 
-        <p class="px-3 sm:px-10 py-3">
+        <!-- <p class="px-3 sm:px-10 py-3">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
+        </p> -->
     </main>
 </template>
