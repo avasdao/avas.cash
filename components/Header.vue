@@ -1,7 +1,4 @@
 <script setup lang="ts">
-/* Import modules. */
-import numeral from 'numeral'
-
 /* Define properties. */
 // https://vuejs.org/guide/components/props.html#props-declaration
 const props = defineProps({
@@ -15,6 +12,20 @@ import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
 const emits = defineEmits(['toggleMenu'])
+
+const displayQuote = computed(() => {
+    if (!System.avasUsd) {
+        return {
+            primary: '$0.00',
+            secondary: '0000',
+        }
+    }
+
+    return {
+        primary: '$' + System.avasUsd.toString().split('.')[0] + '.' + System.avasUsd.toString().split('.')[1].slice(0, 2),
+        secondary: System.avasUsd.toString().split('.')[1].slice(2, 6),
+    }
+})
 
 const toggleMenu = () => {
     emits('toggleMenu')
@@ -42,9 +53,16 @@ onMounted(() => {
                 </NuxtLink>
             </div>
 
-            <div class="flex lg:hidden items-center gap-4">
-                <NuxtLink to="/markets" class="text-3xl text-rose-500 font-medium">
-                    {{numeral(System.avasUsd).format('$0,0.00')}}
+            <div class="flex lg:hidden items-center gap-4 sm:gap-8">
+                <NuxtLink to="/markets" class="flex flex-row items-end gap-1 text-4xl text-rose-500 font-medium">
+                    <div class="flex flex-row items-start">
+                        <sup class="mt-2 text-xs text-rose-300">USD</sup>
+                        {{displayQuote.primary}}
+                    </div>
+
+                    <span class="text-lg text-rose-300">
+                        {{displayQuote.secondary}}
+                    </span>
                 </NuxtLink>
 
                 <button @click="toggleMenu" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
@@ -77,9 +95,16 @@ onMounted(() => {
                 </NuxtLink>
             </div>
 
-            <div class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-4">
-                <NuxtLink to="/markets" class="text-3xl text-rose-500 font-medium">
-                    {{numeral(System.avasUsd).format('$0,0.00')}}
+            <div class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-10">
+                <NuxtLink to="/markets" class="flex flex-row items-end gap-1 text-4xl text-rose-500 font-medium">
+                    <div class="flex flex-row items-start">
+                        <sup class="mt-2 text-xs text-rose-300">USD</sup>
+                        {{displayQuote.primary}}
+                    </div>
+
+                    <span class="text-lg text-rose-300">
+                        {{displayQuote.secondary}}
+                    </span>
                 </NuxtLink>
 
                 <button @click="toggleMenu" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">

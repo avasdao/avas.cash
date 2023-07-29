@@ -47,16 +47,17 @@ const System = useSystemStore()
                 ></div>
             </div>
             <div class="overflow-hidden">
-                <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+                <div class="mx-auto max-w-7xl px-6 pb-16 pt-8 sm:pt-16 lg:px-8 lg:pt-8">
                     <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                         <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                             <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                                We’re changing the way people receive Daily Payouts
+                                We’re changing the way people <em class="text-5xl sm:text-7xl text-lime-500">Get Paid!</em>
                             </h1>
 
                             <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
-                                Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et labore commodo nulla aliqua proident mollit ullamco exercitation tempor. Sint aliqua anim nulla sunt mollit id
-                                pariatur in voluptate cillum. Eu voluptate tempor esse minim amet fugiat veniam occaecat aliqua.
+                                $AVAS HODLers are eligible to receive Daily $NEXA Payouts, sent each day at 04:20 UTC directly to their Nexa address.
+                                Stake your $AVAS today and start receiving automatic payouts for up to 1-year.
+                                Earn additional rewards along the way to compound your Payouts up to 10X.
                             </p>
                         </div>
                         <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
@@ -112,21 +113,24 @@ const System = useSystemStore()
             </div>
         </div>
 
-        <!-- Content section -->
         <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
 
-            <div class="mt-5 flex justify-center">
-                <h2 class="text-3xl font-bold">
+            <h2 class="text-3xl font-bold">
+                Today's Treasury Pool
+            </h2>
 
+            <p class="px-3 sm:px-10 py-3 text-xl">
+                <span class="font-bold">888 NEX</span> (payout in ~4 hours)
+            </p>
+
+            <div class="mt-5 flex">
+                <h2 class="text-3xl font-bold">
+                    Yesterday's Payout
                 </h2>
             </div>
 
-            <p class="mt-10 px-3 sm:px-10 py-3 text-xl">
-                Current Pool: <span class="font-bold">888 NEX</span> (payout in ~4 hours)
-            </p>
-
             <p class="px-3 sm:px-10 py-3 text-xl">
-                Yesterday's Payout: <span class="font-bold">1337 NEX</span> to 120 addresses
+                <span class="font-bold">1337 NEX</span> to 120 addresses
             </p>
 
             <p class="px-3 sm:px-10 py-3">
