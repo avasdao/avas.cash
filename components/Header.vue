@@ -53,7 +53,7 @@ onMounted(() => {
                 </NuxtLink>
             </div>
 
-            <div class="flex lg:hidden items-center gap-4 sm:gap-8">
+            <div class="flex lg:hidden items-center gap-8">
                 <NuxtLink to="/markets" class="flex flex-row items-end gap-1 text-4xl text-rose-500 font-medium">
                     <div class="flex flex-row items-start">
                         <sup class="mt-2 text-xs text-rose-300">USD</sup>
