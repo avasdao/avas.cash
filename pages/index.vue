@@ -351,7 +351,7 @@ onMounted(() => {
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        We're introducing the #1 market leader in <span class="text-indigo-500 font-bold">Crypto hardware wallet security</span> to secure the bags of Nexa's investors and manage their digital assets in a user-friendly and straightforward manner.
+                        Introducing a plug-n-play, software toolkit for JS Developers to quickly &amp; easily secure their dApps with the #1 market leader in <span class="text-indigo-500 font-bold">Crypto hardware wallet security</span>.
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/b8fac25d-e619-4ddf-b474-af084e8250ce" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
@@ -365,7 +365,7 @@ onMounted(() => {
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        Shuffle.cash is introducing <span class="text-indigo-500 font-bold">Fungibility to your Nexa transactions</span> by merging the MOST advanced Crypto privacy protocols & specifications (i.e. CoinJoin, CashShuffle and CashFusion).
+                        Introducing <span class="text-indigo-500 font-bold">Fungibility for your Nexa transactions</span> by merging the MOST advanced Crypto privacy protocols & specifications <em>(i.e. CoinJoin, CashShuffle and CashFusion)</em> into a total solution.
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/707e2a8c-4eea-4c26-9ea2-c548e9e91726" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
@@ -375,7 +375,7 @@ onMounted(() => {
 
                 <div>
                     <dt class="text-2xl font-semibold text-gray-900">
-                        MetaNet: EVM Sidechain
+                        MetaNet: EVM-compatible Sidechain
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
