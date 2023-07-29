@@ -21,8 +21,9 @@
                     "
                 ></div>
             </div>
+
             <div class="overflow-hidden">
-                <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+                <div class="mx-auto max-w-7xl px-6 pb-16 pt-8 sm:pt-16 lg:px-8 lg:pt-8">
                     <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                         <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                             <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
@@ -121,5 +122,51 @@
                 </div>
             </div>
         </div>
+
+        <section class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-4xl divide-y divide-gray-900/10">
+                <h2 class="text-3xl font-bold leading-10 tracking-tight text-gray-900">
+                    Frequently asked questions
+                </h2>
+
+                <dl class="mt-10 space-y-6 divide-y divide-gray-900/10">
+                    <div class="pt-6">
+                        <dt>
+                            <!-- Expand/collapse question button -->
+                            <button type="button" class="flex w-full items-start justify-between text-left text-gray-900" aria-controls="faq-0" aria-expanded="false">
+                                <span class="text-base font-semibold leading-7">
+                                    How often are $NEXA payouts?
+                                </span>
+                                <span class="ml-6 flex h-7 items-center">
+                                    <!--
+                    Icon when question is collapsed.
+
+                    Item expanded: "hidden", Item collapsed: ""
+                -->
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                    </svg>
+                                    <!--
+                    Icon when question is expanded.
+
+                    Item expanded: "", Item collapsed: "hidden"
+                -->
+                                    <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd class="mt-2 pr-12" id="faq-0">
+                            <p class="text-base leading-7 text-gray-600">
+                                Payouts are sent out to "qualified" addresses once a day at 04:20 UTC.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <!-- More questions... -->
+                </dl>
+            </div>
+        </section>
     </main>
 </template>
