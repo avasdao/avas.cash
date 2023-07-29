@@ -393,7 +393,7 @@ onMounted(() => {
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        Spring, Summer, Fall and Winter global community events to showcase &amp; financially support the projects and teams actively <span class="text-indigo-500 font-bold">#BUIDLingOnNexa.</span>
+                        Spring, Summer, Fall and Winter <span class="text-indigo-500 font-bold">global community events</span> to showcase &amp; financially support the projects and teams actively <span class="text-indigo-500 font-bold">#BUIDLingOnNexa.</span>
                     </dd>
 
                     <NuxtLink to="/" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow opacity-50 cursor-not-allowed">
