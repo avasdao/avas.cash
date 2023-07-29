@@ -22,7 +22,7 @@
                 ></div>
             </div>
             <div class="overflow-hidden">
-                <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+                <div class="mx-auto max-w-7xl px-6 pb-16 pt-16 sm:pt-32 lg:px-8 lg:pt-16">
                     <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                         <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                             <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
@@ -30,10 +30,13 @@
                             </h1>
 
                             <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
-                                Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et labore commodo nulla aliqua proident mollit ullamco exercitation tempor. Sint aliqua anim nulla sunt mollit id
-                                pariatur in voluptate cillum. Eu voluptate tempor esse minim amet fugiat veniam occaecat aliqua.
+                                Official Governance Token of Ava's DAO.
+                                $AVAS offer crypto enthusiasts and investors alike an opportunity like never seen before.
+                                Every $AVAS holder is permitted to <strong>Vote</strong> <em>(on-chain)</em> for public proposals.
+                                "Qualified" $AVAS holders receive <strong>Daily Payouts</strong> <em>(to their respective Nexa or Meta address)</em> from revenues deposited into Ava's Treasury.
                             </p>
                         </div>
+
                         <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
                             <div class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
                                 <div class="relative">
@@ -88,36 +91,14 @@
         </div>
 
         <!-- Content section -->
-        <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
+        <div class="mx-auto -mt-12 max-w-7xl sm:mt-0 xl:-mt-8">
 
             <div class="px-3 sm:px-10 py-5">
-                <svg class="w-20 sm:w-48 h-20 sm:h-48 float-right rotate-45 text-rose-500 opacity-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"></path>
-                </svg>
-
-                <h1 class="text-5xl sm:text-6xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
-                    $AVAS
-                </h1>
-
-                <div class="mt-3 w-10/12 py-2 text-sm sm:text-base">
-                    <h2 class="text-2xl">
-                        Official Governance Token of Ava's DAO
-                    </h2>
-
-                    <span class="mt-3 sm:mt-0 block sm:inline">
-                        Every $AVAS holder is permitted to <strong>Vote</strong> <em>(on-chain)</em> for public proposals.
-                    </span>
-
-                    <span class="mt-3 sm:mt-0 block sm:inline">
-                        "Qualified" $AVAS holders receive <strong>Daily Payouts</strong> <em>(to their respective Nexa or Meta address)</em> from revenues deposited into Ava's Treasury.
-                    </span>
-                </div>
-
                 <h2 class="my-5 text-4xl sm:text-5xl font-medium text-center">
                     Token Details
                 </h2>
 
-                <ul class="mt-2 pl-2 sm:pl-5 flex flex-col gap-4 leading-6 sm:leading-8">
+                <ul class="mt-2 flex flex-col gap-8 leading-6 sm:leading-8">
 
                     <li class="flex items-center">
                         <NuxtLink
@@ -161,98 +142,109 @@
                     Token Allocation
                 </h2>
 
-                <ul class="mt-2 pl-2 sm:pl-5 leading-6 sm:leading-8">
+                <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <ul class="order-2 lg:order-1 col-span-1 lg:col-span-2 mt-2 leading-6 sm:leading-8">
+                        <li class="flex flex-col gap-8">
+                            <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                                <h3 class="text-sm text-amber-700 font-medium uppercase">
+                                    (NexaPOW) Token Mining
+                                </h3>
 
-                    <li class="flex flex-col gap-4">
-                        <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
-                            <h3 class="text-sm text-amber-700 font-medium uppercase">
-                                (NexaPOW) Token Mining
-                            </h3>
+                                <h3 class="text-3xl font-medium">
+                                    &gt;50%
+                                </h3>
+                            </div>
 
-                            <h3 class="text-3xl font-medium">
-                                &gt;50%
-                            </h3>
-                        </div>
+                            <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                                <h3 class="text-sm text-amber-700 font-medium uppercase text-center">
+                                    Management Team
+                                    <em class="block text-xs text-amber-600">3-year vesting schedule</em>
+                                </h3>
 
-                        <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
-                            <h3 class="text-sm text-amber-700 font-medium uppercase text-center">
-                                Management Team
-                                <em class="block text-xs text-amber-600">3-year vesting schedule</em>
-                            </h3>
+                                <h3 class="text-3xl font-medium">
+                                    10%
+                                </h3>
+                            </div>
 
-                            <h3 class="text-3xl font-medium">
-                                10%
-                            </h3>
-                        </div>
+                            <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                                <h3 class="text-sm text-amber-700 font-medium uppercase">
+                                    Legal / Regulatory Fees
+                                </h3>
 
-                        <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
-                            <h3 class="text-sm text-amber-700 font-medium uppercase">
-                                Legal / Regulatory Fees
-                            </h3>
+                                <h3 class="text-3xl font-medium">
+                                    10%
+                                </h3>
+                            </div>
 
-                            <h3 class="text-3xl font-medium">
-                                10%
-                            </h3>
-                        </div>
+                            <NuxtLink
+                                class="px-3 py-2 w-full flex flex-col items-center bg-blue-300 border-2 border-blue-500 rounded-lg shadow hover:bg-blue-200"
+                                to="/bootstrap"
+                            >
+                                <h3 class="text-sm sm:text-lg text-blue-700 font-medium uppercase text-center">
+                                    Bootstrap Allocation
+                                    <em class="block text-xs sm:text-base text-blue-600">5x crowdfunding campaigns</em>
+                                </h3>
 
-                        <NuxtLink
-                            class="px-3 py-2 w-full flex flex-col items-center bg-blue-300 border-2 border-blue-500 rounded-lg shadow hover:bg-blue-200"
-                            to="/bootstrap"
-                        >
-                            <h3 class="text-sm sm:text-lg text-blue-700 font-medium uppercase text-center">
-                                Bootstrap Allocation
-                                <em class="block text-xs sm:text-base text-blue-600">5x crowdfunding campaigns</em>
-                            </h3>
+                                <h3 class="text-3xl font-medium">
+                                    5%
+                                </h3>
+                            </NuxtLink>
 
-                            <h3 class="text-3xl font-medium">
-                                5%
-                            </h3>
-                        </NuxtLink>
+                            <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                                <h3 class="text-sm text-amber-700 font-medium uppercase">
+                                    Nexa/BU Treasury
+                                </h3>
 
-                        <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
-                            <h3 class="text-sm text-amber-700 font-medium uppercase">
-                                Nexa/BU Treasury
-                            </h3>
+                                <h3 class="text-3xl font-medium">
+                                    5%
+                                </h3>
+                            </div>
 
-                            <h3 class="text-3xl font-medium">
-                                5%
-                            </h3>
-                        </div>
+                            <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                                <h3 class="text-sm text-amber-700 font-medium uppercase">
+                                    Community Rewards
+                                </h3>
 
-                        <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
-                            <h3 class="text-sm text-amber-700 font-medium uppercase">
-                                Community Rewards
-                            </h3>
+                                <h3 class="text-3xl font-medium">
+                                    5%
+                                </h3>
+                            </div>
 
-                            <h3 class="text-3xl font-medium">
-                                5%
-                            </h3>
-                        </div>
+                            <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                                <h3 class="text-sm text-amber-700 font-medium uppercase">
+                                    Event Planning
+                                    <em class="block text-xs text-amber-600">Creator Festivals</em>
+                                </h3>
 
-                        <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
-                            <h3 class="text-sm text-amber-700 font-medium uppercase">
-                                Event Planning
-                                <em class="block text-xs text-amber-600">Creator Festivals</em>
-                            </h3>
+                                <h3 class="text-3xl font-medium">
+                                    5%
+                                </h3>
+                            </div>
 
-                            <h3 class="text-3xl font-medium">
-                                5%
-                            </h3>
-                        </div>
+                            <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
+                                <h3 class="text-sm text-amber-700 font-medium uppercase">
+                                    Unallocated
+                                </h3>
 
-                        <div class="px-3 py-2 w-full flex flex-col items-center bg-amber-200 border-2 border-amber-400 rounded-lg shadow">
-                            <h3 class="text-sm text-amber-700 font-medium uppercase">
-                                Unallocated
-                            </h3>
+                                <h3 class="text-3xl font-medium">
+                                    5%
+                                </h3>
+                            </div>
 
-                            <h3 class="text-3xl font-medium">
-                                5%
-                            </h3>
-                        </div>
+                        </li>
+                    </ul>
 
-                    </li>
+                    <div class="order-1 lg:order-2 flex flex-col gap-6 text-lg">
+                        <p class="font-light">
+                            NOTE:
+                            Tokens that are unschedule to be used within the next 3 months, are frozen in HODL Vaults.
+                        </p>
 
-                </ul>
+                        <p class="font-medium">
+                            The current circulating supply is just 5% (1,050,000)
+                        </p>
+                    </div>
+                </section>
             </div>
 
         </div>
