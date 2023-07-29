@@ -21,6 +21,12 @@ const displayTokenName = (_token) => {
     }
 }
 
+const tokenTransactions = computed(() => {
+    const displayed = tokenHistory.value.transactions
+
+    return displayed.reverse()
+})
+
 const displayTokenAmount = (_token) => {
     let totalTokens = 0
     let totalUsd = 0
@@ -49,7 +55,7 @@ const init = async () => {
     console.log('ASSETS INIT')
     tokenHistory.value = await getAddressTokenHistory(Wallet.address)
         .catch(err => console.error(err))
-    console.log('HISTORY', tokenHistory.value)
+    return console.log('HISTORY', tokenHistory.value)
 
     /* Initialize tokens. */
     tokens.value = {}
@@ -103,7 +109,7 @@ onMounted(() => {
             Assets
         </h2>
 
-        <div v-if="tokenHistory" v-for="tx of tokenHistory.transactions.reverse()" :key="tx.tx_hash" class="px-3 py-1 bg-amber-100 border-2 border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer">
+        <div v-if="tokenHistory" v-for="tx of tokenTransactions" :key="tx.tx_hash" class="px-3 py-1 bg-amber-100 border-2 border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer">
             <!-- <h3 class="truncate">
                 {{displayTokenName(token)}}
             </h3> -->
