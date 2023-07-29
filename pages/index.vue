@@ -172,10 +172,10 @@ onMounted(() => {
                                 Every $AVAS holder is permitted to Vote (on-chain) for public proposals. 'Qualified' $AVAS holders receive Daily Payouts (to their respective Nexa or Meta address) from revenues deposited into Ava's Treasury.
                             </p>
 
-                            <p class="mt-10">
+                            <!-- <p class="mt-10">
                                 Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac
                                 adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.
-                            </p>
+                            </p> -->
                         </div>
                     </div>
 
@@ -341,7 +341,7 @@ onMounted(() => {
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/475b4cfc-ae95-419d-9681-cf378c083963" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
-                        Open Campaign
+                        Visit Campaign
                     </NuxtLink>
                 </div>
 
@@ -355,7 +355,7 @@ onMounted(() => {
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/b8fac25d-e619-4ddf-b474-af084e8250ce" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
-                        Open Campaign
+                        Visit Campaign
                     </NuxtLink>
                 </div>
 
@@ -369,7 +369,7 @@ onMounted(() => {
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/707e2a8c-4eea-4c26-9ea2-c548e9e91726" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
-                        Open Campaign
+                        Visit Campaign
                     </NuxtLink>
                 </div>
 
@@ -383,7 +383,7 @@ onMounted(() => {
                     </dd>
 
                     <NuxtLink to="https://causes.cash/c/f900d1b8-1ae0-4e18-8a2f-212631b62562" target="_blank" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow hover:bg-sky-200">
-                        Open Campaign
+                        Visit Campaign
                     </NuxtLink>
                 </div>
 
@@ -397,7 +397,7 @@ onMounted(() => {
                     </dd>
 
                     <NuxtLink to="/" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow opacity-50 cursor-not-allowed">
-                        Open Campaign
+                        Visit Campaign
                     </NuxtLink>
                 </div>
             </dl>
