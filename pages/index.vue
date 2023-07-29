@@ -389,11 +389,11 @@ onMounted(() => {
 
                 <div>
                     <dt class="text-2xl font-semibold text-gray-900">
-                        #5 Hackathon Festivals
+                        #5 Seasonal Hackathon Festivals
                     </dt>
 
                     <dd class="mt-1 text-gray-600">
-                        TBD
+                        <em>TBD</em>
                     </dd>
 
                     <NuxtLink to="/" class="w-fit flex mt-3 px-5 py-2 text-sky-900 font-bold bg-sky-100 border-2 border-sky-400 rounded-xl shadow opacity-50 cursor-not-allowed">
