@@ -61,6 +61,13 @@ const System = useSystemStore()
                             <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
                                 Monitor your $AVAS balances and manage your payouts.
                             </p>
+
+                            <input
+                                type="text"
+                                class="w-full px-5 py-5 text-2xl text-yellow-900 bg-yellow-100 border-2 border-yellow-400 rounded-xl shadow-md placeholder:text-yellow-600"
+                                placeholder="Enter a nexa: address to search"
+                                v-model="address"
+                            />
                         </div>
 
                         <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
@@ -116,17 +123,40 @@ const System = useSystemStore()
             </div>
         </div>
 
-        <section class="px-3 sm:px-10 flex flex-col gap-1">
-            <h2 class="ml-3 text-lg text-gray-400 font-medium uppercase">
-                $AVAS Address Search
+        <section class="px-3 sm:px-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <h2 class="col-span-1 lg:col-span-3 text-3xl font-medium">
+                My Stakehouses
             </h2>
 
-            <input
-                type="text"
-                class="w-full px-5 py-5 text-2xl text-yellow-900 bg-yellow-100 border-2 border-yellow-400 rounded-xl shadow-md placeholder:text-yellow-600"
-                placeholder="Enter your nexa: address here"
-                v-model="address"
-            />
+            <div class="h-48 flex flex-col justify-center items-center bg-rose-500 border-4 border-rose-700 rounded-2xl shadow">
+                <h3 class="text-3xl font-medium text-rose-100">
+                    Month (30 days)
+                </h3>
+
+                <h4 class="text-lg font-medium text-rose-100">
+                    1X Payouts
+                </h4>
+            </div>
+
+            <div class="h-48 flex flex-col justify-center items-center bg-sky-500 border-4 border-sky-700 rounded-2xl shadow">
+                <h3 class="text-3xl font-medium text-sky-100">
+                    Quarter (90 days)
+                </h3>
+
+                <h4 class="text-lg font-medium text-sky-100">
+                    2X Payouts
+                </h4>
+            </div>
+
+            <div class="h-48 flex flex-col justify-center items-center bg-purple-500 border-4 border-purple-700 rounded-2xl shadow">
+                <h3 class="text-3xl font-medium text-purple-100">
+                    Year (365 days)
+                </h3>
+
+                <h4 class="text-lg font-medium text-purple-100">
+                    3X Payouts
+                </h4>
+            </div>
         </section>
 
         <!-- <p class="px-3 sm:px-10 py-3">
