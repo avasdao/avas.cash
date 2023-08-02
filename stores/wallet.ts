@@ -8,6 +8,7 @@ import {
 } from '@nexajs/hdnode'
 
 import {
+    getTokenInfo,
     subscribeAddress,
 } from '@nexajs/rostrum'
 
@@ -23,22 +24,35 @@ import _createWallet from './wallet/create.ts'
  */
 export const useWalletStore = defineStore('wallet', {
     state: () => ({
-        _asset: null,
+        /* Currently active asset id. */
+        _assetid: null,
 
+        /* Directory of (owned) asset details (metadata). */
+        _assets: null,
+
+        /* List of all (value-based) UTXOs. */
         _coins: null,
 
         /* Initialize entropy (used for HD wallet). */
         // NOTE: This is a cryptographically-secure "random" 32-byte (256-bit) value. */
         _entropy: null,
 
+        /* List of all (token-based) UTXOs. */
         _tokens: null,
 
+        /* Wallet object. */
         _wallet: null,
 
+        /* Wallet import format (WIF) private key. */
         _wif: null,
     }),
 
     getters: {
+        /**
+         * Is Ready?
+         *
+         * Flag to indicate when the wallet is ready for use.
+         */
         isReady(_state) {
             /* Validate entropy. */
             if (
@@ -86,15 +100,30 @@ export const useWalletStore = defineStore('wallet', {
         },
 
         asset(_state) {
-            if (_state._asset === null) {
+            if (_state._assetid === null) {
+                /* Return Nexa (static) details. */
                 return {
+                    group: '0',
                     name: `Nexa`,
-                    symbol: 'NEXA',
-                    ticker: '$NEXA',
+                    ticker: 'NEXA',
+                    token_id_hex: '0x',
+                    decimal_places: 2,
+                    document_hash: null,
+                    document_url: null,
                 }
             }
 
-            return _state._asset
+            /* Validate asset details (in directory). */
+            if (!_state._assets[_state._assetid]) {
+                return null
+            }
+
+            /* Return asset details. */
+            return _state._assets[_state._assetid]
+        },
+
+        assets(_state) {
+            return _state._assets
         },
 
         coins(_state) {
@@ -111,6 +140,14 @@ export const useWalletStore = defineStore('wallet', {
     },
 
     actions: {
+        /**
+         * Initialize
+         *
+         * Setup the wallet store.
+         *   1. Retrieve the saved entropy.
+         *   2. Initialize a Wallet instance.
+         *   3. Load assets.
+         */
         async init() {
             console.info('Initializing wallet...')
 
@@ -126,7 +163,7 @@ export const useWalletStore = defineStore('wallet', {
             // console.log('RE-CREATED WALLET', this._wallet)
 
             // FIXME Workaround to solve race condition.
-            setTimeout(this.loadCoins, 100)
+            setTimeout(this.loadAssets, 100)
         },
 
         createWallet(_entropy) {
@@ -145,18 +182,17 @@ export const useWalletStore = defineStore('wallet', {
         },
 
         /**
-         * Load Coins
+         * Load Assets
          *
          * Retrieves all spendable UTXOs.
          */
-        async loadCoins(_isReloading = false) {
+        async loadAssets(_isReloading = false) {
             console.info('Wallet address:', this.address)
             // console.info('Wallet address (1):', this.getAddress(1))
             // console.info('Wallet address (2):', this.getAddress(2))
             // console.info('Wallet address (3):', this.getAddress(3))
 
             /* Initialize locals. */
-            // let satoshis
             let unspent
 
             /* Validate coin re-loading. */
@@ -165,7 +201,7 @@ export const useWalletStore = defineStore('wallet', {
                 /* Start monitoring address. */
                 await subscribeAddress(
                     this.address,
-                    () => this.loadCoins.bind(this)(true),
+                    () => this.loadAssets.bind(this)(true),
                 )
             }
 
@@ -201,7 +237,7 @@ export const useWalletStore = defineStore('wallet', {
                         wif: this._wif,
                     }
                 })
-            console.log('\n  Coins:', this.coins)
+            console.log('COINS', this.coins)
 
             /* Retrieve tokens. */
             this._tokens = unspent
@@ -220,15 +256,36 @@ export const useWalletStore = defineStore('wallet', {
                         wif: this._wif,
                     }
                 })
-            console.log('\n  Tokens:', this.tokens)
+            console.log('TOKENS', this.tokens)
+
+            /* Vaildate assets (directory) is initialized. */
+            if (!this.assets) {
+                this._assets = {}
+            }
+
+            /* Handle (metadata) token details. */
+            this.tokens.forEach(async _token => {
+                console.log('TOKEN', _token)
+                if (!this.assets[_token.tokenid]) {
+                    /* Set (genesis) token details to (saved) directory. */
+                    this._assets[_token.tokenid] = await getTokenInfo(_token.tokenid)
+                        .catch(err => console.error(err))
+                    console.log('TOKEN DETAILS', this._assets[_token.tokenid])
+                }
+            })
         },
 
         async transfer(_receiver, _satoshis) {
             return await this.wallet.send(_receiver, _satoshis)
         },
 
-        setAsset(_asset) {
-            this._asset = _asset
+        /**
+         * Select Asset
+         *
+         * Sets the active asset displayed on the UI.
+         */
+        selectAsset(_assetid) {
+            this._assetid = _assetid
         },
 
         setEntropy(_entropy) {

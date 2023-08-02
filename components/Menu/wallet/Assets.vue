@@ -1,10 +1,6 @@
 <script setup>
 import numeral from 'numeral'
 
-import { listUnspent } from '@nexajs/address'
-
-// import { getAddressTokenHistory } from '@nexajs/rostrum'
-
 /* Initialize stores. */
 import { useWalletStore } from '@/stores/wallet'
 import { useSystemStore } from '@/stores/system'
@@ -14,8 +10,31 @@ const System = useSystemStore()
 const AVAS = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
 
 const coins = ref(null)
-const tokens = ref(null)
 const assets = ref(null)
+
+const tokens = computed(() => {
+    if (!Wallet.tokens) {
+        return []
+    }
+
+    let tokens = {}
+
+    Wallet.tokens.forEach(_token => {
+        if (!tokens[_token.tokenid]) {
+            tokens[_token.tokenid] = {
+                name: Wallet.assets[_token.tokenid].name,
+                decimals: Wallet.assets[_token.tokenid].decimal_places,
+                tokens: _token.tokens,
+            }
+        } else {
+            tokens[_token.tokenid].tokens += _token.tokens
+        }
+    })
+
+    console.log('TOKENS (grouped):', tokens)
+
+    return tokens
+})
 
 const coinAmount = computed(() => {
     if (!Wallet.coins) {
@@ -29,13 +48,43 @@ const coinAmount = computed(() => {
     return numeral(parseFloat(total) / 100.0).format('0,0.00[00000000]')
 })
 
-// const displayTokenName = (_token) => {
-//     if (_token.tokenid === AVAS) {
-//         return `Ava's Cash`
-//     } else {
-//         _token.tokenid
-//     }
-// }
+const coinAmountUsd = computed(() => {
+    if (!Wallet.coins) {
+        return '0.00'
+    }
+
+    const satoshis = Wallet.coins.reduce(
+        (totalSatoshis, coin) => (totalSatoshis + coin.satoshis), BigInt(0)
+    )
+
+    /* Calculate (NEX) total. */
+    const mex = (parseInt(satoshis) / 10**8)
+
+    const mexUsd = mex * System.usd
+
+    /* Return formatted value. */
+    return numeral(mexUsd).format('$0,0.00')
+})
+
+const displayTokenName = (_tokenid) => {
+    if (!Wallet.assets[_tokenid]?.name) {
+        return 'Unknown Asset'
+    }
+
+    return Wallet.assets[_tokenid].name
+}
+
+const displayDecimalAmount = (_tokens, _decimals) => {
+    if (!_decimals || _decimals === 0) {
+        return _tokens
+    }
+
+    const decimalValue = _tokens * BigInt(1e4)
+
+    const bigIntValue = decimalValue / BigInt(10**_decimals)
+
+    return numeral(parseFloat(bigIntValue) / 1e4).format('0,0.00[00]')
+}
 
 // const tokenTransactions = computed(() => {
 //     if (!assets.value?.transactions) {
@@ -47,33 +96,6 @@ const coinAmount = computed(() => {
 //     return displayed.reverse()
 // })
 
-
-const setAsset = (_assetid) => {
-    if (_assetid === null) {
-        /* Reset to Nexa. */
-        return Wallet.setAsset(null)
-    }
-
-    let asset
-    let name
-    let symbol
-    let ticker
-
-    if (_assetid === 'AVAS') {
-        name = `Ava's Cash`
-        symbol = 'AVAS'
-        ticker = '$AVAS'
-    }
-
-    asset = {
-        id: _assetid,
-        name,
-        symbol,
-        ticker,
-    }
-
-    Wallet.setAsset(asset)
-}
 
 // const displayTokenAmount = (_token) => {
 //     let totalTokens = 0
@@ -100,13 +122,12 @@ const setAsset = (_assetid) => {
 
 
 const init = async () => {
-    console.log('ASSETS INIT', Wallet.coins)
-
-
+    console.log('ASSETS (coins):', Wallet.coins)
+    console.log('ASSETS (tokens):', Wallet.tokens)
 }
 
 onMounted(() => {
-    init()
+    // init()
 })
 
 // onBeforeUnmount(() => {
@@ -143,40 +164,35 @@ onMounted(() => {
             Assets
         </h2>
 
-        <div @click="setAsset(null)" class="px-3 py-1 bg-amber-100 border-2 border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer">
-            <h3 class="truncate">
-                $NEXA
+        <div @click="Wallet.selectAsset(null)" class="px-3 py-1 bg-amber-100 border-2 border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer">
+            <h3 class="text-base text-amber-800 font-medium uppercase truncate">
+                Nexa
             </h3>
 
-            <h3 class="">
+            <h3 class="text-2xl font-medium text-amber-700">
                 {{coinAmount}}
             </h3>
 
-            <h3 class="">
+            <h3 class="text-xl font-medium text-amber-600">
                 {{coinAmountUsd}}
             </h3>
-
-            <!-- <h3 v-if="token.tokens">
-                {{displayTokenAmount(token)}}
-            </h3> -->
         </div>
 
-        <div @click="setAsset('AVAS')" class="px-3 py-1 bg-amber-100 border-2 border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer">
-            <h3 class="truncate">
-                $AVAS
-                <!-- {{displayTokenName(token)}} -->
+        <div v-for="(token, tokenid) in tokens" :key="tokenid" @click="Wallet.selectAsset(tokenid)" class="px-3 py-1 bg-amber-100 border-2 border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer">
+            <h3 class="text-base text-amber-800 font-medium uppercase truncate">
+                {{displayTokenName(tokenid)}}
             </h3>
 
-            <h3 class="">
-                {{coinAmount}}
+            <h3 class="text-xs text-amber-600 truncate">
+                {{tokenid}}
             </h3>
 
-            <h3 class="">
-                {{coinAmountUsd}}
+            <h3 class="text-2xl font-medium text-amber-700">
+                {{displayDecimalAmount(token.tokens, token.decimals)}}
             </h3>
 
-            <!-- <h3 v-if="token.tokens">
-                {{displayTokenAmount(token)}}
+            <!-- <h3 class="text-xs text-amber-600 truncate">
+                Decimals: {{token.decimals}}
             </h3> -->
         </div>
 
