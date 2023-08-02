@@ -6,6 +6,8 @@ import {
     getTransaction,
 } from '@nexajs/rostrum'
 
+import getSender from './_getSender.js'
+
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'
 import { useWalletStore } from '@/stores/wallet'
@@ -38,6 +40,11 @@ const init = async () => {
 
         txs.value[_txid] = details
     })
+}
+
+const displayInputs = (_inputs) => {
+    const sender = getSender(_inputs)
+    return sender
 }
 
 const displayTransaction = (_txid) => {
@@ -88,7 +95,7 @@ onMounted(() => {
 
             <h3>size: {{tx.size}}</h3>
 
-            <pre class="text-xs">{{tx.vin}}</pre>
+            <pre class="text-xs">{{displayInputs(tx.vin)}}</pre>
 
             <pre class="text-xs">{{tx.vout}}</pre>
 

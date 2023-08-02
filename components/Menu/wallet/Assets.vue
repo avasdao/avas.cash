@@ -22,7 +22,11 @@ const displayTokenName = (_token) => {
 }
 
 const tokenTransactions = computed(() => {
-    const displayed = tokenHistory.value.transactions
+    if (!tokenHistory.value?.transactions) {
+        return []
+    }
+
+    const displayed = JSON.parse(JSON.stringify(tokenHistory.value.transactions))
 
     return displayed.reverse()
 })
@@ -89,7 +93,7 @@ onMounted(() => {
                     Tokens
 
                     <span class="bg-indigo-100 text-indigo-600 ml-1 sm:ml-3 rounded-full py-0.5 px-2.5 text-xs font-medium">
-                        {{tokens ? Object.keys(tokens).length : 0}}
+                        {{tokenTransactions ? Object.keys(tokenTransactions).length : 0}}
                     </span>
                 </a>
 

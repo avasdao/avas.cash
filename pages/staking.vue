@@ -10,7 +10,7 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
-
+const address = ref(null)
 
 // onMounted(() => {
 //     console.log('Mounted!')

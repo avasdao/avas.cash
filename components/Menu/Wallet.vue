@@ -74,29 +74,37 @@ const pendingBalance = computed(() => {
 })
 
 const tokensBalanceUsd = computed(() => {
-    let totalTokens = 0
-    let totalUsd = 0
+    let totalTokens = BigInt(0)
+    let totalUsd = 0.0
 
     let decimals
     let fiat
+    let tokenAmount
     let tokenUsd
 
     Object.keys(tokens.value).forEach(_tokenid => {
+        decimals = 0 // FOR DEV PURPOSES ONLY
+        tokenUsd = 0.00 // FOR DEV PURPOSES ONLY
+
         if (_tokenid === AVAS) {
             decimals = 8 // FOR DEV PURPOSES ONLY
             tokenUsd = 0.33 // FOR DEV PURPOSES ONLY
-
-            /* Set total tokens. */
-            totalTokens += tokens.value[_tokenid]
-
-            /* Calculate decimal value. */
-            totalTokens = (totalTokens / 10**decimals)
-
-            fiat = (totalTokens * tokenUsd)
-
-            /* Add (fiat) value. */
-            totalUsd += fiat
         }
+
+        /* Set total tokens. */
+        totalTokens += tokens.value[_tokenid]
+        // console.log('TOTAL TOKENS', totalTokens)
+
+        /* Calculate decimal value. */
+        tokenAmount = totalTokens * BigInt(tokenUsd * 100) // convert to cents
+        tokenAmount = tokenAmount / BigInt(1e6) // reduce to 4 decimals (+ restore cents)
+        // console.log('TOKEN AMOUNT', tokenAmount)
+
+        fiat = parseFloat(tokenAmount) / 1e4
+        // console.log('FIAT AMOUNT', fiat)
+
+        /* Add (fiat) value. */
+        totalUsd += fiat
     })
 
     /* Return (fiat) value. */
@@ -141,7 +149,8 @@ const setTab = (_tab) => {
     }
 }
 
-onMounted(async () => {
+
+const init = async () => {
     /* Set (default) tab. */
     setTab('assets')
 
@@ -149,20 +158,22 @@ onMounted(async () => {
     await Wallet.init()
 
     // /* Initialize tokens. */
-    // tokens.value = {}
+    tokens.value = {}
 
     // /* Handle tokens. */
-    // Wallet.tokens.forEach(_token => {
-    //     if (!tokens.value[_token.tokenid]) {
-    //         tokens.value[_token.tokenid] = 0
-    //     }
+    Wallet.tokens.forEach(_token => {
+        if (!tokens.value[_token.tokenid]) {
+            tokens.value[_token.tokenid] = BigInt(0)
+        }
 
-    //     /* Add tokens to total. */
-    //     tokens.value[_token.tokenid] += _token.tokens
-    // })
+        /* Add tokens to total. */
+        tokens.value[_token.tokenid] += _token.tokens
+    })
+    // console.log('WALLET TOKENS', Wallet.tokens)
+}
 
-    // let newAddress = Wallet.getAddress(3)
-    // console.log('NEW ADDRESS (3)', newAddress)
+onMounted(() => {
+    init()
 })
 
 // onBeforeUnmount(() => {
@@ -218,12 +229,6 @@ onMounted(async () => {
                 <h3 class="text-xl text-gray-500 font-medium">
                     {{displayBalanceUsd}}
                 </h3>
-
-                <!-- <div v-if="satoshis?.unconfirmed > 0" class="mx-10 my-5 px-10 py-3 text-sm bg-sky-500 border-2 border-sky-700 rounded-lg shadow">
-                    including
-                    <h2 class="text-base font-bold inline">{{pendingBalance}}</h2>
-                    pending confirmation
-                </div> -->
             </div>
 
             <section :class="[ isShowingAssets ? 'visible' : 'hidden' ]">

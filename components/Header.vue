@@ -43,7 +43,6 @@ onMounted(() => {
 </script>
 
 <template>
-    <!-- Header -->
     <header class="absolute inset-x-0 sticky top-0 z-20 bg-white border-b border-gray-100 bg-opacity-90 backdrop-blur-md">
         <nav class="mx-auto flex max-w-7xl items-center justify-between gap-8 px-6 py-3 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1">
@@ -54,16 +53,18 @@ onMounted(() => {
             </div>
 
             <div class="flex lg:hidden items-center gap-6 sm:gap-8">
-                <NuxtLink to="/markets" class="flex flex-row items-end gap-1 text-4xl text-rose-500 font-medium">
-                    <div class="flex flex-row items-start">
-                        <sup class="mt-2 text-xs text-rose-300">USD</sup>
-                        {{displayQuote.primary}}
-                    </div>
+                <ClientOnly>
+                    <NuxtLink to="/markets" class="flex flex-row items-end gap-1 text-4xl text-rose-500 font-medium">
+                        <div class="flex flex-row items-start">
+                            <sup class="mt-2 text-xs text-rose-300">USD</sup>
+                            {{displayQuote.primary}}
+                        </div>
 
-                    <span class="text-lg text-rose-300">
-                        {{displayQuote.secondary}}
-                    </span>
-                </NuxtLink>
+                        <span class="text-lg text-rose-300">
+                            {{displayQuote.secondary}}
+                        </span>
+                    </NuxtLink>
+                </ClientOnly>
 
                 <button @click="toggleMenu" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
                     <span class="sr-only">Open main menu</span>
@@ -96,16 +97,18 @@ onMounted(() => {
             </div>
 
             <div class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-10">
-                <NuxtLink to="/markets" class="flex flex-row items-end gap-1 text-4xl text-rose-500 font-medium">
-                    <div class="flex flex-row items-start">
-                        <sup class="mt-2 text-xs text-rose-300">USD</sup>
-                        {{displayQuote.primary}}
-                    </div>
+                <ClientOnly>
+                    <NuxtLink to="/markets" class="flex flex-row items-end gap-1 text-4xl text-rose-500 font-medium">
+                        <div class="flex flex-row items-start">
+                            <sup class="mt-2 text-xs text-rose-300">USD</sup>
+                            {{displayQuote.primary}}
+                        </div>
 
-                    <span class="text-lg text-rose-300">
-                        {{displayQuote.secondary}}
-                    </span>
-                </NuxtLink>
+                        <span class="text-lg text-rose-300">
+                            {{displayQuote.secondary}}
+                        </span>
+                    </NuxtLink>
+                </ClientOnly>
 
                 <button @click="toggleMenu" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
                     <span class="sr-only">Open main menu</span>
