@@ -89,6 +89,17 @@ onMounted(() => {
 </template>
 
 <style>
+/* global window */
+body::-webkit-scrollbar {
+    /* display: none; */
+    width: 4px;
+    height: 8px;
+    background-color: #c793c3; /* or add it to the track */
+}
+body::-webkit-scrollbar-thumb {
+    background: #b43371;
+}
+
 .summary-three-lines {
    overflow: hidden;
    display: -webkit-box;

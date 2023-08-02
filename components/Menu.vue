@@ -45,7 +45,7 @@ curTab.value = 'wallet'
                     -->
                     <div class="pointer-events-auto w-full max-w-md lg:max-w-5xl">
 
-                        <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl w-[335px] sm:w-[450px]" :class="[ isFullScreen ? 'lg:w-[1000px]' : 'lg:w-[450px]' ]">
+                        <div class="flex h-full flex-col overflow-y-auto bg-white shadow-xl w-[335px] sm:w-[450px]" :class="[ isFullScreen ? 'lg:w-[1000px]' : 'lg:w-[450px]' ]">
                             <div class="px-4 py-6 sm:pl-3 sm:pr-6">
 
                                 <div class="flex items-start justify-between">
@@ -117,3 +117,9 @@ curTab.value = 'wallet'
         </div>
     </main>
 </template>
+
+<style scoped>
+::-webkit-scrollbar {
+    display: none;
+}
+</style>
