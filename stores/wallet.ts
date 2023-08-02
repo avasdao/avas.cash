@@ -8,7 +8,6 @@ import {
 } from '@nexajs/hdnode'
 
 import {
-    getAddressMempool,
     subscribeAddress,
 } from '@nexajs/rostrum'
 
@@ -17,23 +16,6 @@ import { sha256 } from '@nexajs/crypto'
 import { Wallet } from '@nexajs/wallet'
 
 import _createWallet from './wallet/create.ts'
-// import _transfer from './wallet/transfer.ts'
-
-
-const getCoinBalance = async (_address) => {
-    let balance
-    let unspent
-
-    unspent = await listUnspent(_address)
-        .catch(err => console.error(err))
-    console.log('UNSPENT', unspent)
-
-    balance = unspent.reduce(
-        (totalBalance, unspent) => unspent.hasToken ? 0 : (totalBalance + unspent.satoshis), 0
-    )
-
-    return balance
-}
 
 
 /**
@@ -129,7 +111,7 @@ export const useWalletStore = defineStore('wallet', {
             // console.log('RE-CREATED WALLET', this._wallet)
 
             // FIXME Workaround to solve race condition.
-            setTimeout(this.loadCoins, 1000)
+            setTimeout(this.loadCoins, 100)
         },
 
         createWallet(_entropy) {
@@ -182,6 +164,12 @@ export const useWalletStore = defineStore('wallet', {
 
             /* Validate unspent outputs. */
             if (unspent.length === 0) {
+                /* Clear (saved) coins. */
+                this._coins = []
+
+                /* Clear (saved) tokens. */
+                this._tokens = []
+
                 return console.error('There are NO unspent outputs available.')
             }
 
@@ -269,6 +257,5 @@ export const useWalletStore = defineStore('wallet', {
 
             console.info('Wallet destroyed successfully!')
         },
-
     },
 })

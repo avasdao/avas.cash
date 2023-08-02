@@ -8,26 +8,30 @@ const System = useSystemStore()
 const Wallet = useWalletStore()
 
 onBeforeMount(() => {
-    Profile.$state = JSON.parse(localStorage.getItem('profile'), (key, value) => {
-        if (typeof value === 'string' && /^\d+n$/.test(value)) {
-            return BigInt(value.slice(0, value.length - 1))
-        }
-        return value
-    })
+    try {
+        Profile.$state = JSON.parse(localStorage.getItem('profile'), (key, value) => {
+            if (typeof value === 'string' && /^\d+n$/.test(value)) {
+                return BigInt(value.slice(0, value.length - 1))
+            }
+            return value
+        })
 
-    System.$state = JSON.parse(localStorage.getItem('system'), (key, value) => {
-        if (typeof value === 'string' && /^\d+n$/.test(value)) {
-            return BigInt(value.slice(0, value.length - 1))
-        }
-        return value
-    })
+        System.$state = JSON.parse(localStorage.getItem('system'), (key, value) => {
+            if (typeof value === 'string' && /^\d+n$/.test(value)) {
+                return BigInt(value.slice(0, value.length - 1))
+            }
+            return value
+        })
 
-    Wallet.$state = JSON.parse(localStorage.getItem('wallet'), (key, value) => {
-        if (typeof value === 'string' && /^\d+n$/.test(value)) {
-            return BigInt(value.slice(0, value.length - 1))
-        }
-        return value
-    })
+        Wallet.$state = JSON.parse(localStorage.getItem('wallet'), (key, value) => {
+            if (typeof value === 'string' && /^\d+n$/.test(value)) {
+                return BigInt(value.slice(0, value.length - 1))
+            }
+            return value
+        })
+    } catch (err) {
+        console.error(err)
+    }
 })
 
 watch([Profile.$state, System.$state, Wallet.$state], (_state) => {
