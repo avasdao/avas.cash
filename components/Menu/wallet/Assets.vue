@@ -1,6 +1,9 @@
 <script setup>
 import numeral from 'numeral'
-import { getAddressTokenHistory } from '@nexajs/rostrum'
+
+import { listUnspent } from '@nexajs/address'
+
+// import { getAddressTokenHistory } from '@nexajs/rostrum'
 
 /* Initialize stores. */
 import { useWalletStore } from '@/stores/wallet'
@@ -10,69 +13,96 @@ const System = useSystemStore()
 
 const AVAS = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
 
+const coins = ref(null)
 const tokens = ref(null)
-const tokenHistory = ref(null)
+const assets = ref(null)
 
-const displayTokenName = (_token) => {
-    if (_token.tokenid === AVAS) {
-        return `Ava's Cash`
-    } else {
-        _token.tokenid
-    }
-}
-
-const tokenTransactions = computed(() => {
-    if (!tokenHistory.value?.transactions) {
-        return []
+const coinAmount = computed(() => {
+    if (!Wallet.coins) {
+        return '0.00'
     }
 
-    const displayed = JSON.parse(JSON.stringify(tokenHistory.value.transactions))
+    const total = Wallet.coins.reduce(
+        (totalSatoshis, coin) => (totalSatoshis + coin.satoshis), BigInt(0)
+    )
 
-    return displayed.reverse()
+    return numeral(parseFloat(total) / 100.0).format('0,0.00[00000000]')
 })
 
-const displayTokenAmount = (_token) => {
-    let totalTokens = 0
-    let totalUsd = 0
+// const displayTokenName = (_token) => {
+//     if (_token.tokenid === AVAS) {
+//         return `Ava's Cash`
+//     } else {
+//         _token.tokenid
+//     }
+// }
 
-    let decimals
-    let fiat
-    let tokenUsd
+// const tokenTransactions = computed(() => {
+//     if (!assets.value?.transactions) {
+//         return []
+//     }
 
-    if (_token.tokenid === AVAS) {
-        decimals = 8 // FOR DEV PURPOSES ONLY
-        tokenUsd = 0.33 // FOR DEV PURPOSES ONLY
+//     const displayed = JSON.parse(JSON.stringify(assets.value.transactions))
 
-        /* Calculate decimal value. */
-        totalTokens = (_token.tokens / 10**decimals)
+//     return displayed.reverse()
+// })
 
-        fiat = (totalTokens * tokenUsd)
 
-        return numeral(totalTokens).format('0,0.00[000000]') + ' ( ' + numeral(fiat).format('$0,0.00') + ' )'
-    } else {
-        return numeral(_token.tokens).format('0,0')
+const setAsset = (_assetid) => {
+    if (_assetid === null) {
+        /* Reset to Nexa. */
+        return Wallet.setAsset(null)
     }
+
+    let asset
+    let name
+    let symbol
+    let ticker
+
+    if (_assetid === 'AVAS') {
+        name = `Ava's Cash`
+        symbol = 'AVAS'
+        ticker = '$AVAS'
+    }
+
+    asset = {
+        id: _assetid,
+        name,
+        symbol,
+        ticker,
+    }
+
+    Wallet.setAsset(asset)
 }
+
+// const displayTokenAmount = (_token) => {
+//     let totalTokens = 0
+//     let totalUsd = 0
+
+//     let decimals
+//     let fiat
+//     let tokenUsd
+
+//     if (_token.tokenid === AVAS) {
+//         decimals = 8 // FOR DEV PURPOSES ONLY
+//         tokenUsd = 0.33 // FOR DEV PURPOSES ONLY
+
+//         /* Calculate decimal value. */
+//         totalTokens = (_token.tokens / 10**decimals)
+
+//         fiat = (totalTokens * tokenUsd)
+
+//         return numeral(totalTokens).format('0,0.00[000000]') + ' ( ' + numeral(fiat).format('$0,0.00') + ' )'
+//     } else {
+//         return numeral(_token.tokens).format('0,0')
+//     }
+// }
 
 
 const init = async () => {
-    console.log('ASSETS INIT')
-    tokenHistory.value = await getAddressTokenHistory(Wallet.address)
-        .catch(err => console.error(err))
-    return console.log('HISTORY', tokenHistory.value)
+    console.log('ASSETS INIT', Wallet.coins)
 
-    /* Initialize tokens. */
-    tokens.value = {}
 
-    /* Handle tokens. */
-    Wallet.tokens.forEach(_token => {
-        if (!tokens.value[_token.tokenid]) {
-            tokens.value[_token.tokenid] = BigInt(0)
-        }
-
-        /* Add tokens to total. */
-        tokens.value[_token.tokenid] += _token.tokens
-    })
 }
 
 onMounted(() => {
@@ -113,17 +143,36 @@ onMounted(() => {
             Assets
         </h2>
 
-        <div v-if="tokenHistory" v-for="tx of tokenTransactions" :key="tx.tx_hash" class="px-3 py-1 bg-amber-100 border-2 border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer">
-            <!-- <h3 class="truncate">
-                {{displayTokenName(token)}}
-            </h3> -->
-
-            <h3 class="">
-                {{tx.height}}
+        <div @click="setAsset(null)" class="px-3 py-1 bg-amber-100 border-2 border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer">
+            <h3 class="truncate">
+                $NEXA
             </h3>
 
+            <h3 class="">
+                {{coinAmount}}
+            </h3>
+
+            <h3 class="">
+                {{coinAmountUsd}}
+            </h3>
+
+            <!-- <h3 v-if="token.tokens">
+                {{displayTokenAmount(token)}}
+            </h3> -->
+        </div>
+
+        <div @click="setAsset('AVAS')" class="px-3 py-1 bg-amber-100 border-2 border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer">
             <h3 class="truncate">
-                {{tx.tx_hash}}
+                $AVAS
+                <!-- {{displayTokenName(token)}} -->
+            </h3>
+
+            <h3 class="">
+                {{coinAmount}}
+            </h3>
+
+            <h3 class="">
+                {{coinAmountUsd}}
             </h3>
 
             <!-- <h3 v-if="token.tokens">

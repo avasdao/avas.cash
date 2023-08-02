@@ -219,7 +219,7 @@ onMounted(() => {
 
             <div class="flex flex-col items-end">
                 <h3 class="text-xs tracking-widest text-sky-700 font-medium uppercase">
-                    Spendable $NEXA
+                    Spendable {{Wallet.asset.ticker}}
                 </h3>
 
                 <h2 class="text-3xl text-gray-600 font-medium">

@@ -23,17 +23,19 @@ import _createWallet from './wallet/create.ts'
  */
 export const useWalletStore = defineStore('wallet', {
     state: () => ({
+        _asset: null,
+
+        _coins: null,
+
         /* Initialize entropy (used for HD wallet). */
         // NOTE: This is a cryptographically-secure "random" 32-byte (256-bit) value. */
         _entropy: null,
 
+        _tokens: null,
+
         _wallet: null,
 
         _wif: null,
-
-        _coins: null,
-
-        _tokens: null,
     }),
 
     getters: {
@@ -70,6 +72,7 @@ export const useWalletStore = defineStore('wallet', {
 
             return entropyToMnemonic(_state._entropy)
         },
+
         entropy(_state) {
             return _state._entropy
         },
@@ -80,6 +83,18 @@ export const useWalletStore = defineStore('wallet', {
 
         wif(_state) {
             return _state._wif
+        },
+
+        asset(_state) {
+            if (_state._asset === null) {
+                return {
+                    name: `Nexa`,
+                    symbol: 'NEXA',
+                    ticker: '$NEXA',
+                }
+            }
+
+            return _state._asset
         },
 
         coins(_state) {
@@ -210,6 +225,10 @@ export const useWalletStore = defineStore('wallet', {
 
         async transfer(_receiver, _satoshis) {
             return await this.wallet.send(_receiver, _satoshis)
+        },
+
+        setAsset(_asset) {
+            this._asset = _asset
         },
 
         setEntropy(_entropy) {
