@@ -22,8 +22,8 @@ const tokens = computed(() => {
     Wallet.tokens.forEach(_token => {
         if (!tokens[_token.tokenid]) {
             tokens[_token.tokenid] = {
-                name: Wallet.assets[_token.tokenid].name,
-                decimals: Wallet.assets[_token.tokenid].decimal_places,
+                name: Wallet.assets[_token.tokenid]?.name || 'Unknown Asset',
+                decimals: Wallet.assets[_token.tokenid]?.decimal_places || 0,
                 tokens: _token.tokens,
             }
         } else {
