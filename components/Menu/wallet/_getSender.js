@@ -18,9 +18,9 @@ let ripemd160
     ripemd160 = await instantiateRipemd160()
 })()
 
-export default (_inputs) => {
+export default (_input) => {
     /* Retrieve the FIRST script signature. */
-    const scriptSig = _inputs[0]?.scriptSig.hex
+    const scriptSig = _input.scriptSig.hex
 
     /* Parse public key from script signature. */
     const publicKey = hexToBin(scriptSig.slice(4, 70))
