@@ -237,7 +237,7 @@ onMounted(() => {
                 <div class="grid grid-cols-2 gap-4 text-center">
                     <div>
                         <h3 class="text-xs tracking-widest text-sky-700 font-medium uppercase">
-                            Assets
+                            Tokens
                         </h3>
 
                         <h2 v-if="tokens" class="text-base text-gray-600 font-medium">
