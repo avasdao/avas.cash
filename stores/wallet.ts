@@ -106,6 +106,7 @@ export const useWalletStore = defineStore('wallet', {
                     group: '0',
                     name: `Nexa`,
                     ticker: 'NEXA',
+                    iconUrl: '/nexa.svg',
                     token_id_hex: '0x',
                     decimal_places: 2,
                     document_hash: null,

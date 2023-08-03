@@ -7,11 +7,7 @@ import { useSystemStore } from '@/stores/system'
 const Wallet = useWalletStore()
 const System = useSystemStore()
 
-const AVAS = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
-
-const coins = ref(null)
 const tokens = ref([])
-const assets = ref(null)
 
 const loadAssets = async () => {
     tokens.value = await Wallet.groupTokens()
@@ -29,7 +25,9 @@ const coinAmount = computed(() => {
         return '0.00'
     }
 
-    const total = Wallet.coins.reduce(
+    let total
+
+    total = Wallet.coins.reduce(
         (totalSatoshis, coin) => (totalSatoshis + coin.satoshis), BigInt(0)
     )
 
@@ -41,14 +39,18 @@ const coinAmountUsd = computed(() => {
         return '0.00'
     }
 
-    const satoshis = Wallet.coins.reduce(
+    let satoshis
+    let mex
+    let mexUsd
+
+    satoshis = Wallet.coins.reduce(
         (totalSatoshis, coin) => (totalSatoshis + coin.satoshis), BigInt(0)
     )
 
     /* Calculate (NEX) total. */
-    const mex = (parseInt(satoshis) / 10**8)
+    mex = (parseInt(satoshis) / 1e8)
 
-    const mexUsd = mex * System.usd
+    mexUsd = mex * System.usd
 
     /* Return formatted value. */
     return numeral(mexUsd).format('$0,0.00')
@@ -67,11 +69,14 @@ const displayDecimalAmount = (_token) => {
         return _token.tokens
     }
 
-    const decimalValue = _token.tokens * BigInt(1e4)
+    let decimalValue
+    let bigIntValue
 
-    const bigIntValue = decimalValue / BigInt(10**_token.decimals)
+    decimalValue = _token.tokens * BigInt(1e4)
 
-    return numeral(parseFloat(bigIntValue) / 1e4).format('0,0.00[00]')
+    bigIntValue = decimalValue / BigInt(10**_token.decimals)
+
+    return numeral(parseFloat(bigIntValue) / 1e4).format('0,0.00[000000]')
 }
 
 const displayDecimalAmountUsd = (_token) => {
@@ -79,13 +84,18 @@ const displayDecimalAmountUsd = (_token) => {
         return _token.tokens
     }
 
-    const decimalValue = _token.tokens * BigInt(1e4)
+    let decimalValue
+    let bigIntValue
+    let price
+    let amount
 
-    const bigIntValue = decimalValue / BigInt(10**_token.decimals)
+    decimalValue = _token.tokens * BigInt(1e4)
 
-    const price = _token.ticker?.price
+    bigIntValue = decimalValue / BigInt(10**_token.decimals)
 
-    const amount = (parseFloat(bigIntValue) / 1e4) * price
+    price = _token.ticker?.price || 0.00
+
+    amount = (parseFloat(bigIntValue) / 1e4) * price
 
     return numeral(amount).format('$0,0.00[00]')
 }
