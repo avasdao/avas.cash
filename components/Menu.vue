@@ -22,6 +22,16 @@ const toggleMenu = () => {
 /* Set default tab. */
 curTab.value = 'wallet'
 
+const trackMatomo = () => {
+    _paq.push(['setCustomUrl', '/menu'])
+    _paq.push(['setDocumentTitle', 'Main Menu'])
+    _paq.push(['trackPageView'])
+}
+
+onMounted(() => {
+    trackMatomo()
+})
+
 </script>
 
 <template>

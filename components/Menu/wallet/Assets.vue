@@ -86,40 +86,6 @@ const displayDecimalAmount = (_tokens, _decimals) => {
     return numeral(parseFloat(bigIntValue) / 1e4).format('0,0.00[00]')
 }
 
-// const tokenTransactions = computed(() => {
-//     if (!assets.value?.transactions) {
-//         return []
-//     }
-
-//     const displayed = JSON.parse(JSON.stringify(assets.value.transactions))
-
-//     return displayed.reverse()
-// })
-
-
-// const displayTokenAmount = (_token) => {
-//     let totalTokens = 0
-//     let totalUsd = 0
-
-//     let decimals
-//     let fiat
-//     let tokenUsd
-
-//     if (_token.tokenid === AVAS) {
-//         decimals = 8 // FOR DEV PURPOSES ONLY
-//         tokenUsd = 0.33 // FOR DEV PURPOSES ONLY
-
-//         /* Calculate decimal value. */
-//         totalTokens = (_token.tokens / 10**decimals)
-
-//         fiat = (totalTokens * tokenUsd)
-
-//         return numeral(totalTokens).format('0,0.00[000000]') + ' ( ' + numeral(fiat).format('$0,0.00') + ' )'
-//     } else {
-//         return numeral(_token.tokens).format('0,0')
-//     }
-// }
-
 
 const init = async () => {
     console.log('ASSETS (coins):', Wallet.coins)
@@ -144,7 +110,7 @@ onMounted(() => {
                     Tokens
 
                     <span class="bg-indigo-100 text-indigo-600 ml-1 sm:ml-3 rounded-full py-0.5 px-2.5 text-xs font-medium">
-                        {{tokenTransactions ? Object.keys(tokenTransactions).length : 0}}
+                        {{tokens ? Object.keys(tokens).length + 1 : 1}}
                     </span>
                 </a>
 
