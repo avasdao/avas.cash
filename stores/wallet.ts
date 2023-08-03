@@ -265,12 +265,38 @@ export const useWalletStore = defineStore('wallet', {
 
             /* Handle (metadata) token details. */
             this.tokens.forEach(async _token => {
+                let doc
+                let docUrl
+                let iconUrl
+
                 // console.log('TOKEN', _token)
-                if (!this.assets[_token.tokenid]) {
+                // FIXME: Update after TTL (24 hours).
+                // if (!this.assets[_token.tokenid]) {
+                if (!this.assets[_token.tokenid].iconUrl) {
                     /* Set (genesis) token details to (saved) directory. */
                     this._assets[_token.tokenid] = await getTokenInfo(_token.tokenid)
                         .catch(err => console.error(err))
-                    // console.log('TOKEN DETAILS', this._assets[_token.tokenid])
+                    console.log('TOKEN DETAILS', this._assets[_token.tokenid])
+
+                    docUrl = this.assets[_token.tokenid].document_url
+
+                    if (docUrl) {
+                        doc = await $fetch(docUrl)
+                            .catch(err => console.error(err))
+
+                        if (doc) {
+                            iconUrl = doc[0]?.icon
+
+                            if (!iconUrl.includes('http')) {
+                                console.log('BASE URL', new URL(docUrl), docUrl, iconUrl)
+
+                                iconUrl = (new URL(docUrl)).origin + iconUrl
+
+                                this._assets[_token.tokenid].iconUrl = iconUrl
+                            }
+                        }
+                    }
+
                 }
             })
         },
@@ -345,6 +371,7 @@ export const useWalletStore = defineStore('wallet', {
                     tokens[token.tokenid] = {
                         name: this.assets[token.tokenid]?.name || 'Unknown Asset',
                         decimals: this.assets[token.tokenid]?.decimal_places || 0,
+                        iconUrl: this.assets[token.tokenid]?.iconUrl || '',
                         tokens: token.tokens,
                         tokenidHex,
                         ticker,

@@ -16,7 +16,7 @@ const assets = ref(null)
 const loadAssets = async () => {
     tokens.value = await Wallet.groupTokens()
         .catch(err => console.error(err))
-    // console.log('MY TOKENS (grouped):', tokens.value)
+    console.log('MY TOKENS (grouped):', tokens.value)
 }
 
 watch(() => Wallet.tokens, (_tokens) => {
@@ -88,8 +88,14 @@ const displayDecimalAmountUsd = (_token) => {
     const amount = (parseFloat(bigIntValue) / 1e4) * price
 
     return numeral(amount).format('$0,0.00[00]')
+}
 
-    //
+const displayIcon = (_token) => {
+    if (!_token.iconUrl || _token.iconUrl === '') {
+        return null
+    }
+
+    return _token.iconUrl
 }
 
 
@@ -110,11 +116,11 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="flex flex-col gap-4">
+    <main class="flex flex-col gap-6">
         <div class="border-b border-gray-200">
             <nav class="-mb-px flex space-x-8 text-center" aria-label="Tabs">
                 <a href="javascript://" class="w-1/2 border-indigo-500 text-indigo-600 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" aria-current="page">
-                    Tokens
+                    Assets
 
                     <span class="bg-indigo-100 text-indigo-600 ml-1 sm:ml-3 rounded-full py-0.5 px-2.5 text-xs font-medium">
                         {{tokens ? Object.keys(tokens).length + 1 : 1}}
@@ -133,41 +139,60 @@ onMounted(() => {
             </nav>
         </div>
 
-        <h2 class="text-2xl font-medium">
+        <!-- <h2 class="text-2xl font-medium">
             Assets
-        </h2>
+        </h2> -->
 
-        <div @click="Wallet.selectAsset(null)" class="px-3 py-1 bg-amber-100 border-2 border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer">
-            <h3 class="text-base text-amber-800 font-medium uppercase truncate">
-                Nexa
-            </h3>
+        <div
+            @click="Wallet.selectAsset(null)"
+            class="flex flex-row justify-between items-end pl-1 pr-3 py-1 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
+        >
+            <div class="flex flex-row items-center">
+                <img src="~/assets/nexa.svg" class="h-16 w-auto opacity-80" />
 
-            <h3 class="text-2xl font-medium text-amber-700">
-                {{coinAmount}}
-            </h3>
+                <div class="flex flex-col">
+                    <h3 class="text-base text-amber-800 font-medium uppercase truncate">
+                        Nexa
+                    </h3>
 
-            <h3 class="font-medium text-amber-600">
-                <!-- <sup class="text-xs">USD</sup> -->
-                <span class="text-base">{{coinAmountUsd}}</span>
+                    <h3 class="text-2xl font-medium text-amber-600">
+                        {{coinAmount}}
+                    </h3>
+                </div>
+            </div>
+
+            <h3 class="flex font-medium text-amber-700">
+                <span class="text-3xl">
+                    {{coinAmountUsd}}
+                </span>
+                <sup class="mt-2 text-xs">USD</sup>
             </h3>
         </div>
 
-        <div v-for="(token, tokenid) in tokens" :key="tokenid" @click="Wallet.selectAsset(tokenid)" class="px-3 py-1 bg-amber-100 border-2 border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer">
-            <h3 class="text-base text-amber-800 font-medium uppercase truncate">
-                {{displayTokenName(tokenid)}}
-            </h3>
+        <div
+            v-for="(token, tokenid) in tokens" :key="tokenid"
+            @click="Wallet.selectAsset(tokenid)"
+            class="flex flex-row justify-between items-end pl-1 pr-3 py-1 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
+        >
+            <div class="flex flex-row items-center">
+                <img :src="displayIcon(token)" class="h-16 w-auto p-2 opacity-80" />
 
-            <!-- <h3 class="text-xs text-amber-600 truncate">
-                {{tokenid}}
-            </h3> -->
+                <div class="flex flex-col">
+                    <h3 class="text-base text-amber-800 font-medium uppercase truncate">
+                        {{displayTokenName(tokenid)}}
+                    </h3>
 
-            <h3 class="text-2xl font-medium text-amber-700">
-                {{displayDecimalAmount(token)}}
-            </h3>
+                    <h3 class="text-2xl font-medium text-amber-600">
+                        {{displayDecimalAmount(token)}}
+                    </h3>
+                </div>
+            </div>
 
-            <h3 class="font-medium text-amber-600">
-                <!-- <sup class="text-xs">USD</sup> -->
-                <span class="text-base">{{displayDecimalAmountUsd(token)}}</span>
+            <h3 class="flex font-medium text-amber-700">
+                <span class="text-3xl">
+                    {{displayDecimalAmountUsd(token)}}
+                </span>
+                <sup class="mt-2 text-xs">USD</sup>
             </h3>
         </div>
 
