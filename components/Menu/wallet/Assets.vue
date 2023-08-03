@@ -155,7 +155,7 @@ onMounted(() => {
                         Nexa
                     </h3>
 
-                    <h3 class="text-2xl font-medium text-amber-600">
+                    <h3 class="text-xl font-medium text-amber-600">
                         {{coinAmount}}
                     </h3>
                 </div>
@@ -182,7 +182,7 @@ onMounted(() => {
                         {{displayTokenName(tokenid)}}
                     </h3>
 
-                    <h3 class="text-2xl font-medium text-amber-600">
+                    <h3 class="text-xl font-medium text-amber-600">
                         {{displayDecimalAmount(token)}}
                     </h3>
                 </div>
