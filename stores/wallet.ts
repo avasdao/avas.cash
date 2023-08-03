@@ -187,7 +187,7 @@ export const useWalletStore = defineStore('wallet', {
          * Retrieves all spendable UTXOs.
          */
         async loadAssets(_isReloading = false) {
-            console.info('Wallet address:', this.address)
+            // console.info('Wallet address:', this.address)
             // console.info('Wallet address (1):', this.getAddress(1))
             // console.info('Wallet address (2):', this.getAddress(2))
             // console.info('Wallet address (3):', this.getAddress(3))
@@ -211,7 +211,7 @@ export const useWalletStore = defineStore('wallet', {
             // Fetch all unspent transaction outputs for the temporary in-browser wallet.
             unspent = await listUnspent(this.address)
                 .catch(err => console.error(err))
-            console.log('UNSPENT', unspent)
+            // console.log('UNSPENT', unspent)
 
             /* Validate unspent outputs. */
             if (unspent.length === 0) {
@@ -237,7 +237,7 @@ export const useWalletStore = defineStore('wallet', {
                         wif: this._wif,
                     }
                 })
-            console.log('COINS', this.coins)
+            // console.log('COINS', this.coins)
 
             /* Retrieve tokens. */
             this._tokens = unspent
@@ -256,7 +256,7 @@ export const useWalletStore = defineStore('wallet', {
                         wif: this._wif,
                     }
                 })
-            console.log('TOKENS', this.tokens)
+            // console.log('TOKENS', this.tokens)
 
             /* Vaildate assets (directory) is initialized. */
             if (!this.assets) {
@@ -321,6 +321,40 @@ export const useWalletStore = defineStore('wallet', {
 
         getAddress(_accountIdx) {
             return this.wallet.getAddress(_accountIdx)
+        },
+
+        async groupTokens() {
+            const tokens = {}
+
+            for (let i = 0; i < this.tokens.length; i++) {
+                const token = this.tokens[i]
+                // console.log('TOKEN (grouped):', token)
+
+                // console.log('DETAILS', this.assets[token.tokenid])
+                if (!tokens[token.tokenid]) {
+                    let tokenidHex
+                    let ticker
+
+                    tokenidHex = this.assets[token.tokenid]?.token_id_hex
+
+                    if (tokenidHex) {
+                        ticker = await $fetch(`https://nexa.exchange/v1/ticker/quote/${tokenidHex}`)
+                            .catch(err => console.error(err))
+                    }
+
+                    tokens[token.tokenid] = {
+                        name: this.assets[token.tokenid]?.name || 'Unknown Asset',
+                        decimals: this.assets[token.tokenid]?.decimal_places || 0,
+                        tokens: token.tokens,
+                        tokenidHex,
+                        ticker,
+                    }
+                } else {
+                    tokens[token.tokenid].tokens += token.tokens
+                }
+            }
+
+            return tokens
         },
 
         destroy() {

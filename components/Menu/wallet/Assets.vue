@@ -13,66 +13,16 @@ const coins = ref(null)
 const tokens = ref([])
 const assets = ref(null)
 
-const loadAssets = () => {
-    tokens.value = {}
-
-    Wallet.tokens.forEach(async _token => {
-        console.log('DETAILS', Wallet.assets[_token.tokenid])
-        if (!tokens.value[_token.tokenid]) {
-            let tokenidHex
-            let ticker
-
-            tokenidHex = Wallet.assets[_token.tokenid]?.token_id_hex
-
-            if (tokenidHex) {
-                ticker = await $fetch(`https://nexa.exchange/v1/ticker/quote/${tokenidHex}`)
-                    .catch(err => console.error(err))
-            }
-
-            tokens.value[_token.tokenid] = {
-                name: Wallet.assets[_token.tokenid]?.name || 'Unknown Asset',
-                decimals: Wallet.assets[_token.tokenid]?.decimal_places || 0,
-                tokens: _token.tokens,
-                tokenidHex,
-                ticker,
-            }
-        } else {
-            tokens.value[_token.tokenid].tokens += _token.tokens
-        }
-    })
-
-    console.log('TOKENS (grouped):', tokens.value)
+const loadAssets = async () => {
+    tokens.value = await Wallet.groupTokens()
+        .catch(err => console.error(err))
+    // console.log('MY TOKENS (grouped):', tokens.value)
 }
 
 watch(() => Wallet.tokens, (_tokens) => {
     // console.log('TOKENS CHANGED (assets):', _tokens)
-
     loadAssets()
 })
-
-// const tokens = computed(() => {
-//     if (!Wallet.tokens) {
-//         return []
-//     }
-
-//     let tokens = {}
-
-//     Wallet.tokens.forEach(_token => {
-//         if (!tokens[_token.tokenid]) {
-//             tokens[_token.tokenid] = {
-//                 name: Wallet.assets[_token.tokenid]?.name || 'Unknown Asset',
-//                 decimals: Wallet.assets[_token.tokenid]?.decimal_places || 0,
-//                 tokens: _token.tokens,
-//             }
-//         } else {
-//             tokens[_token.tokenid].tokens += _token.tokens
-//         }
-//     })
-
-//     console.log('TOKENS (grouped):', tokens)
-
-//     return tokens
-// })
 
 const coinAmount = computed(() => {
     if (!Wallet.coins) {
@@ -143,10 +93,9 @@ const displayDecimalAmountUsd = (_token) => {
 }
 
 
-const init = async () => {
+const init = () => {
     // console.log('ASSETS (coins):', Wallet.coins)
     // console.log('ASSETS (tokens):', Wallet.tokens)
-
     loadAssets()
 }
 
