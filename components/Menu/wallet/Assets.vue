@@ -148,7 +148,7 @@ onMounted(() => {
             class="flex flex-row justify-between items-end pl-1 pr-3 py-1 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
         >
             <div class="flex flex-row items-center">
-                <img src="~/assets/nexa.svg" class="h-16 w-auto opacity-80" />
+                <img src="~/assets/nexa.svg" class="mr-1 h-16 w-auto opacity-80" />
 
                 <div class="flex flex-col">
                     <h3 class="text-base text-amber-800 font-medium uppercase truncate">
@@ -175,7 +175,7 @@ onMounted(() => {
             class="flex flex-row justify-between items-end pl-1 pr-3 py-1 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
         >
             <div class="flex flex-row items-center">
-                <img :src="displayIcon(token)" class="h-16 w-auto p-2 opacity-80" />
+                <img :src="displayIcon(token)" class="mr-1 h-16 w-auto p-2 opacity-80" />
 
                 <div class="flex flex-col">
                     <h3 class="text-base text-amber-800 font-medium uppercase truncate">
