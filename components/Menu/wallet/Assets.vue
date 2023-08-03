@@ -10,31 +10,69 @@ const System = useSystemStore()
 const AVAS = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
 
 const coins = ref(null)
+const tokens = ref([])
 const assets = ref(null)
 
-const tokens = computed(() => {
-    if (!Wallet.tokens) {
-        return []
-    }
+const loadAssets = () => {
+    tokens.value = {}
 
-    let tokens = {}
+    Wallet.tokens.forEach(async _token => {
+        console.log('DETAILS', Wallet.assets[_token.tokenid])
+        if (!tokens.value[_token.tokenid]) {
+            let tokenidHex
+            let ticker
 
-    Wallet.tokens.forEach(_token => {
-        if (!tokens[_token.tokenid]) {
-            tokens[_token.tokenid] = {
+            tokenidHex = Wallet.assets[_token.tokenid]?.token_id_hex
+
+            if (tokenidHex) {
+                ticker = await $fetch(`https://nexa.exchange/v1/ticker/quote/${tokenidHex}`)
+                    .catch(err => console.error(err))
+            }
+
+            tokens.value[_token.tokenid] = {
                 name: Wallet.assets[_token.tokenid]?.name || 'Unknown Asset',
                 decimals: Wallet.assets[_token.tokenid]?.decimal_places || 0,
                 tokens: _token.tokens,
+                tokenidHex,
+                ticker,
             }
         } else {
-            tokens[_token.tokenid].tokens += _token.tokens
+            tokens.value[_token.tokenid].tokens += _token.tokens
         }
     })
 
-    console.log('TOKENS (grouped):', tokens)
+    console.log('TOKENS (grouped):', tokens.value)
+}
 
-    return tokens
+watch(() => Wallet.tokens, (_tokens) => {
+    // console.log('TOKENS CHANGED (assets):', _tokens)
+
+    loadAssets()
 })
+
+// const tokens = computed(() => {
+//     if (!Wallet.tokens) {
+//         return []
+//     }
+
+//     let tokens = {}
+
+//     Wallet.tokens.forEach(_token => {
+//         if (!tokens[_token.tokenid]) {
+//             tokens[_token.tokenid] = {
+//                 name: Wallet.assets[_token.tokenid]?.name || 'Unknown Asset',
+//                 decimals: Wallet.assets[_token.tokenid]?.decimal_places || 0,
+//                 tokens: _token.tokens,
+//             }
+//         } else {
+//             tokens[_token.tokenid].tokens += _token.tokens
+//         }
+//     })
+
+//     console.log('TOKENS (grouped):', tokens)
+
+//     return tokens
+// })
 
 const coinAmount = computed(() => {
     if (!Wallet.coins) {
@@ -74,26 +112,46 @@ const displayTokenName = (_tokenid) => {
     return Wallet.assets[_tokenid].name
 }
 
-const displayDecimalAmount = (_tokens, _decimals) => {
-    if (!_decimals || _decimals === 0) {
-        return _tokens
+const displayDecimalAmount = (_token) => {
+    if (!_token.decimals || _token.decimals === 0) {
+        return _token.tokens
     }
 
-    const decimalValue = _tokens * BigInt(1e4)
+    const decimalValue = _token.tokens * BigInt(1e4)
 
-    const bigIntValue = decimalValue / BigInt(10**_decimals)
+    const bigIntValue = decimalValue / BigInt(10**_token.decimals)
 
     return numeral(parseFloat(bigIntValue) / 1e4).format('0,0.00[00]')
 }
 
+const displayDecimalAmountUsd = (_token) => {
+    if (!_token.decimals || _token.decimals === 0) {
+        return _token.tokens
+    }
+
+    const decimalValue = _token.tokens * BigInt(1e4)
+
+    const bigIntValue = decimalValue / BigInt(10**_token.decimals)
+
+    const price = _token.ticker?.price
+
+    const amount = (parseFloat(bigIntValue) / 1e4) * price
+
+    return numeral(amount).format('$0,0.00[00]')
+
+    //
+}
+
 
 const init = async () => {
-    console.log('ASSETS (coins):', Wallet.coins)
-    console.log('ASSETS (tokens):', Wallet.tokens)
+    // console.log('ASSETS (coins):', Wallet.coins)
+    // console.log('ASSETS (tokens):', Wallet.tokens)
+
+    loadAssets()
 }
 
 onMounted(() => {
-    // init()
+    init()
 })
 
 // onBeforeUnmount(() => {
@@ -139,8 +197,9 @@ onMounted(() => {
                 {{coinAmount}}
             </h3>
 
-            <h3 class="text-xl font-medium text-amber-600">
-                {{coinAmountUsd}}
+            <h3 class="font-medium text-amber-600">
+                <!-- <sup class="text-xs">USD</sup> -->
+                <span class="text-base">{{coinAmountUsd}}</span>
             </h3>
         </div>
 
@@ -149,17 +208,18 @@ onMounted(() => {
                 {{displayTokenName(tokenid)}}
             </h3>
 
-            <h3 class="text-xs text-amber-600 truncate">
+            <!-- <h3 class="text-xs text-amber-600 truncate">
                 {{tokenid}}
-            </h3>
+            </h3> -->
 
             <h3 class="text-2xl font-medium text-amber-700">
-                {{displayDecimalAmount(token.tokens, token.decimals)}}
+                {{displayDecimalAmount(token)}}
             </h3>
 
-            <!-- <h3 class="text-xs text-amber-600 truncate">
-                Decimals: {{token.decimals}}
-            </h3> -->
+            <h3 class="font-medium text-amber-600">
+                <!-- <sup class="text-xs">USD</sup> -->
+                <span class="text-base">{{displayDecimalAmountUsd(token)}}</span>
+            </h3>
         </div>
 
     </main>

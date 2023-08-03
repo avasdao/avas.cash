@@ -86,10 +86,10 @@ const tokensBalanceUsd = computed(() => {
         decimals = 0 // FOR DEV PURPOSES ONLY
         tokenUsd = 0.00 // FOR DEV PURPOSES ONLY
 
-        if (_tokenid === AVAS) {
-            decimals = 8 // FOR DEV PURPOSES ONLY
-            tokenUsd = 0.33 // FOR DEV PURPOSES ONLY
-        }
+        // if (_tokenid === AVAS) {
+        //     decimals = 8 // FOR DEV PURPOSES ONLY
+        //     tokenUsd = 0.33 // FOR DEV PURPOSES ONLY
+        // }
 
         /* Set total tokens. */
         totalTokens += tokens.value[_tokenid]

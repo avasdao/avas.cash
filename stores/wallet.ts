@@ -265,12 +265,12 @@ export const useWalletStore = defineStore('wallet', {
 
             /* Handle (metadata) token details. */
             this.tokens.forEach(async _token => {
-                console.log('TOKEN', _token)
+                // console.log('TOKEN', _token)
                 if (!this.assets[_token.tokenid]) {
                     /* Set (genesis) token details to (saved) directory. */
                     this._assets[_token.tokenid] = await getTokenInfo(_token.tokenid)
                         .catch(err => console.error(err))
-                    console.log('TOKEN DETAILS', this._assets[_token.tokenid])
+                    // console.log('TOKEN DETAILS', this._assets[_token.tokenid])
                 }
             })
         },
