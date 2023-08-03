@@ -16,7 +16,7 @@ const assets = ref(null)
 const loadAssets = async () => {
     tokens.value = await Wallet.groupTokens()
         .catch(err => console.error(err))
-    console.log('MY TOKENS (grouped):', tokens.value)
+    // console.log('MY TOKENS (grouped):', tokens.value)
 }
 
 watch(() => Wallet.tokens, (_tokens) => {

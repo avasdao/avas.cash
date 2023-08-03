@@ -270,30 +270,36 @@ export const useWalletStore = defineStore('wallet', {
                 let iconUrl
 
                 // console.log('TOKEN', _token)
-                // FIXME: Update after TTL (24 hours).
+                // FIXME: Update after ttl (24 hours).
                 // if (!this.assets[_token.tokenid]) {
                 if (!this.assets[_token.tokenid].iconUrl) {
                     /* Set (genesis) token details to (saved) directory. */
                     this._assets[_token.tokenid] = await getTokenInfo(_token.tokenid)
                         .catch(err => console.error(err))
-                    console.log('TOKEN DETAILS', this._assets[_token.tokenid])
+                    // console.log('TOKEN DETAILS', this._assets[_token.tokenid])
 
+                    /* Set document URL. */
                     docUrl = this.assets[_token.tokenid].document_url
 
+                    /* Validate document URL. */
                     if (docUrl) {
                         doc = await $fetch(docUrl)
                             .catch(err => console.error(err))
 
                         if (doc) {
+                            /* Set icon URL. */
                             iconUrl = doc[0]?.icon
 
+                            /* Validate full URI. */
                             if (!iconUrl.includes('http')) {
-                                console.log('BASE URL', new URL(docUrl), docUrl, iconUrl)
+                                // console.log('BASE URL', new URL(docUrl), docUrl, iconUrl)
 
+                                /* Re-set icon URL. */
                                 iconUrl = (new URL(docUrl)).origin + iconUrl
-
-                                this._assets[_token.tokenid].iconUrl = iconUrl
                             }
+
+                            /* Save to assets. */
+                            this._assets[_token.tokenid].iconUrl = iconUrl
                         }
                     }
 
