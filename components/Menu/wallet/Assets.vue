@@ -175,7 +175,7 @@ onMounted(() => {
             class="flex flex-row justify-between items-end pl-1 pr-3 py-2 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
         >
             <div class="flex flex-row items-start">
-                <img :src="displayIcon(token)" class="-mt-1 mr-1 h-12 w-auto p-2 opacity-80" />
+                <img :src="displayIcon(token)" class="-mt-0.5 mr-1 h-12 w-auto p-2 opacity-80" />
 
                 <div class="flex flex-col">
                     <h3 class="text-base text-amber-800 font-medium uppercase truncate">
