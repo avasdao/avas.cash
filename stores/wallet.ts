@@ -309,7 +309,14 @@ export const useWalletStore = defineStore('wallet', {
         },
 
         async transfer(_receiver, _satoshis) {
-            return await this.wallet.send(_receiver, _satoshis)
+            /* Validate transaction type. */
+            if (this.asset.group === '0') {
+                /* Send coins. */
+                return await this.wallet.send(_receiver, _satoshis)
+            } else {
+                /* Send tokens. */
+                return await this.wallet.send(this.asset.token_id_hex, _receiver, _satoshis)
+            }
         },
 
         /**

@@ -22,8 +22,10 @@ const isShowingVideoPreview = ref('hidden')
 
 
 watch(() => amount.value, (_amount) => {
+    // console.log('ADJUST SATOSHIS', Wallet.asset.decimal_places)
+
     /* Convert to satoshis. */
-    satoshis.value = parseInt(_amount * 100)
+    satoshis.value = parseInt(_amount * 10**Wallet.asset.decimal_places)
 })
 
 const openScanner = () => {
@@ -114,8 +116,8 @@ const send = async () => {
         return alert('Enter an amount to send.')
     }
 
-    if (confirm(`Are you sure you want to send ${numeral(amount.value).format('0,0.00')} NEXA to ${receiver.value}?`)) {
-        console.log(`Starting transfer of ${amount.value} NEXA to ${receiver.value}...`)
+    if (confirm(`Are you sure you want to send ${numeral(amount.value).format('0,0.00')} ${Wallet.asset.ticker} to ${receiver.value}?`)) {
+        console.log(`Starting transfer of ${amount.value} ${Wallet.asset.ticker} to ${receiver.value}...`)
 
         const response = await Wallet.transfer(receiver.value, BigInt(satoshis.value))
         console.log('TXIDEM', response)
@@ -185,19 +187,19 @@ const send = async () => {
             class="w-full px-3 py-1 text-xl sm:text-2xl bg-yellow-200 border-2 border-yellow-400 rounded-md shadow"
             type="number"
             v-model="amount"
-            placeholder="Enter a (NEXA) amount"
+            :placeholder="`Enter a (${Wallet.asset.ticker}) amount`"
         />
 
-        <h4 v-if="satoshis > 0" class="mt-1 ml-3 text-sm text-gray-500 font-medium">
-            = {{numeral(satoshis / 100).format('0,0')}} NEXA
-        </h4>
+        <!-- <h4 v-if="satoshis > 0" class="mt-1 ml-3 text-sm text-gray-500 font-medium">
+            = {{numeral(satoshis / 100).format('0,0')}} {{Wallet.asset.ticker}}
+        </h4> -->
     </section>
 
     <div
         @click="send"
         class="w-fit cursor-pointer my-5 block px-5 py-2 text-2xl font-medium bg-blue-200 border-2 border-blue-400 rounded-md shadow hover:bg-blue-300"
     >
-        Send NEXA
+        Send {{Wallet.asset.ticker}}
     </div>
 
 </template>
