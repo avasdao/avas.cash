@@ -264,6 +264,8 @@ export const useWalletStore = defineStore('wallet', {
                 this._assets = {}
             }
 
+            console.log('ASSETS', this.assets)
+
             /* Handle (metadata) token details. */
             this.tokens.forEach(async _token => {
                 let doc
@@ -272,7 +274,6 @@ export const useWalletStore = defineStore('wallet', {
 
                 // console.log('TOKEN', _token)
                 // FIXME: Update after ttl (24 hours).
-                console.log('ASSETS', this.assets)
                 // if (!this.assets[_token.tokenid]) {
                 if (!this.assets[_token.tokenid]?.iconUrl) {
                     /* Set (genesis) token details to (saved) directory. */
