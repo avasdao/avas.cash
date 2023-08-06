@@ -62,8 +62,17 @@ const { locale } = useI18n()
 
             <div class="mt-5 flex justify-center">
                 <select v-model="locale">
+                    <!-- <option value="ar">Arabic</option> -->
+                    <option value="zh">Chinese</option>
                     <option value="en">English</option>
-                    <option value="fr">French</option>
+                    <!-- <option value="fr">French</option> -->
+                    <!-- <option value="de">German</option> -->
+                    <!-- <option value="ja">Japanese</option> -->
+                    <!-- <option value="ko">Korean</option> -->
+                    <!-- <option value="pt">Portuguese</option> -->
+                    <!-- <option value="ru">Russian</option> -->
+                    <!-- <option value="es">Spanish</option> -->
+                    <option value="tr">Turkish</option>
                 </select>
             </div>
 

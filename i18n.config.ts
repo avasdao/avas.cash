@@ -3,10 +3,16 @@ export default defineI18nConfig(() => ({
     locale: 'en',
     messages: {
         en: {
-            welcome: 'Welcome'
+            welcome: 'Welcome',
         },
         fr: {
-            welcome: 'Bienvenue'
-        }
-    }
+            welcome: 'Bienvenue',
+        },
+        tr: {
+            welcome: 'Hoş geldin',
+        },
+        zh: {
+            welcome: '欢迎',
+        },
+    },
 }))

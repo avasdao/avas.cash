@@ -52,8 +52,13 @@ const coinAmountUsd = computed(() => {
 
     mexUsd = mex * System.usd
 
-    /* Return formatted value. */
-    return numeral(mexUsd).format('$0,0.00')
+    if (mexUsd >= 10.0) {
+        /* Return formatted value. */
+        return numeral(mexUsd).format('$0,0.00')
+    } else {
+        /* Return formatted value. */
+        return numeral(mexUsd).format('$0,0.00[00]')
+    }
 })
 
 const displayTokenName = (_tokenid) => {
@@ -97,7 +102,11 @@ const displayDecimalAmountUsd = (_token) => {
 
     amount = (parseFloat(bigIntValue) / 1e4) * price
 
-    return numeral(amount).format('$0,0.00[00]')
+    if (amount >= 10.0) {
+        return numeral(amount).format('$0,0.00')
+    } else {
+        return numeral(amount).format('$0,0.00[00]')
+    }
 }
 
 const displayIcon = (_token) => {
@@ -165,7 +174,10 @@ onMounted(() => {
                         Nexa
                     </h3>
 
-                    <h3 class="text-xl font-medium text-amber-600">
+                    <h3 class="sm:hidden text-lg font-medium text-amber-600">
+                        {{coinAmount}}
+                    </h3>
+                    <h3 class="hidden sm:flex text-xl font-medium text-amber-600">
                         {{coinAmount}}
                     </h3>
                 </div>
@@ -192,9 +204,12 @@ onMounted(() => {
                         {{displayTokenName(tokenid)}}
                     </h3>
 
-                    <h3 class="text-xl font-medium text-amber-600">
+                    <span class="sm:hidden text-lg font-medium text-amber-600">
                         {{displayDecimalAmount(token)}}
-                    </h3>
+                    </span>
+                    <span class="hidden sm:flex text-xl font-medium text-amber-600">
+                        {{displayDecimalAmount(token)}}
+                    </span>
                 </div>
             </div>
 
@@ -202,6 +217,7 @@ onMounted(() => {
                 <span class="text-3xl">
                     {{displayDecimalAmountUsd(token)}}
                 </span>
+
                 <sup class="mt-2 text-xs">USD</sup>
             </h3>
         </div>
