@@ -184,9 +184,13 @@ onMounted(() => {
             </div>
 
             <h3 class="flex font-medium text-amber-700">
-                <span class="text-3xl">
+                <span class="sm:hidden text-2xl">
                     {{coinAmountUsd}}
                 </span>
+                <span class="hidden sm:flex text-3xl">
+                    {{coinAmountUsd}}
+                </span>
+
                 <sup class="mt-2 text-xs">USD</sup>
             </h3>
         </div>
@@ -214,7 +218,10 @@ onMounted(() => {
             </div>
 
             <h3 class="flex font-medium text-amber-700">
-                <span class="text-3xl">
+                <span class="sm:hidden text-2xl">
+                    {{displayDecimalAmountUsd(token)}}
+                </span>
+                <span class="hidden sm:flex text-3xl">
                     {{displayDecimalAmountUsd(token)}}
                 </span>
 
