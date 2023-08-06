@@ -1,3 +1,8 @@
+<script setup lang="ts">
+const { locale } = useI18n()
+
+</script>
+
 <template>
     <footer class="bg-white">
         <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
@@ -53,6 +58,13 @@
                         />
                     </svg>
                 </NuxtLink>
+            </div>
+
+            <div class="mt-5 flex justify-center">
+                <select v-model="locale">
+                    <option value="en">English</option>
+                    <option value="fr">French</option>
+                </select>
             </div>
 
             <p class="mt-10 text-center text-sm leading-5 text-gray-500">

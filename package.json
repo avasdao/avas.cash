@@ -1,6 +1,6 @@
 {
   "name": "avas-cash",
-  "version": "23.7.27",
+  "version": "23.8.5",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -26,6 +26,7 @@
     "uuid": "9.0.0"
   },
   "devDependencies": {
+    "@nuxtjs/i18n": "8.0.0-rc.2",
     "@nuxtjs/tailwindcss": "6.4.1"
   }
 }
