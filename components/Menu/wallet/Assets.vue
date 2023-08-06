@@ -164,7 +164,7 @@ onMounted(() => {
 
         <div
             @click="Wallet.selectAsset(null)"
-            class="flex flex-row justify-between items-end pl-1 pr-3 py-3 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
+            class="flex flex-row justify-between items-end pl-1 pr-3 pt-2 pb-1 sm:py-3 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
         >
             <div class="flex flex-row items-start">
                 <img src="~/assets/nexa.svg" class="-mt-1 mr-1 h-12 w-auto opacity-80" />
@@ -183,22 +183,24 @@ onMounted(() => {
                 </div>
             </div>
 
-            <h3 class="flex font-medium text-amber-700">
-                <span class="sm:hidden text-2xl">
-                    {{coinAmountUsd}}
-                </span>
-                <span class="hidden sm:flex text-3xl">
-                    {{coinAmountUsd}}
-                </span>
+            <h3 class="flex flex-col items-end font-medium text-amber-700">
+                <sup class="text-xs">
+                    USD
+                </sup>
 
-                <sup class="mt-2 text-xs">USD</sup>
+                <span class="-mt-3 sm:hidden text-2xl">
+                    {{coinAmountUsd}}
+                </span>
+                <span class="-mt-3 hidden sm:flex text-3xl">
+                    {{coinAmountUsd}}
+                </span>
             </h3>
         </div>
 
         <div
             v-for="(token, tokenid) in tokens" :key="tokenid"
             @click="Wallet.selectAsset(tokenid)"
-            class="flex flex-row justify-between items-end pl-1 pr-3 py-3 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
+            class="flex flex-row justify-between items-end pl-1 pr-3 pt-2 pb-1 sm:py-3 bg-gradient-to-b from-amber-100 to-amber-50 border border-amber-300 rounded-lg shadow hover:bg-amber-200 cursor-pointer"
         >
             <div class="flex flex-row items-start">
                 <img :src="displayIcon(token)" class="-mt-0.5 mr-1 h-12 w-auto p-2 opacity-80" />
@@ -217,15 +219,17 @@ onMounted(() => {
                 </div>
             </div>
 
-            <h3 class="flex font-medium text-amber-700">
-                <span class="sm:hidden text-2xl">
-                    {{displayDecimalAmountUsd(token)}}
-                </span>
-                <span class="hidden sm:flex text-3xl">
-                    {{displayDecimalAmountUsd(token)}}
-                </span>
+            <h3 class="flex flex-col items-end font-medium text-amber-700">
+                <sup class="text-xs">
+                    USD
+                </sup>
 
-                <sup class="mt-2 text-xs">USD</sup>
+                <span class="-mt-3 sm:hidden text-2xl">
+                    {{displayDecimalAmountUsd(token)}}
+                </span>
+                <span class="-mt-3 hidden sm:flex text-3xl">
+                    {{displayDecimalAmountUsd(token)}}
+                </span>
             </h3>
         </div>
 
