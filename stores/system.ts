@@ -16,7 +16,6 @@ import {
     encodeDataPush,
 } from '@bitauth/libauth'
 
-
 /**
  * System Store
  */
@@ -46,7 +45,7 @@ export const useSystemStore = defineStore('system', {
         /**
          * Application Version
          */
-        appVersion: null,
+        _appVersion: null,
 
         /**
          * Flags
@@ -54,7 +53,7 @@ export const useSystemStore = defineStore('system', {
          * 1. Dark mode
          * 2. Unconfirmed transactions
          */
-        flags: null,
+        _flags: null,
 
         /**
          * Locale
@@ -62,7 +61,7 @@ export const useSystemStore = defineStore('system', {
          * Controls the localization language.
          * (default is english)
          */
-        locale: null,
+        _locale: null,
 
         /**
          * Notices
@@ -74,7 +73,7 @@ export const useSystemStore = defineStore('system', {
          * NOTE: Unique 1-byte (hex) codes (up to 255) are used to reduce the size
          *       of this storage field.
          */
-        notices: null,
+        _notices: null,
 
         /**
          * Tickers
@@ -109,6 +108,14 @@ export const useSystemStore = defineStore('system', {
             return this.nex * 10**6
         },
 
+        locale() {
+            if (!this._locale) {
+                return null
+            }
+
+            return this._locale
+        },
+
     },
 
     actions: {
@@ -127,6 +134,14 @@ export const useSystemStore = defineStore('system', {
             setInterval(this.updateTicker, 30000)
 
             this.updateTicker()
+
+            if (this._locale === null) {
+                /* Set (library) locale from (store) locale. */
+                this._locale = navigator.language || navigator.userLanguage
+                console.log(`User's preferred language is:`, this._locale)
+            }
+
+            console.log('LOCALE', this.locale)
         },
 
         async updateTicker () {

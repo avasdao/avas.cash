@@ -85,6 +85,28 @@ onMounted(() => {
                                 </div>
                             </div>
 
+                            <div class="lg:hidden w-full px-10 py-2 flex flex-row justify-between gap-x-1 bg-gradient-to-b from-amber-100 to-amber-50 border-y border-amber-200 text-xs text-gray-600 font-medium uppercase">
+                                <NuxtLink @click="toggleMenu" to="/payouts" class="border-b-2 border-amber-50 hover:border-amber-600">
+                                    Payouts
+                                </NuxtLink>
+
+                                <NuxtLink @click="toggleMenu" to="/staking" class="border-b-2 border-amber-50 hover:border-amber-600">
+                                    Staking
+                                </NuxtLink>
+
+                                <NuxtLink @click="toggleMenu" to="/bootstrap" class="border-b-2 border-amber-50 hover:border-amber-600">
+                                    Bootstrap
+                                </NuxtLink>
+
+                                <NuxtLink @click="toggleMenu" to="/token" class="border-b-2 border-amber-50 hover:border-amber-600">
+                                    $AVAS
+                                </NuxtLink>
+
+                                <NuxtLink @click="toggleMenu" to="/help" class="border-b-2 border-amber-50 hover:border-amber-600">
+                                    Help
+                                </NuxtLink>
+                            </div>
+
                             <!-- Main -->
                             <div class="pb-1 sm:pb-6">
 

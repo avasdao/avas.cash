@@ -64,6 +64,12 @@ const toggleMenu = () => {
 
 onMounted(() => {
     System.init()
+
+    /* Initialize localization. */
+    const { locale } = useI18n()
+    console.log('LOCALE (useI18n)', locale.value)
+
+    locale.value = System.locale
 })
 
 // onBeforeUnmount(() => {
