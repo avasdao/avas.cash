@@ -85,7 +85,7 @@ onMounted(() => {
                                 </div>
                             </div>
 
-                            <nav class="lg:hidden px-3 sm:px-10 w-full flex flex-col items-center text-xs text-amber-800 font-medium uppercase">
+                            <nav class="lg:hidden mb-3 px-3 sm:px-10 w-full flex flex-col items-center text-xs text-amber-800 font-medium uppercase">
                                 <div class="w-full my-0 py-2 flex flex-row gap-x-0.5">
                                     <NuxtLink @click="toggleMenu" to="/payouts" class="w-full text-center px-2 py-1 bg-amber-200 border border-amber-300 rounded-tl-lg tracking-widest hover:bg-amber-400">
                                         Payouts
@@ -111,7 +111,6 @@ onMounted(() => {
 
                             <!-- Main -->
                             <div class="pb-1 sm:pb-6">
-
                                 <section>
                                     <div class="block">
                                         <div class="border-b border-gray-200">
