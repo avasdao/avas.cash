@@ -1,41 +1,47 @@
 export default defineI18nConfig(() => ({
     legacy: false,
     locale: 'en',
-    messages: {
-        en: {
-            welcome: 'Welcome',
-        },
-        fr: {
-            welcome: 'Bienvenue',
-        },
-        tr: {
-            welcome: 'Hoş geldin',
-        },
-        zh: {
-            welcome: '欢迎',
-        },
-    },
     defaultLocale: 'en',
+    lazy: true,
+    langDir: './locales',
+    // messages: {
+    //     en: {
+    //         welcome: 'Welcome',
+    //     },
+    //     fr: {
+    //         welcome: 'Bienvenue',
+    //     },
+    //     tr: {
+    //         welcome: 'Hoş geldin',
+    //     },
+    //     zh: {
+    //         welcome: '欢迎',
+    //     },
+    // },
     locales: [
         {
             code: 'en',
-            file: 'i18n/en.json',
+            file: 'en.json',
         },
         {
             code: 'en-US',
-            file: 'i18n/en.json',
+            file: 'en.json',
+        },
+        {
+            code: 'fr',
+            file: 'fr.json',
         },
         {
             code: 'tr',
-            file: 'i18n/tr.json',
+            file: 'tr.json',
         },
         {
             code: 'zh',
-            file: 'i18n/zh.json',
+            file: 'zh.json',
         },
         {
             code: 'zh-CN',
-            file: 'i18n/zh.json',
+            file: 'zh.json',
         },
     ]
 }))

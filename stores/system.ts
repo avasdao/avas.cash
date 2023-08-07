@@ -16,6 +16,9 @@ import {
     encodeDataPush,
 } from '@bitauth/libauth'
 
+/* Initialize constants. */
+const UPDATE_TICKER_INTERVAL = 30000 // 30 seconds
+
 /**
  * System Store
  */
@@ -127,21 +130,29 @@ export const useSystemStore = defineStore('system', {
         init() {
             this._appStarts++
 
+            /* Validate tickers. */
             if (!this._tickers) {
+                /* Initialize tickers. */
                 this._tickers = {}
             }
 
-            setInterval(this.updateTicker, 30000)
+            /* Initialize ticker interval. */
+            setInterval(this.updateTicker, UPDATE_TICKER_INTERVAL)
 
+            /* Update ticker. */
             this.updateTicker()
 
             if (this._locale === null) {
                 /* Set (library) locale from (store) locale. */
                 this._locale = navigator.language || navigator.userLanguage
-                console.log(`User's preferred language is:`, this._locale)
+                console.log(`User's preferred language is:`, this.locale)
             }
 
-            console.log('LOCALE', this.locale)
+            /* Initialize (library) locale. */
+            const { locale } = useI18n()
+
+            /* Set (library) locale. */
+            locale.value = this.locale
         },
 
         async updateTicker () {

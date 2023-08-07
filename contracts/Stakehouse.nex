@@ -37,18 +37,22 @@ pragma nexscript ^0.1.0;
  *   - https://avasdao.org
  *
  */
-contract Stakehouse(pubkey owner, int reservation) {
+contract Stakehouse(bytes20 ownerHash, int reservation) {
     /**
      * Depart
      *
      * Allows a stakehouse owner to remove their assets after their
      * reservation time has expired.
      *
+     * @param owner
      * @param signature
      */
-    function depart(sig signature) {
+    function depart(pubkey owner, sig signature) {
         /* Verify UTXO age is AFTER the reservation time. */
         require(tx.age >= reservation);
+
+        /* Verify public key hash belongs to the stakehouse owner. */
+        require(hash160(owner) == ownerHash);
 
         /* Verify transaction is signed by the stakehouse owner. */
         require(checkSig(signature, owner));
