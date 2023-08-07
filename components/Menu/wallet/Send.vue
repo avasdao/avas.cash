@@ -13,6 +13,8 @@ const amount = ref(null)
 const receiver = ref(null)
 const currency = ref(null)
 const satoshis = ref(null)
+const txidem = ref(null)
+const error = ref(null)
 
 const video = ref(null)
 const scanner = ref(null)
@@ -128,10 +130,16 @@ const send = async () => {
             amount.value = null
             receiver.value = null
 
+            /* Set transaction idem. */
+            txidem.value = response.result
+
             // TODO Add "proper" notification system.
-            alert(`Transaction sent successfully!\n\n${response.result}`)
+            // alert(`Transaction sent successfully!\n\n${response.result}`)
         } else {
-            alert(JSON.stringify(response, null, 2))
+            /* Set error. */
+            error.value = response
+
+            // alert(JSON.stringify(response, null, 2))
         }
     }
 }
@@ -201,5 +209,23 @@ const send = async () => {
     >
         Send {{Wallet.asset.ticker}}
     </div>
+
+    <section v-if="txidem" class="my-10">
+        <div>
+            <h3 class="text-sm text-gray-500 font-medium">Transaction sent successfully!</h3>
+
+            <NuxtLink :to="'https://explorer.nexa.org/tx/' + txidem" target="_blank" class="text-blue-500 font-medium hover:underline">
+                Click here to OPEN transaction details
+            </NuxtLink>
+        </div>
+    </section>
+
+    <section v-if="error" class="my-10">
+        <div>
+            <h2>Transaction failed!</h2>
+
+            <pre>{{JSON.stringify(error, null, 2)}}</pre>
+        </div>
+    </section>
 
 </template>
