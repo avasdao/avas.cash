@@ -85,27 +85,29 @@ onMounted(() => {
                                 </div>
                             </div>
 
-                            <div class="lg:hidden w-full px-10 py-2 flex flex-row justify-between gap-x-1 bg-gradient-to-b from-amber-100 to-amber-50 border-y border-amber-200 text-xs text-gray-600 font-medium uppercase">
-                                <NuxtLink @click="toggleMenu" to="/payouts" class="border-b-2 border-amber-50 hover:border-amber-600">
-                                    Payouts
-                                </NuxtLink>
+                            <nav class="lg:hidden px-3 sm:px-10 w-full flex flex-col items-center text-xs text-amber-800 font-medium uppercase">
+                                <div class="w-full my-0 py-2 flex flex-row gap-x-0.5">
+                                    <NuxtLink @click="toggleMenu" to="/payouts" class="w-full text-center px-3 py-1 bg-amber-200 border border-amber-300 rounded-tl-lg tracking-widest hover:bg-amber-400">
+                                        Payouts
+                                    </NuxtLink>
 
-                                <NuxtLink @click="toggleMenu" to="/staking" class="border-b-2 border-amber-50 hover:border-amber-600">
-                                    Staking
-                                </NuxtLink>
+                                    <NuxtLink @click="toggleMenu" to="/staking" class="w-full text-center px-3 py-1 bg-amber-200 border border-amber-300 tracking-widest hover:bg-amber-400">
+                                        Staking
+                                    </NuxtLink>
 
-                                <NuxtLink @click="toggleMenu" to="/bootstrap" class="border-b-2 border-amber-50 hover:border-amber-600">
-                                    Bootstrap
-                                </NuxtLink>
+                                    <NuxtLink @click="toggleMenu" to="/token" class="w-full text-center px-3 py-1 bg-amber-200 border border-amber-300 tracking-widest hover:bg-amber-400">
+                                        $AVAS
+                                    </NuxtLink>
 
-                                <NuxtLink @click="toggleMenu" to="/token" class="border-b-2 border-amber-50 hover:border-amber-600">
-                                    $AVAS
-                                </NuxtLink>
+                                    <NuxtLink @click="toggleMenu" to="/help" class="w-full text-center px-3 py-1 bg-amber-200 border border-amber-300 rounded-tr-lg tracking-widest hover:bg-amber-400">
+                                        Help
+                                    </NuxtLink>
+                                </div>
 
-                                <NuxtLink @click="toggleMenu" to="/help" class="border-b-2 border-amber-50 hover:border-amber-600">
-                                    Help
+                                <NuxtLink @click="toggleMenu" to="/bootstrap" class="-mt-1.5 w-full text-center my-0 px-3 py-1 bg-amber-200 border border-amber-300 rounded-b-lg tracking-widest hover:bg-amber-400">
+                                    Bootstrap Nexa
                                 </NuxtLink>
-                            </div>
+                            </nav>
 
                             <!-- Main -->
                             <div class="pb-1 sm:pb-6">
