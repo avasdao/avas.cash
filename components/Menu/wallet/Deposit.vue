@@ -38,13 +38,16 @@ const isShowingCurrencyOptions = ref(false)
     dataUrl.value = await QRCode.toDataURL(bip21Url)
 }
 
+const copyToClipboard = () => {
+    /* Copy address to clipboard. */
+    Clipboard.copy(Wallet.address)
+
+    alert('Your address has been copied to the clipboard.')
+}
 
 onMounted(() => {
     /* Update the QR code. */
     updateQrCode()
-    console.log('Wallet.address', Wallet.address)
-    console.log('Wallet.mnemonic', Wallet.mnemonic)
-    console.log('Wallet.wallet', Wallet.wallet)
 })
 
 // onBeforeUnmount(() => {
@@ -159,6 +162,7 @@ onMounted(() => {
 
             <div class="mb-5 flex flex-row gap-3">
                 <button
+                    @click="copyToClipboard"
                     class="w-full block px-3 py-1 text-2xl font-medium bg-blue-200 border-2 border-blue-400 rounded-md shadow hover:bg-blue-300"
                 >
                     Copy
@@ -170,6 +174,55 @@ onMounted(() => {
                     Share
                 </button>
             </div>
-        </section>
+     </section>
     </main>
 </template>
+
+<script>
+// NOTE: We ONLY run this on the (web) client.
+if (process.client) {
+    window.Clipboard = (function(window, document, navigator) {
+        let textArea,
+            copy
+
+        function isOS() {
+            return navigator.userAgent.match(/ipad|iphone/i)
+        }
+
+        function createTextArea(text) {
+            textArea = document.createElement('textArea')
+            textArea.value = text
+            document.body.appendChild(textArea)
+        }
+
+        function selectText() {
+            let range,
+                selection
+
+            if (isOS()) {
+                range = document.createRange()
+                range.selectNodeContents(textArea)
+                selection = window.getSelection()
+                selection.removeAllRanges()
+                selection.addRange(range)
+                textArea.setSelectionRange(0, 999999)
+            } else {
+                textArea.select()
+            }
+        }
+
+        function _copyToClipboard() {
+            document.execCommand('copy')
+            document.body.removeChild(textArea)
+        }
+
+        copy = function(text) {
+            createTextArea(text)
+            selectText()
+            _copyToClipboard()
+        }
+
+        return { copy }
+    })(window, document, navigator)
+}
+</script>
