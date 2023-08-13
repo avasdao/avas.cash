@@ -102,6 +102,13 @@ watch(() => campaign1History.value, async (_history) => {
 })
 
 
+const copyToClipboard = (_text) => {
+    /* Copy address to clipboard. */
+    Clipboard.copy(_text)
+
+    alert(`${_text} has been copied to the clipboard.`)
+}
+
 
 const loadCampaign1 = async () => {
     campaign1History.value = await getAddressHistory(campaign1.address)
@@ -189,15 +196,15 @@ onMounted(() => {
                     </p>
 
                     <div v-if="campaign.asking !== 0" class="my-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
-                        <div>
-                            <NuxtLink :to="campaign.address" target="_blank" class="block w-full px-3 py-2 text-lg text-center text-green-900 font-medium bg-green-400 border-2 border-green-600 hover:bg-green-300 rounded-lg shadow">
-                                Open My Wallet
-                            </NuxtLink>
-                        </div>
-
                         <NuxtLink :to="'https://causes.cash/c/' + campaign.id" target="_blank" class="block w-full h-fit px-3 py-2 text-lg text-center text-amber-900 font-medium bg-amber-400 border-2 border-amber-600 hover:bg-amber-300 rounded-lg shadow">
                             Open Campaign
                         </NuxtLink>
+
+                        <div>
+                            <button @click="copyToClipboard(campaign.address)" target="_blank" class="block w-full px-3 py-2 text-lg text-center text-green-900 font-medium bg-green-400 border-2 border-green-600 hover:bg-green-300 rounded-lg shadow">
+                                Copy Address to Clipboard
+                            </button>
+                        </div>
 
                         <h3 class="sm:col-span-2 lg:col-span-1 -mt-1 px-5 text-xs text-blue-500 text-center font-medium truncate">
                             {{campaign.address}}
