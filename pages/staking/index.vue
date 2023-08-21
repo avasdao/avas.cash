@@ -125,7 +125,7 @@ const address = ref(null)
                 My Stakehouses
             </h2>
 
-            <NuxtLink to="/staking/wagmi" class="h-48 flex flex-col justify-center items-center bg-rose-500 border-4 border-rose-700 rounded-2xl shadow">
+            <NuxtLink to="/staking/" class="h-48 flex flex-col justify-center items-center bg-rose-500 border-4 border-rose-700 rounded-2xl shadow">
                 <h3 class="text-3xl font-medium text-rose-100">
                     Wagmi Cattle Ranch & Brewery
                     Month (30 days)
@@ -136,7 +136,7 @@ const address = ref(null)
                 </h4>
             </NuxtLink>
 
-            <NuxtLink to="/staking/toshis" class="h-48 flex flex-col justify-center items-center bg-sky-500 border-4 border-sky-700 rounded-2xl shadow">
+            <NuxtLink to="/staking/" class="h-48 flex flex-col justify-center items-center bg-sky-500 border-4 border-sky-700 rounded-2xl shadow">
                 <h3 class="text-3xl font-medium text-sky-100">
                     Toshi's Wagyu BBQ & Smoke
                     Quarter (90 days)
@@ -147,7 +147,7 @@ const address = ref(null)
                 </h4>
             </NuxtLink>
 
-            <NuxtLink to="/staking/palms" class="h-48 flex flex-col justify-center items-center bg-purple-500 border-4 border-purple-700 rounded-2xl shadow">
+            <NuxtLink to="/staking/" class="h-48 flex flex-col justify-center items-center bg-purple-500 border-4 border-purple-700 rounded-2xl shadow">
                 <h3 class="text-3xl font-medium text-purple-100">
                     Palms d'Iamante
                     Year (365 days)
