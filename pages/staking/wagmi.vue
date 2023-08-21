@@ -15,7 +15,7 @@ import {
     parseWif,
 } from '@nexajs/hdnode'
 
-import { getTip } from '@nexajs/rostrum'
+// import { getTip } from '@nexajs/rostrum'
 
 import { OP } from '@nexajs/script'
 
@@ -37,17 +37,30 @@ import { useSystemStore } from '@/stores/system'
 const Wallet = useWalletStore()
 const System = useSystemStore()
 
+const rAddress = ref(null)
+
 /* Instantiate Libauth crypto interfaces. */
 const ripemd160 = await instantiateRipemd160()
 const secp256k1 = await instantiateSecp256k1()
+
+const abbr = computed(() => {
+    if (!rAddress.value) {
+        return 'n/a'
+    }
+
+    return rAddress.value.slice(0, 15) + ' ... ' + rAddress.value.slice(-15)
+})
 
 const init = () => {
     console.log('WALLET', Wallet)
     console.log('WALLET (privateKey)', Wallet.wallet.privateKey)
     console.log('WALLET (address)', Wallet.address)
+
+    rAddress.value = getAddressWagmi()
+    console.log('WAGMI ADDRESS', rAddress.value)
 }
 
-const getAddress30 = async () => {
+const getAddressWagmi = () => {
     let argsData
     let blockHeight
     let blockHeightScript
@@ -104,7 +117,7 @@ const getAddress30 = async () => {
     console.log('CONSTRAINT HASH (hex):', binToHex(constraintHash))
 
     /* Reques header's tip. */
-    headersTip = await getTip()
+    // headersTip = await getTip()
     // console.log('HEADERS TIP', headersTip)
 
     /* Set block height. */
@@ -160,8 +173,24 @@ onMounted(() => {
         </h1>
 
         <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id eius voluptatem minus natus at eveniet dolorum eos mollitia, maxime animi excepturi harum omnis illum odit recusandae pariatur! Unde, explicabo molestias.
+            Stakehouse Address
         </p>
+
+        <NuxtLink :to="'https://explorer.nexa.org/address/' + rAddress" target="_blank" class="text-2xl font-medium text-blue-500 hover:underline">
+            {{abbr}}
+        </NuxtLink>
+
+        <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
+            Monitor your $AVAS balances and manage your payouts.
+        </p>
+
+        <input
+            type="text"
+            class="w-full px-5 py-5 text-2xl text-yellow-900 bg-yellow-100 border-2 border-yellow-400 rounded-xl shadow-md placeholder:text-yellow-600"
+            placeholder="Enter a nexa: address to search"
+            v-model="address"
+        />
+
     </main>
 
     <Footer />

@@ -1,6 +1,6 @@
 {
   "name": "avas-cash",
-  "version": "23.8.12",
+  "version": "23.8.20",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@bitauth/libauth": "1.19.1",
-    "@nexajs/address": "23.8.11",
+    "@nexajs/address": "23.8.18",
     "@nexajs/crypto": "23.5.22",
-    "@nexajs/rostrum": "23.8.11",
+    "@nexajs/rostrum": "23.8.18",
     "@nexajs/utils": "23.7.22",
     "@nexajs/wallet": "23.8.11",
     "@pinia/nuxt": "0.4.7",
