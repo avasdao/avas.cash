@@ -76,7 +76,13 @@ const toggleMenu = () => {
 }
 
 onMounted(() => {
+    /* Initailize system. */
     System.init()
+
+    /* Initialize wallet. */
+    // await Wallet.init()
+    Wallet.init()
+
 
     const app = initializeApp(firebaseConfig)
 

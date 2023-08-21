@@ -154,9 +154,6 @@ const init = async () => {
     /* Set (default) tab. */
     setTab('assets')
 
-    /* Initialize wallet. */
-    await Wallet.init()
-
     // /* Initialize tokens. */
     tokens.value = {}
 
