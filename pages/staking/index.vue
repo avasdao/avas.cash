@@ -125,7 +125,7 @@ const address = ref(null)
                 Our Stakehouses
             </h2>
 
-            <NuxtLink to="/staking/" class="h-48 px-5 flex flex-col justify-center items-center bg-rose-500 border-2 border-rose-700 rounded-2xl shadow">
+            <NuxtLink to="/staking/wagmi" class="h-48 px-5 flex flex-col justify-center items-center bg-rose-500 border-2 border-rose-700 rounded-2xl shadow">
                 <h2 class="text-5xl font-medium text-rose-100 text-center">
                     Wagmi
                     <span class="block text-3xl">Cattle Ranch & Brewery</span>
@@ -140,7 +140,7 @@ const address = ref(null)
                 </h4>
             </NuxtLink>
 
-            <NuxtLink to="/staking/" class="h-48 px-5 flex flex-col justify-center items-center bg-sky-500 border-2 border-sky-700 rounded-2xl shadow">
+            <NuxtLink to="/staking/toshis" class="h-48 px-5 flex flex-col justify-center items-center bg-sky-500 border-2 border-sky-700 rounded-2xl shadow">
                 <h2 class="text-5xl font-medium text-sky-100 text-center">
                     Toshi's
                     <span class="block text-3xl">Wagyu BBQ & Smoke</span>
@@ -155,7 +155,7 @@ const address = ref(null)
                 </h4>
             </NuxtLink>
 
-            <NuxtLink to="/staking/" class="h-48 px-5 flex flex-col justify-center items-center bg-purple-500 border-2 border-purple-700 rounded-2xl shadow">
+            <NuxtLink to="/staking/palms" class="h-48 px-5 flex flex-col justify-center items-center bg-purple-500 border-2 border-purple-700 rounded-2xl shadow">
                 <h3 class="text-5xl font-medium text-purple-100 text-center">
                     Palms
                     <span class="block text-3xl">d'Iamante</span>

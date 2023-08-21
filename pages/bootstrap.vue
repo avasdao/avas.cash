@@ -16,8 +16,6 @@ useHead({
 
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'
-
-/* Initialize System. */
 const System = useSystemStore()
 
 const campaign1History = ref(null)
@@ -28,49 +26,24 @@ const campaigns = ref([])
 
 const costAvg = ref(7.00)
 
-const campaign1 = {
-    id: '475b4cfc-ae95-419d-9681-cf378c083963',
-    address: 'nexa:nqtsq5g5kc24d57cclndrnapv3jxvl9vdjm9nh2ljgxpaw2s',
-    title: `Causes Cash: Peer-to-Peer Crowdfunding`,
-    summary: `Causes Cash introduces a full-service P2P crowdfunding platform to the Nexa community; built & managed by a team with years of experience servicing the Bitcoin Cash (BCH) community.`,
-    asking: 300000000,
-    rewards: 210000,
-    cost: 1428,
-    costUsd: 0.01,
+const receivedDisplay = (_campaign) => {
+    const received = _campaign.received
+
+    return numeral(received / 1e2).format('0,0.00') + ' NEXA'
 }
 
-const campaign2 = {
-    id: 'b8fac25d-e619-4ddf-b474-af084e8250ce',
-    address: 'nexa:nqtsq5g5thmjvg2dfcuhydxs38a8js5geqeuf9mfdc6ke4zr',
-    title: `Nexa Ledger Hardware Wallet`,
-    summary: `We're introducing the #1 market leader in Crypto hardware wallet security to secure the bags of Nexa's investors and manage their digital assets in a user-friendly and straightforward manner.`,
-    asking: 600000000,
-    rewards: 210000,
-    cost: 2857,
-    costUsd: 0.02,
+const askingDisplay = (_campaign) => {
+    const asking = _campaign.goals.reduce(
+        (total, _goal) => (total + _goal.amount), 0
+    )
+
+    return asking
 }
 
-const campaign3 = {
-    id: '707e2a8c-4eea-4c26-9ea2-c548e9e91726',
-    address: 'nexa:nqtsq5g5ve7r3ydnjhf78c3yttyg4zn0a9zyhejv8yv6xcx6',
-    title: `Decentralized Coin Mixer`,
-    summary: `Shuffle.cash is introducing Fungibility to your Nexa transactions by merging the MOST advanced Crypto privacy protocols & specifications (i.e. CoinJoin, CashShuffle and CashFusion).`,
-    asking: 600000000,
-    rewards: 210000,
-    cost: 2857,
-    costUsd: 0.02,
-}
-
-const campaign4 = {
-    id: 'f900d1b8-1ae0-4e18-8a2f-212631b62562',
-    address: 'nexa:nqtsq5g5k99c8530p4a0znzph6rckj6rfw456e3kqefv60lu',
-    title: `MetaNet: Nexa EVM Sidechain + dBridge`,
-    summary: `A comprehensive plan to build, test and deploy a SmartBCH-style sidechain for Nexa, powered by an Avalanche Subnet.`,
-    asking: 5000000000,
-    rewards: 210000,
-    cost: 23810,
-    costUsd: 0.17,
-}
+const campaign_1_id = '475b4cfc-ae95-419d-9681-cf378c083963'
+const campaign_2_id = 'b8fac25d-e619-4ddf-b474-af084e8250ce'
+const campaign_3_id = '707e2a8c-4eea-4c26-9ea2-c548e9e91726'
+const campaign_4_id = 'f900d1b8-1ae0-4e18-8a2f-212631b62562'
 
 const campaign5 = {
     id: null,
@@ -83,11 +56,11 @@ const campaign5 = {
     costUsd: 0.00,
 }
 
-campaigns.value.push(campaign1)
-campaigns.value.push(campaign2)
-campaigns.value.push(campaign3)
-campaigns.value.push(campaign4)
-campaigns.value.push(campaign5)
+// campaigns.value.push(campaign1)
+// campaigns.value.push(campaign2)
+// campaigns.value.push(campaign3)
+// campaigns.value.push(campaign4)
+
 
 watch(() => campaign1History.value, async (_history) => {
     let txid = _history[0].tx_hash
@@ -110,14 +83,39 @@ const copyToClipboard = (_text) => {
 }
 
 
-const loadCampaign1 = async () => {
-    campaign1History.value = await getAddressHistory(campaign1.address)
+// const loadCampaign1 = async () => {
+//     campaign1History.value = await getAddressHistory(campaign1.address)
+//         .catch(err => console.error(err))
+//     console.log('HISTORY', campaign1History.value)
+// }
+
+const init = async () => {
+    let response
+
+    response = await $fetch(`https://causes.cash/v1/campaign/${campaign_1_id}`)
         .catch(err => console.error(err))
-    console.log('HISTORY', campaign1History.value)
+    campaigns.value.push(response)
+    console.log('CAMPAIGN 1', response)
+
+    response = await $fetch(`https://causes.cash/v1/campaign/${campaign_2_id}`)
+        .catch(err => console.error(err))
+    campaigns.value.push(response)
+
+    response = await $fetch(`https://causes.cash/v1/campaign/${campaign_3_id}`)
+        .catch(err => console.error(err))
+    campaigns.value.push(response)
+
+    response = await $fetch(`https://causes.cash/v1/campaign/${campaign_4_id}`)
+        .catch(err => console.error(err))
+    campaigns.value.push(response)
+
+    campaigns.value.push(campaign5)
 }
 
 onMounted(() => {
-    loadCampaign1()
+    // loadCampaign1()
+    init()
+    // campaign_1_id
 })
 
 // onBeforeUnmount(() => {
@@ -187,7 +185,7 @@ onMounted(() => {
 
                     <p class="mt-6 flex items-baseline gap-x-1">
                         <span class="text-4xl font-bold tracking-tight text-gray-900">
-                            $0.00
+                            {{receivedDisplay(campaign)}}
                         </span>
 
                         <span class="text-sm font-semibold leading-6 text-gray-600">
@@ -217,7 +215,7 @@ onMounted(() => {
                                 <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                             </svg>
 
-                            <h3>Asking: <strong>{{numeral(campaign.asking).format('0,0')}}</strong> NEXA</h3>
+                            <h3>Asking: <strong>{{askingDisplay(campaign)}}</strong> NEXA</h3>
                         </li>
 
                         <li class="flex gap-x-3">
