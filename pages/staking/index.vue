@@ -58,13 +58,13 @@ const address = ref(null)
                                 Ava's DAO is introducing UTXO staking with premium, on-chain rewards paid out each and every day.
                             </p>
 
-                            <h2>
+                            <!-- <h2>
                                 TOP STAKED ADDRESSES
                             </h2>
 
                             <ol>
                                 <li>100,000 $AVAS</li>
-                            </ol>
+                            </ol> -->
                         </div>
 
                         <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
@@ -121,39 +121,51 @@ const address = ref(null)
         </div>
 
         <section class="px-3 sm:px-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <h2 class="col-span-1 lg:col-span-3 text-3xl font-medium">
-                My Stakehouses
+            <h2 class="pl-10 col-span-1 lg:col-span-3 text-4xl font-medium">
+                Our Stakehouses
             </h2>
 
-            <NuxtLink to="/staking/wagmi" class="h-48 flex flex-col justify-center items-center bg-rose-500 border-4 border-rose-700 rounded-2xl shadow">
-                <h3 class="text-3xl font-medium text-rose-100">
-                    Wagmi Cattle Ranch & Brewery
-                    Month (30 days)
+            <NuxtLink to="/staking/" class="h-48 px-5 flex flex-col justify-center items-center bg-rose-500 border-2 border-rose-700 rounded-2xl shadow">
+                <h2 class="text-5xl font-medium text-rose-100 text-center">
+                    Wagmi
+                    <span class="block text-3xl">Cattle Ranch & Brewery</span>
+                </h2>
+
+                <h3 class="text-xl font-medium text-rose-100">
+                    30-day Reservations
                 </h3>
 
-                <h4 class="text-lg font-medium text-rose-100">
+                <h4 class="text-3xl font-medium text-rose-300">
                     1X Payouts
                 </h4>
             </NuxtLink>
 
-            <NuxtLink to="/staking/toshis" class="h-48 flex flex-col justify-center items-center bg-sky-500 border-4 border-sky-700 rounded-2xl shadow">
-                <h3 class="text-3xl font-medium text-sky-100">
-                    Toshi's Wagyu BBQ & Smoke
-                    Quarter (90 days)
+            <NuxtLink to="/staking/" class="h-48 px-5 flex flex-col justify-center items-center bg-sky-500 border-2 border-sky-700 rounded-2xl shadow">
+                <h2 class="text-5xl font-medium text-sky-100 text-center">
+                    Toshi's
+                    <span class="block text-3xl">Wagyu BBQ & Smoke</span>
+                </h2>
+
+                <h3 class="text-xl font-medium text-sky-100">
+                    90-day Reservations
                 </h3>
 
-                <h4 class="text-lg font-medium text-sky-100">
+                <h4 class="text-3xl font-medium text-sky-300">
                     2X Payouts
                 </h4>
             </NuxtLink>
 
-            <NuxtLink to="/staking/palms" class="h-48 flex flex-col justify-center items-center bg-purple-500 border-4 border-purple-700 rounded-2xl shadow">
-                <h3 class="text-3xl font-medium text-purple-100">
-                    Palms d'Iamante
-                    Year (365 days)
+            <NuxtLink to="/staking/" class="h-48 px-5 flex flex-col justify-center items-center bg-purple-500 border-2 border-purple-700 rounded-2xl shadow">
+                <h3 class="text-5xl font-medium text-purple-100 text-center">
+                    Palms
+                    <span class="block text-3xl">d'Iamante</span>
                 </h3>
 
-                <h4 class="text-lg font-medium text-purple-100">
+                <h3 class="text-xl font-medium text-purple-100">
+                    1-Year Reservations
+                </h3>
+
+                <h4 class="text-3xl font-medium text-purple-300">
                     3X Payouts
                 </h4>
             </NuxtLink>

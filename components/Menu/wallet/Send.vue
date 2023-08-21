@@ -122,7 +122,7 @@ const send = async () => {
         console.log(`Starting transfer of ${amount.value} ${Wallet.asset.ticker} to ${receiver.value}...`)
 
         const response = await Wallet.transfer(receiver.value, BigInt(satoshis.value))
-        console.log('TXIDEM', response)
+        console.log('RESPONSE', response)
 
         /* Validate transaction idem. */
         if (response) {
@@ -131,7 +131,7 @@ const send = async () => {
             receiver.value = null
 
             /* Set transaction idem. */
-            txidem.value = response.result
+            txidem.value = response.txidem
 
             // TODO Add "proper" notification system.
             // alert(`Transaction sent successfully!\n\n${response.result}`)

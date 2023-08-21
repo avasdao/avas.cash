@@ -2,37 +2,39 @@
 import { defineStore } from 'pinia'
 
 import {
+    encodeAddress,
+    listUnspent,
+} from '@nexajs/address'
+
+import { sha256 } from '@nexajs/crypto'
+
+import {
     encodePrivateKeyWif,
     entropyToMnemonic,
     mnemonicToEntropy,
 } from '@nexajs/hdnode'
 
+import { getCoins } from '@nexajs/purse'
+
 import {
+    getTip,
     getTokenInfo,
     subscribeAddress,
 } from '@nexajs/rostrum'
 
-import { listUnspent } from '@nexajs/address'
-import { sha256 } from '@nexajs/crypto'
-import { Wallet } from '@nexajs/wallet'
-
-import { encodeAddress } from '@nexajs/address'
-
-import { sha256 } from '@nexajs/crypto'
+import { OP } from '@nexajs/script'
 
 import {
-    encodePrivateKeyWif,
-    parseWif,
-} from '@nexajs/hdnode'
-
-// import { getTip } from '@nexajs/rostrum'
-
-import { OP } from '@nexajs/script'
+    getTokens,
+    sendToken,
+} from '@nexajs/token'
 
 import {
     binToHex,
     hexToBin,
 } from '@nexajs/utils'
+
+import { Wallet } from '@nexajs/wallet'
 
 /* Libauth helpers. */
 import {
@@ -47,6 +49,8 @@ import _createWallet from './wallet/create.ts'
 const ripemd160 = await instantiateRipemd160()
 const secp256k1 = await instantiateSecp256k1()
 
+/* Set ($AVAS) token id. */
+const AVAS_TOKENID = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000'
 
 /**
  * Wallet Store
@@ -169,7 +173,7 @@ export const useWalletStore = defineStore('wallet', {
         },
 
         stakehouse(_state) {
-            /* Validate wallet. */
+            /* Validate private key. */
             if (!_state._wallet?.privateKey) {
                 return null
             }
@@ -198,7 +202,7 @@ export const useWalletStore = defineStore('wallet', {
             let wif
 
             /* Encode Private Key WIF. */
-            wif = encodePrivateKeyWif({ hash: sha256 }, hexToBin(_state._wallet.privateKey), 'mainnet')
+            wif = encodePrivateKeyWif({ hash: sha256 }, _state._wallet.privateKey, 'mainnet')
             // console.log('WALLET IMPORT FORMAT', wif)
 
             // NOTE: NexScript v0.1.0 offers a less-than optimized version
@@ -219,7 +223,7 @@ export const useWalletStore = defineStore('wallet', {
             console.log('SCRIPT HASH (hex):', binToHex(scriptHash))
 
             /* Derive the corresponding public key. */
-            publicKey = secp256k1.derivePublicKeyCompressed(hexToBin(_state._wallet.privateKey))
+            publicKey = secp256k1.derivePublicKeyCompressed(_state._wallet.privateKey)
             // console.log('PUBLIC KEY (hex)', binToHex(publicKey))
 
             /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
@@ -448,6 +452,261 @@ export const useWalletStore = defineStore('wallet', {
             } else {
                 /* Send tokens. */
                 return await this.wallet.send(this.asset.token_id_hex, _receiver, _satoshis)
+            }
+        },
+
+        async makeReservation() {
+            let argsData
+            let blockHeight
+            let blockHeightScript
+            let coins
+            let constraintData
+            let constraintHash
+            let headersTip
+            let lockTime
+            let nexaAddress
+            let nullData
+            let publicKey
+            let publicKeyHash
+            let receivers
+            let response
+            let script
+            let scriptData
+            let scriptPubKey
+            let tokens
+            let txResult
+            let unspentTokens
+            let userData
+            let wif
+
+            /* Encode Private Key WIF. */
+            wif = encodePrivateKeyWif({ hash: sha256 }, this._wallet.privateKey, 'mainnet')
+            // console.log('WALLET IMPORT FORMAT', wif)
+
+            /* Derive the corresponding public key. */
+            publicKey = secp256k1.derivePublicKeyCompressed(this._wallet.privateKey)
+            // console.log('PUBLIC KEY (hex)', binToHex(publicKey))
+
+            /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
+            scriptData = encodeDataPush(publicKey)
+            // console.log('\n  Script Data:', scriptData)
+
+            publicKeyHash = ripemd160.hash(sha256(scriptData))
+            // console.log('PUBLIC KEY HASH (hex)', binToHex(publicKeyHash))
+
+            scriptPubKey = new Uint8Array([
+                OP.ZERO,
+                OP.ONE,
+                ...encodeDataPush(publicKeyHash),
+            ])
+            console.info('\n  Script Public Key:', binToHex(scriptPubKey))
+
+            /* Reques header's tip. */
+            headersTip = await getTip()
+            console.log('HEADERS TIP', headersTip)
+
+            /* Encode the public key hash into a P2PKH nexa address. */
+            nexaAddress = encodeAddress(
+                'nexa',
+                'TEMPLATE',
+                encodeDataPush(scriptPubKey),
+            )
+            console.info('\n  Nexa address:', nexaAddress)
+            // return console.info('\n  Wallet address:', this.address)
+
+            const scriptCoins = await getCoins(wif, scriptPubKey)
+                .catch(err => console.error(err))
+            console.log('\n  Script Coins:', scriptCoins)
+
+            const scriptTokens = await getTokens(wif, scriptPubKey)
+                .catch(err => console.error(err))
+            console.log('\n  Script Tokens:', scriptTokens)
+
+            receivers = [
+                {
+                    address: this.stakehouse,
+                    tokenid: AVAS_TOKENID,
+                    tokens: BigInt(1),
+                },
+                {
+                    address: this.stakehouse,
+                    satoshis: BigInt(1000),
+                },
+            ]
+
+            // FIXME: FOR DEV PURPOSES ONLY
+            receivers.push({
+                address: nexaAddress,
+            })
+            console.log('\n  Receivers:', receivers)
+
+            lockTime = headersTip.height
+            // return console.log('LOCK TIME', lockTime)
+
+            /* Send UTXO request. */
+            response = await sendToken(scriptCoins, scriptTokens, receivers)
+            // response = await sendToken({
+            //     coins: scriptCoins,
+            //     tokens: scriptTokens,
+            //     receivers,
+            //     lockTime,
+            //     // sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
+            //     // script,
+            // })
+            console.log('Send UTXO (response):', response)
+
+            try {
+                txResult = JSON.parse(response)
+                console.log('TX RESULT', txResult)
+
+                if (txResult.error) {
+                    console.error(txResult.message)
+                }
+
+                // expect(txResult.result).to.have.length(64)
+            } catch (err) {
+                console.error(err)
+            }
+        },
+
+        async redeem() {
+            let argsData
+            let blockHeight
+            let blockHeightScript
+            let coins
+            let constraintData
+            let constraintHash
+            let headersTip
+            let lockTime
+            let nexaAddress
+            let nullData
+            let publicKey
+            let receivers
+            let response
+            let script
+            let scriptHash
+            let scriptPubKey
+            let tokens
+            let txResult
+            let unspentTokens
+            let userData
+            let wif
+
+            /* Encode Private Key WIF. */
+            wif = encodePrivateKeyWif({ hash: sha256 }, this._wallet.privateKey, 'mainnet')
+            // console.log('WALLET IMPORT FORMAT', wif)
+
+            // NOTE: NexScript v0.1.0 offers a less-than optimized version
+            //       of this (script) contract (w/ the addition of `OP_SWAP`).
+            script = new Uint8Array([
+                OP.FROMALTSTACK,
+                    OP.FROMALTSTACK,    // un-optimized version
+                    OP.SWAP,            // un-optimized version
+                    OP.CHECKSEQUENCEVERIFY,
+                        OP.DROP,
+                // OP.FROMALTSTACK,        // optimized version
+                    OP.CHECKSIGVERIFY,
+            ])
+            console.info('\n  Script / Contract:', binToHex(script))
+
+            scriptHash = ripemd160.hash(sha256(script))
+            // console.log('SCRIPT HASH:', scriptHash)
+            console.log('SCRIPT HASH (hex):', binToHex(scriptHash))
+
+            /* Derive the corresponding public key. */
+            publicKey = secp256k1.derivePublicKeyCompressed(this._wallet.privateKey)
+            // console.log('PUBLIC KEY (hex)', binToHex(publicKey))
+
+            /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
+            constraintData = encodeDataPush(publicKey)
+            console.log('\n  Arguments Data:', constraintData)
+
+            constraintHash = ripemd160.hash(sha256(constraintData))
+            // console.log('CONSTRAINT HASH:', constraintHash)
+            console.log('CONSTRAINT HASH (hex):', binToHex(constraintHash))
+
+            /* Reques header's tip. */
+            headersTip = await getTip()
+            console.log('HEADERS TIP', headersTip)
+
+            /* Build script public key. */
+            scriptPubKey = new Uint8Array([
+                OP.ZERO, // script template
+                ...encodeDataPush(scriptHash), // script hash
+                ...encodeDataPush(constraintHash),  // arguments hash
+                ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+            ])
+            console.info('\n  Script Public Key:', binToHex(scriptPubKey))
+
+            /* Encode the public key hash into a P2PKH nexa address. */
+            nexaAddress = encodeAddress(
+                'nexa',
+                'TEMPLATE',
+                encodeDataPush(scriptPubKey),
+            )
+            console.info('\n  Nexa address:', nexaAddress)
+            // return console.info('\n  Wallet address:', this.address)
+
+            const scriptCoins = await getCoins(wif, scriptPubKey)
+                .catch(err => console.error(err))
+            console.log('\n  Script Coins:', scriptCoins)
+
+            const scriptTokens = await getTokens(wif, scriptPubKey)
+                .catch(err => console.error(err))
+            console.log('\n  Script Tokens:', scriptTokens)
+
+            const redeemToken = scriptTokens.find(_token => {
+                return _token.tokens === BigInt(1)
+            })
+            console.log('REDEEM TOKEN', redeemToken)
+
+            /* Calculate the total balance of the unspent outputs. */
+            // FIXME: Add support for BigInt.
+            // unspentTokens = tokens
+            //     .reduce(
+            //         (totalValue, unspentOutput) => (totalValue + unspentOutput.tokens), BigInt(0)
+            //     )
+            // console.log('UNSPENT TOKENS', unspentTokens)
+
+            receivers = [
+                {
+                    address: this.address,
+                    tokenid: AVAS_TOKENID,
+                    tokens: BigInt(1),
+                },
+            ]
+
+            // FIXME: FOR DEV PURPOSES ONLY
+            receivers.push({
+                address: nexaAddress,
+            })
+            console.log('\n  Receivers:', receivers)
+
+            lockTime = headersTip.height
+            // return console.log('LOCK TIME', lockTime)
+
+            /* Send UTXO request. */
+            response = await sendToken({
+                coins: scriptCoins,
+                tokens: [redeemToken],
+                receivers,
+                lockTime,
+                sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
+                script,
+            })
+            console.log('Send UTXO (response):', response)
+
+            try {
+                txResult = JSON.parse(response)
+                console.log('TX RESULT', txResult)
+
+                if (txResult.error) {
+                    console.error(txResult.message)
+                }
+
+                // expect(txResult.result).to.have.length(64)
+            } catch (err) {
+                console.error(err)
             }
         },
 
