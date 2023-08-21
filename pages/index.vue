@@ -103,7 +103,7 @@ onMounted(() => {
                             <div class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
                                 <div class="relative">
                                     <img
-                                        src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
+                                        src="https://images.unsplash.com/photo-1605713288610-00c1c630ca1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80"
                                         alt=""
                                         class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                     />
@@ -113,7 +113,7 @@ onMounted(() => {
                             <div class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
                                 <div class="relative">
                                     <img
-                                        src="https://images.unsplash.com/photo-1485217988980-11786ced9454?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
+                                        src="https://images.unsplash.com/photo-1597155135675-d4cef690184a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=589&q=80"
                                         alt=""
                                         class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                     />
@@ -121,7 +121,7 @@ onMounted(() => {
                                 </div>
                                 <div class="relative">
                                     <img
-                                        src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=396&h=528&q=80"
+                                        src="https://images.unsplash.com/photo-1624789389787-91e252ff8dac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1261&q=80"
                                         alt=""
                                         class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                     />
@@ -131,7 +131,7 @@ onMounted(() => {
                             <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
                                 <div class="relative">
                                     <img
-                                        src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
+                                        src="https://images.unsplash.com/photo-1607863680198-23d4b2565df0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
                                         alt=""
                                         class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                     />
@@ -139,7 +139,7 @@ onMounted(() => {
                                 </div>
                                 <div class="relative">
                                     <img
-                                        src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
+                                        src="https://images.unsplash.com/photo-1519419691348-3b3433c4c20e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=326&q=80"
                                         alt=""
                                         class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                                     />
