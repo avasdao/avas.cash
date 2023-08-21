@@ -125,7 +125,7 @@ const send = async () => {
         console.log('RESPONSE', response)
 
         /* Validate transaction idem. */
-        if (response) {
+        if (response?.txidem) {
             /* Reset user inputs. */
             amount.value = null
             receiver.value = null
@@ -135,9 +135,9 @@ const send = async () => {
 
             // TODO Add "proper" notification system.
             // alert(`Transaction sent successfully!\n\n${response.result}`)
-        } else {
+        } else if (response?.error) {
             /* Set error. */
-            error.value = response
+            error.value = response?.error?.message || JSON.stringify(response?.error)
 
             // alert(JSON.stringify(response, null, 2))
         }
