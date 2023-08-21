@@ -14,6 +14,7 @@ import { instantiateRipemd160 } from '@bitauth/libauth'
 /* Libauth helpers. */
 import { encodeDataPush } from '@bitauth/libauth'
 
+/* Import clipboard manager. */
 import './system/clipboard.ts'
 
 /* Initialize constants. */
