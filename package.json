@@ -15,7 +15,7 @@
     "@nexajs/crypto": "23.5.22",
     "@nexajs/rostrum": "23.8.18",
     "@nexajs/utils": "23.7.22",
-    "@nexajs/wallet": "^23.8.20",
+    "@nexajs/wallet": "23.8.21",
     "@pinia/nuxt": "0.4.7",
     "firebase": "10.1.0",
     "moment": "2.29.4",

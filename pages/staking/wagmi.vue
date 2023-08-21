@@ -6,49 +6,18 @@ useHead({
     ],
 })
 
-import { encodeAddress } from '@nexajs/address'
-
-import { sha256 } from '@nexajs/crypto'
-
-import {
-    encodePrivateKeyWif,
-    parseWif,
-} from '@nexajs/hdnode'
-
-// import { getTip } from '@nexajs/rostrum'
-
-import { OP } from '@nexajs/script'
-
-import {
-    binToHex,
-    hexToBin,
-} from '@nexajs/utils'
-
-/* Libauth helpers. */
-import {
-    encodeDataPush,
-    instantiateRipemd160,
-    instantiateSecp256k1,
-} from '@bitauth/libauth'
-
 /* Initialize stores. */
 import { useWalletStore } from '@/stores/wallet'
 import { useSystemStore } from '@/stores/system'
 const Wallet = useWalletStore()
 const System = useSystemStore()
 
-const rAddress = ref(null)
-
-/* Instantiate Libauth crypto interfaces. */
-const ripemd160 = await instantiateRipemd160()
-const secp256k1 = await instantiateSecp256k1()
-
 const abbr = computed(() => {
-    if (!rAddress.value) {
+    if (!Wallet.stakehouse) {
         return 'n/a'
     }
 
-    return rAddress.value.slice(0, 20) + ' ... ' + rAddress.value.slice(-20)
+    return Wallet.stakehouse.slice(0, 20) + ' ... ' + Wallet.stakehouse.slice(-20)
 })
 
 const init = () => {
@@ -56,103 +25,7 @@ const init = () => {
     console.log('WALLET (privateKey)', Wallet.wallet.privateKey)
     console.log('WALLET (address)', Wallet.address)
 
-    rAddress.value = getAddressWagmi()
-    console.log('WAGMI ADDRESS', rAddress.value)
-}
-
-const getAddressWagmi = () => {
-    let argsData
-    let blockHeight
-    let blockHeightScript
-    let coins
-    let constraintData
-    let constraintHash
-    let headersTip
-    let lockTime
-    let nexaAddress
-    let nullData
-    let publicKey
-    let receivers
-    let response
-    let script
-    let scriptHash
-    let scriptPubKey
-    let tokens
-    let txResult
-    let unspentTokens
-    let userData
-    let wif
-
-    /* Encode Private Key WIF. */
-    wif = encodePrivateKeyWif({ hash: sha256 }, hexToBin(Wallet.wallet.privateKey), 'mainnet')
-    // console.log('WALLET IMPORT FORMAT', wif)
-
-    // NOTE: NexScript v0.1.0 offers a less-than optimized version
-    //       of this (script) contract (w/ the addition of `OP_SWAP`).
-    script = new Uint8Array([
-        OP.FROMALTSTACK,
-            OP.FROMALTSTACK,    // un-optimized version
-            OP.SWAP,            // un-optimized version
-            OP.CHECKSEQUENCEVERIFY,
-                OP.DROP,
-        // OP.FROMALTSTACK,        // optimized version
-            OP.CHECKSIGVERIFY,
-    ])
-    console.info('\n  Script / Contract:', binToHex(script))
-
-    scriptHash = ripemd160.hash(sha256(script))
-    // console.log('SCRIPT HASH:', scriptHash)
-    console.log('SCRIPT HASH (hex):', binToHex(scriptHash))
-
-    /* Derive the corresponding public key. */
-    publicKey = secp256k1.derivePublicKeyCompressed(hexToBin(Wallet.wallet.privateKey))
-    // console.log('PUBLIC KEY (hex)', binToHex(publicKey))
-
-    /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
-    constraintData = encodeDataPush(publicKey)
-    console.log('\n  Arguments Data:', constraintData)
-
-    constraintHash = ripemd160.hash(sha256(constraintData))
-    // console.log('CONSTRAINT HASH:', constraintHash)
-    console.log('CONSTRAINT HASH (hex):', binToHex(constraintHash))
-
-    /* Reques header's tip. */
-    // headersTip = await getTip()
-    // console.log('HEADERS TIP', headersTip)
-
-    /* Set block height. */
-    // blockHeight = Number(headersTip.height)
-    // blockHeight = 343350
-    // console.log('BLOCK HEIGHT', blockHeight)
-
-    /* Set block height (script). */
-    // FIXME Use a "better" method (but good until block 0xFFFFFF).
-    // blockHeightScript = hexToBin(reverseHex(
-    //     blockHeight
-    //         .toString(16)
-    //         .padStart(6, '0') // 12-bits
-    // ))
-    // console.log('BLOCK HEIGHT (script):', blockHeightScript)
-
-    /* Build script public key. */
-    scriptPubKey = new Uint8Array([
-        OP.ZERO, // script template
-        ...encodeDataPush(scriptHash), // script hash
-        ...encodeDataPush(constraintHash),  // arguments hash
-        // ...encodeDataPush(blockHeightScript), // block height (script)
-        ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
-    ])
-    console.info('\n  Script Public Key:', binToHex(scriptPubKey))
-
-    /* Encode the public key hash into a P2PKH nexa address. */
-    nexaAddress = encodeAddress(
-        'nexa',
-        'TEMPLATE',
-        encodeDataPush(scriptPubKey),
-    )
-    console.info('\n  Nexa address:', nexaAddress)
-
-    return nexaAddress
+    console.log('STAKEHOUSE ADDRESS', Wallet.stakehouse)
 }
 
 onMounted(() => {
@@ -179,7 +52,7 @@ onMounted(() => {
                     My Stakehouse Address
                 </h3>
 
-                <NuxtLink :to="'https://explorer.nexa.org/address/' + rAddress" target="_blank" class="-mt-2 text-2xl font-medium text-blue-500 hover:text-blue-400">
+                <NuxtLink :to="'https://explorer.nexa.org/address/' + Wallet.stakehouse" target="_blank" class="-mt-2 text-2xl font-medium text-blue-500 hover:text-blue-400">
                     {{abbr}}
                 </NuxtLink>
 
