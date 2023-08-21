@@ -192,6 +192,4 @@ onMounted(() => {
         />
 
     </main>
-
-    <Footer />
 </template>
