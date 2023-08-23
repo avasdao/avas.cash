@@ -158,36 +158,36 @@ const redeem = async () => {
                     <div class="mx-auto grid max-w-md grid-cols-1 gap-8 lg:max-w-4xl lg:grid-cols-2">
                         <div class="flex flex-col justify-between rounded-3xl bg-white p-8 shadow-xl ring-1 ring-gray-900/10 sm:p-10">
                             <div>
-                                <h3 id="tier-hobby" class="text-base font-semibold leading-7 text-indigo-600">Hobby</h3>
+                                <h3 id="tier-hobby" class="text-base font-semibold leading-7 text-indigo-600">
+                                    Prix Fixe Petite
+                                </h3>
+
                                 <div class="mt-4 flex items-baseline gap-x-2">
-                                    <span class="text-5xl font-bold tracking-tight text-gray-900">$49</span>
-                                    <span class="text-base font-semibold leading-7 text-gray-600">/month</span>
+                                    <span class="text-5xl font-bold tracking-tight text-gray-900">$33.88</span>
+                                    <span class="text-base font-semibold leading-7 text-gray-600">/ of $112.77</span>
                                 </div>
-                                <p class="mt-6 text-base leading-7 text-gray-600">Modi dolorem expedita deleniti. Corporis iste qui inventore pariatur adipisci vitae.</p>
+
+                                <p class="mt-6 text-base leading-7 text-gray-600">
+                                    Enjoy a sumptuous serving of <span class="text-lg font-medium text-indigo-500">Daily Payouts</span> with this delectable selection from our menu.
+                                </p>
+
                                 <ul role="list" class="mt-10 space-y-4 text-sm leading-6 text-gray-600">
                                     <li class="flex gap-x-3">
                                         <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                                         </svg>
-                                        5 products
+
+                                        <span>
+                                            Treasury Payouts will be delivered @ approx <span class="text-base font-medium text-indigo-500">4:20 UTC</span> each and every day
+                                        </span>
                                     </li>
+
                                     <li class="flex gap-x-3">
                                         <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                                         </svg>
-                                        Up to 1,000 subscribers
-                                    </li>
-                                    <li class="flex gap-x-3">
-                                        <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                        </svg>
-                                        Basic analytics
-                                    </li>
-                                    <li class="flex gap-x-3">
-                                        <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                        </svg>
-                                        48-hour support response time
+
+                                        Over 700+ hours of financial gratification
                                     </li>
                                 </ul>
                             </div>
@@ -200,47 +200,51 @@ const redeem = async () => {
                                 Stake 25%
                             </button>
                         </div>
+
                         <div class="flex flex-col justify-between rounded-3xl bg-white p-8 shadow-xl ring-1 ring-gray-900/10 sm:p-10">
                             <div>
-                                <h3 id="tier-team" class="text-base font-semibold leading-7 text-indigo-600">Team</h3>
+                                <h3 id="tier-team" class="text-base font-semibold leading-7 text-indigo-600">
+                                    Prix Fixe Grande
+                                </h3>
+
                                 <div class="mt-4 flex items-baseline gap-x-2">
-                                    <span class="text-5xl font-bold tracking-tight text-gray-900">$79</span>
-                                    <span class="text-base font-semibold leading-7 text-gray-600">/month</span>
+                                    <span class="text-5xl font-bold tracking-tight text-gray-900">$67.52</span>
+                                    <span class="text-base font-semibold leading-7 text-gray-600">/ of $112.77</span>
                                 </div>
-                                <p class="mt-6 text-base leading-7 text-gray-600">Explicabo quo fugit vel facere ullam corrupti non dolores. Expedita eius sit sequi.</p>
+
+                                <p class="mt-6 text-base leading-7 text-gray-600">
+                                    Enjoy a sumptuous serving of <span class="text-lg font-medium text-indigo-500">Daily Payouts</span> with this delectable selection from our menu.
+                                </p>
+
                                 <ul role="list" class="mt-10 space-y-4 text-sm leading-6 text-gray-600">
                                     <li class="flex gap-x-3">
                                         <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                                         </svg>
-                                        Unlimited products
+
+                                        <span>
+                                            Treasury Payouts will be delivered @ approx <span class="text-base font-medium text-indigo-500">4:20 UTC</span> each and every day
+                                        </span>
                                     </li>
+
                                     <li class="flex gap-x-3">
                                         <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                                         </svg>
-                                        Unlimited subscribers
+
+                                        Over 700+ hours of financial gratification
                                     </li>
+
                                     <li class="flex gap-x-3">
                                         <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                                         </svg>
-                                        Advanced analytics
-                                    </li>
-                                    <li class="flex gap-x-3">
-                                        <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                        </svg>
-                                        1-hour, dedicated support response time
-                                    </li>
-                                    <li class="flex gap-x-3">
-                                        <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                        </svg>
-                                        Marketing automations
+
+                                        Enjoy an extra-large serving size of our healthy and delicious $NEXA bites
                                     </li>
                                 </ul>
                             </div>
+
                             <button
                                 @click="redeem"
                                 aria-describedby="tier-team"
