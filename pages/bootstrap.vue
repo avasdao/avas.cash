@@ -33,6 +33,10 @@ const receivedDisplay = (_campaign) => {
 }
 
 const askingDisplay = (_campaign) => {
+    if (!_campaign.goals) {
+        return 0
+    }
+
     const asking = _campaign.goals.reduce(
         (total, _goal) => (total + _goal.amount), 0
     )
