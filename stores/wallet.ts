@@ -59,6 +59,8 @@ let secp256k1
 /* Set ($AVAS) token id. */
 const AVAS_TOKENID = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000'
 
+const TX_GAS_AMOUNT = 1000 // 10.00 NEXA
+
 // NOTE: This is the "optimized" version of the NexScript v0.1.0
 //       Stakehouse contract (w/out the use of `OP_SWAP`), which saves 1 byte.
 const STAKEHOUSE_SCRIPT = new Uint8Array([
@@ -429,8 +431,10 @@ export const useWalletStore = defineStore('wallet', {
             let publicKeyHash
             let receivers
             let response
+            let scriptCoins
             let scriptData
             let scriptPubKey
+            let scriptTokens
             let txResult
             let wif
 
@@ -463,13 +467,17 @@ export const useWalletStore = defineStore('wallet', {
             )
             console.info('\n  Nexa address:', nexaAddress)
 
-            const scriptCoins = await getCoins(wif, scriptPubKey)
+            scriptCoins = await getCoins(wif, scriptPubKey)
                 .catch(err => console.error(err))
             console.log('\n  Script Coins:', scriptCoins)
 
-            const scriptTokens = await getTokens(wif, scriptPubKey)
+            scriptTokens = await getTokens(wif, scriptPubKey)
                 .catch(err => console.error(err))
             console.log('\n  Script Tokens:', scriptTokens)
+
+            scriptTokens = scriptTokens.filter(_token => {
+                return _token.tokenidHex === AVAS_TOKENID
+            })
 
             receivers = [
                 {
@@ -479,7 +487,7 @@ export const useWalletStore = defineStore('wallet', {
                 },
                 {
                     address: this.stakehouse,
-                    satoshis: BigInt(1000),
+                    satoshis: BigInt(TX_GAS_AMOUNT),
                 },
             ]
 
@@ -511,21 +519,25 @@ export const useWalletStore = defineStore('wallet', {
         },
 
         async redeem(_redeemToken) {
-            console.log('REDEEM TOKEN', _redeemToken)
+            // console.log('REDEEM TOKEN', _redeemToken)
 
-            let height
-            let outpoint
-
+            let coinOutpoint
             let constraintData
             let constraintHash
             let headersTip
             let lockTime
             let nexaAddress
+            let outpointDetails
+            let outpointTx
             let publicKey
             let receivers
+            let redeemCoin
+            let redeemToken
             let response
+            let scriptCoins
             let scriptHash
             let scriptPubKey
+            let scriptTokens
             let txResult
             let wif
 
@@ -563,29 +575,29 @@ export const useWalletStore = defineStore('wallet', {
             )
             console.info('\n  Nexa address:', nexaAddress)
 
-            const outpointDetails = await getOutpoint(_redeemToken.outpoint)
+            outpointDetails = await getOutpoint(_redeemToken.outpoint)
                 .catch(err => console.error(err))
 
-            const outpointTx = await getTransaction(outpointDetails.tx_hash)
+            outpointTx = await getTransaction(outpointDetails.tx_hash)
                 .catch(err => console.error(err))
 
-            const coinOutpoint = outpointTx.vout.find(_output => {
-                return _output.value_satoshi === 1000
+            coinOutpoint = outpointTx.vout.find(_output => {
+                return _output.value_satoshi === TX_GAS_AMOUNT
             })
 
-            const scriptCoins = await getCoins(wif, scriptPubKey)
+            scriptCoins = await getCoins(wif, scriptPubKey)
                 .catch(err => console.error(err))
             console.log('\n  Script Coins:', scriptCoins)
 
-            const scriptTokens = await getTokens(wif, scriptPubKey)
+            scriptTokens = await getTokens(wif, scriptPubKey)
                 .catch(err => console.error(err))
             console.log('\n  Script Tokens:', scriptTokens)
 
-            const redeemToken = scriptTokens.find(_token => {
+            redeemToken = scriptTokens.find(_token => {
                 return _token.outpoint === _redeemToken.outpoint
             })
 
-            const redeemCoin = scriptCoins.find(_coin => {
+            redeemCoin = scriptCoins.find(_coin => {
                 return _coin.outpoint === coinOutpoint.outpoint_hash
             })
 
@@ -612,7 +624,8 @@ export const useWalletStore = defineStore('wallet', {
                 tokens: [redeemToken],
                 receivers,
                 lockTime,
-                sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
+                // sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
+                sequence: 0x4013c7, // set (timestamp) flag + 5,063 (512-second) cycles
                 script: STAKEHOUSE_SCRIPT,
             })
             console.log('Send UTXO (response):', response)

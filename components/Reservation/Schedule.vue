@@ -37,9 +37,10 @@ const tokens = computed(() => {
         return []
     }
 
-    return unspent.value.filter(_unspent => {
-        return _unspent.hasToken
-    })
+    return unspent.value
+        .filter(_unspent => _unspent.hasToken)
+        .filter(_unspent => _unspent.tokenid === AVAS_TOKENID)
+
 })
 
 const init = async () => {
