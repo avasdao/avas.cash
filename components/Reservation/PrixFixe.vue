@@ -139,8 +139,8 @@ const stakeCustom = () => {
                                 </h3>
 
                                 <div class="mt-4 flex items-baseline gap-x-2">
-                                    <span class="text-5xl font-bold tracking-tight text-gray-900">{{numeral(parseFloat(totalTokens) / 1e6 / 4.0).format('0,0.00')}}</span>
-                                    <span class="text-base font-semibold leading-7 text-gray-600">/ of {{numeral(parseFloat(totalTokens) / 1e6).format('0,0.00[00]')}}</span>
+                                    <span class="text-5xl font-bold tracking-tight text-gray-900">{{numeral(parseFloat(totalTokens) / 1e8 / 4.0).format('0,0.00')}}</span>
+                                    <span class="text-base font-semibold leading-7 text-gray-600">/ of {{numeral(parseFloat(totalTokens) / 1e8).format('0,0.00[00]')}}</span>
                                 </div>
 
                                 <p class="mt-6 text-base leading-7 text-gray-600">
@@ -184,8 +184,8 @@ const stakeCustom = () => {
                                 </h3>
 
                                 <div class="mt-4 flex items-baseline gap-x-2">
-                                    <span class="text-5xl font-bold tracking-tight text-gray-900">{{numeral(parseFloat(totalTokens) / 1e6 / 2.0).format('0,0.00')}}</span>
-                                    <span class="text-base font-semibold leading-7 text-gray-600">/ of {{numeral(parseFloat(totalTokens) / 1e6).format('0,0.00[00]')}}</span>
+                                    <span class="text-5xl font-bold tracking-tight text-gray-900">{{numeral(parseFloat(totalTokens) / 1e8 / 2.0).format('0,0.00')}}</span>
+                                    <span class="text-base font-semibold leading-7 text-gray-600">/ of {{numeral(parseFloat(totalTokens) / 1e8).format('0,0.00[00]')}}</span>
                                 </div>
 
                                 <p class="mt-6 text-base leading-7 text-gray-600">
