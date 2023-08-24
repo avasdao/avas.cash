@@ -264,11 +264,12 @@ onMounted(() => {
                             </small>
                         </h3>
 
-                        <h3 class="col-span-2 text-xl text-rose-500 font-bold text-right">
+                        <h3 class="col-span-2 text-lg font-medium text-right">
                             Discount
                         </h3>
                         <h3 class="col-span-3 text-lg font-medium">
-                            <strong>{{numeral(discount(campaign)).format('0,0[.]00')}}</strong> NEXA <strong>~{{discountUsdDisplay(campaign)}}</strong> <span class="text-base">per 1.0 AVAS</span>
+                            <strong>{{numeral(discount(campaign)).format('0,0[.]00')}}</strong> NEXA
+                            <strong class="text-rose-500">~{{discountUsdDisplay(campaign)}}</strong> <span class="text-base">per 1.0 AVAS</span>
 
                             <small class="-mt-2 block">
                                 @ {{numeral(System.usd).format('$0,0.00')}} mNEXA/USD
