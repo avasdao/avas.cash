@@ -422,7 +422,7 @@ export const useWalletStore = defineStore('wallet', {
             }
         },
 
-        async makeReservation() {
+        async makeReservation(_amount) {
             let headersTip
             let nexaAddress
             let publicKey
@@ -481,7 +481,7 @@ export const useWalletStore = defineStore('wallet', {
                 {
                     address: this.stakehouse,
                     tokenid: AVAS_TOKENID,
-                    tokens: BigInt(1),
+                    tokens: _amount,
                 },
                 {
                     address: this.stakehouse,

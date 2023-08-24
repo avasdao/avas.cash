@@ -49,6 +49,13 @@ const init = async () => {
     // console.log('UNSPENT', unspent.value)
 }
 
+const amountDisplay = (_token) => {
+    // FIXME: Format for BigInt
+    const amount = parseFloat(_token.tokens) / 1e6
+
+    return numeral(amount).format('0,0.00[000000]')
+}
+
 const redeem = async (_token) => {
     if (confirm(`Are you sure you want to redeem ${numeral(_token.tokens).format('0,0.00')} AVAS to ${Wallet.address}?`)) {
         const response = await Wallet.redeem(_token)
@@ -94,11 +101,11 @@ onMounted(() => {
                 <li
                     v-for="token of tokens"
                     :key="token.tokenid"
-                    class="px-5 py-5 border-2 border-amber-400 bg-amber-100 rounded-2xl shadow"
+                    class="my-5 px-5 py-5 border-2 border-amber-400 bg-amber-100 rounded-2xl shadow"
                 >
                     <div class="flex-col">
                         <h2 class="text-4xl font-medium text-gray-700">
-                            {{numeral(token.tokens).format('0,0[.]00')}}
+                            {{amountDisplay(token)}}
 
                             <span class="text-2xl text-rose-500">
                                 $AVAS

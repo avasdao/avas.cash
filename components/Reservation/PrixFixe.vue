@@ -21,7 +21,7 @@ const error = ref(null)
 const txidem = ref(null)
 
 
-const send = async () => {
+const send = async (_amount) => {
     /* Set ($AVAS) token id. */
     const AVAS_TOKENID = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
 
@@ -31,43 +31,45 @@ const send = async () => {
     let receiver = Wallet.stakehouse
     console.log('RECEIVER', receiver)
 
-    const satoshis = 1
-    amount.value = satoshis
+    const displayAmount = _amount / BigInt(1e6)
 
-    if (!receiver) {
-        return alert('Enter a destination address.')
-    }
-
-    if (!satoshis) {
-        return alert('Enter an amount to send.')
-    }
-
-    if (confirm(`Are you sure you want to send ${numeral(amount.value).format('0,0.00')} ${Wallet.asset.ticker} to ${receiver}?`)) {
-        console.log(`Starting transfer of ${amount.value} ${Wallet.asset.ticker} to ${receiver}...`)
-
-        const response = await Wallet.makeReservation()
+    if (confirm(`Are you sure you want to STAKE ${numeral(displayAmount).format('0,0.00[000000]')} $AVAS to your Stakehouse?`)) {
+        const response = await Wallet.makeReservation(_amount)
         console.log('RESPONSE', response)
-
-        /* Validate transaction idem. */
-        if (response) {
-            /* Reset user inputs. */
-            amount.value = null
-            receiver = null
-
-            /* Set transaction idem. */
-            txidem.value = response.result
-
-            // TODO Add "proper" notification system.
-            // alert(`Transaction sent successfully!\n\n${response.result}`)
-        } else {
-            /* Set error. */
-            error.value = response
-
-            // alert(JSON.stringify(response, null, 2))
-        }
     }
 }
 
+const stake25 = () => {
+    console.log('TOKENS', Wallet.tokens)
+
+    const total = Wallet.tokens.reduce(
+        (total, token) => (token.tokens + total), BigInt(0)
+    )
+    console.log('TOTAL', total)
+
+    const stakeAmount = total / BigInt(4)
+
+    send(stakeAmount)
+}
+
+const stake50 = () => {
+    console.log('TOKENS', Wallet.tokens)
+
+    const total = Wallet.tokens.reduce(
+        (total, token) => (token.tokens + total), BigInt(0)
+    )
+    console.log('TOTAL', total)
+
+    const stakeAmount = total / BigInt(2)
+
+    send(stakeAmount)
+}
+
+const stakeCustom = () => {
+    const stakeAmount = BigInt(amount.value * 1e6)
+
+    send(stakeAmount)
+}
 
 // onMounted(() => {
 //     console.log('Mounted!')
@@ -228,17 +230,17 @@ const send = async () => {
                                 <input
                                     type="number"
                                     class="w-full px-5 py-5 text-2xl text-yellow-900 bg-yellow-100 border-b-8 border-yellow-400 rounded-xl shadow-md placeholder:text-yellow-600 focus:outline-none"
-                                    placeholder="enter amount of $AVAS for staking"
+                                    placeholder="enter amount of $AVAS"
                                     v-model="amount"
                                 />
 
                             </div>
 
                             <button
-                                @click="send"
-                                class="rounded-md px-3.5 py-2 text-sm font-semibold leading-6 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                @click="stakeCustom"
+                                class="rounded-md px-3.5 py-2 text-2xl font-semibold leading-6 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Buy discounted license <span aria-hidden="true">&rarr;</span>
+                                Submit A-la-carte
                             </button>
                         </div>
                     </div>
