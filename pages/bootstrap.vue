@@ -176,23 +176,6 @@ onMounted(() => {
                 For every contribution, supporters will receive <span class="text-2xl text-rose-500 font-extrabold">$AVAS</span> sent to their Nexa wallet <span class="text-2xl text-indigo-500 font-extrabold">INSTANTLY!</span>
             </p>
 
-            <div class="mt-16 flex justify-center">
-                <fieldset class="px-5 py-3 gap-x-1 bg-gray-600 rounded-full p-1 text-center text-2xl font-semibold leading-5 ring-1 ring-inset ring-gray-200">
-                    <legend class="sr-only">Payment frequency</legend>
-                    <!-- Checked: "bg-indigo-600 text-white", Not Checked: "text-gray-500" -->
-                    <label class="text-amber-300 cursor-pointer rounded-full px-2.5 py-1">
-                        <input type="radio" name="frequency" value="monthly" class="sr-only" />
-                        <span>Active</span>
-                    </label>
-
-                    <!-- Checked: "bg-indigo-600 text-white", Not Checked: "text-gray-500" -->
-                    <label class="text-gray-200 cursor-pointer rounded-full px-2.5 py-1">
-                        <input type="radio" name="frequency" value="annually" class="sr-only" />
-                        <span>Completed</span>
-                    </label>
-                </fieldset>
-            </div>
-
             <div class="isolate mx-auto mt-10 grid grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl lg:mx-0 lg:max-w-none xl:grid-cols-3">
 
                 <section
