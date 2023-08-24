@@ -24,26 +24,6 @@ const campaign1HistorySender = ref(null)
 
 const campaigns = ref([])
 
-const costAvg = ref(7.00)
-
-const receivedDisplay = (_campaign) => {
-    const received = _campaign.received
-
-    return numeral(received / 1e2).format('0,0.00') + ' NEXA'
-}
-
-const askingDisplay = (_campaign) => {
-    if (!_campaign.goals) {
-        return 0
-    }
-
-    const asking = _campaign.goals.reduce(
-        (total, _goal) => (total + _goal.amount), 0
-    )
-
-    return asking
-}
-
 const campaign_1_id = '475b4cfc-ae95-419d-9681-cf378c083963'
 const campaign_2_id = 'b8fac25d-e619-4ddf-b474-af084e8250ce'
 const campaign_3_id = '707e2a8c-4eea-4c26-9ea2-c548e9e91726'
@@ -114,6 +94,54 @@ const init = async () => {
     campaigns.value.push(response)
 
     campaigns.value.push(campaign5)
+}
+
+const receivedDisplay = (_campaign) => {
+    const received = _campaign.received
+
+    return numeral(received / 1e2).format('0,0.00') + ' NEXA'
+}
+
+const asking = (_campaign) => {
+    if (!_campaign.goals) {
+        return 0
+    }
+
+    return _campaign.goals.reduce(
+        (total, _goal) => (total + _goal.amount), 0
+    ) / 100.0
+}
+
+const rewards = (_campaign) => {
+    if (!_campaign.goals) {
+        return 0
+    }
+
+    const totalGoal = _campaign.goals.reduce(
+        (total, goal) => (goal.amount + total), 0
+    )
+
+    const totalRewards = totalGoal * _campaign?.rewards[0].rate || 0
+
+    return totalRewards / 1e8
+}
+
+const cost = (_campaign) => {
+    if (!_campaign.goals) {
+        return 0
+    }
+
+    const cost = asking(_campaign) / rewards(_campaign)
+
+    return cost
+}
+
+const costUsd = (_campaign) => {
+    if (!cost(_campaign)) {
+        return 0
+    }
+
+    return numeral(cost(_campaign) * System.nex).format('$0,0.00')
 }
 
 onMounted(() => {
@@ -203,48 +231,46 @@ onMounted(() => {
                         </NuxtLink>
 
                         <div>
-                            <button @click="copyToClipboard(campaign.address)" target="_blank" class="block w-full px-3 py-2 text-lg text-center text-green-900 font-medium bg-green-400 border-2 border-green-600 hover:bg-green-300 rounded-lg shadow">
-                                Copy Address to Clipboard
+                            <button @click="copyToClipboard(campaign.receiver)" target="_blank" class="block w-full px-3 py-2 text-lg text-center text-green-900 font-medium bg-green-400 border-2 border-green-600 hover:bg-green-300 rounded-lg shadow">
+                                Copy Pledge Address
                             </button>
                         </div>
 
-                        <h3 class="sm:col-span-2 lg:col-span-1 -mt-1 px-5 text-xs text-blue-500 text-center font-medium truncate">
-                            {{campaign.address}}
-                        </h3>
+                        <NuxtLink :to="'https://explorer.nexa.org/address/' + campaign.receiver" target="_blank" class="sm:col-span-2 lg:col-span-1 -mt-2 px-5 text-xs text-blue-500 text-center font-medium tracking-widest truncate hover:underline hover:text-blue-400">
+                            {{campaign.receiver}}
+                        </NuxtLink>
                     </div>
 
-                    <ul role="list" class="mt-6 space-y-3 text-sm leading-6 text-gray-600">
-                        <li class="flex gap-x-3">
-                            <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                            </svg>
+                    <div class="grid grid-cols-5 gap-4 text-sm leading-6 text-gray-600">
+                        <h3 class="col-span-2 text-lg font-medium text-right">
+                            Asking
+                        </h3>
+                        <h3 class="col-span-3 text-lg font-medium">
+                            <strong>{{numeral(asking(campaign)).format('0,0')}}</strong> NEXA
+                        </h3>
 
-                            <h3>Asking: <strong>{{askingDisplay(campaign)}}</strong> NEXA</h3>
-                        </li>
+                        <h3 class="col-span-2 text-lg font-medium text-right">
+                            Rewards
+                        </h3>
+                        <h3 class="col-span-3 text-lg font-medium">
+                            <strong>{{numeral(rewards(campaign)).format('0,0')}}</strong> AVAS
 
-                        <li class="flex gap-x-3">
-                            <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                            </svg>
+                            <small class="">
+                                1% of 21M total
+                            </small>
+                        </h3>
 
-                            <div>
-                                <h3>Rewards: <strong>{{numeral(campaign.rewards).format('0,0')}}</strong> AVAS</h3>
+                        <h3 class="col-span-2 text-lg font-medium text-right">
+                            Cost
+                        </h3>
+                        <h3 class="col-span-3 text-lg font-medium">
+                            <strong>{{numeral(cost(campaign)).format('0,0[.]00')}}</strong> NEXA <strong>({{costUsd(campaign)}})</strong> per AVAS
 
-                                <small class="-mt-2 block">1% of 21M total</small>
-                            </div>
-                        </li>
-
-                        <li class="flex gap-x-3">
-                            <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                            </svg>
-
-                            <div>
-                                <h3>Cost: <strong>~{{numeral(campaign.cost).format('0,0')}}</strong> NEXA <strong>(~{{numeral(campaign.costUsd).format('$0,0.00')}})</strong> per AVAS</h3>
-                                <small class="-mt-2 block">@ {{numeral(costAvg).format('$0,0.00')}} mNEXA/USD</small>
-                            </div>
-                        </li>
-                    </ul>
+                            <small class="-mt-2 block">
+                                @ {{numeral(System.usd).format('$0,0.00')}} mNEXA/USD
+                            </small>
+                        </h3>
+                    </div>
                 </section>
 
             </div>
