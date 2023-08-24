@@ -71,21 +71,21 @@ onMounted(() => {
         </div>
 
         <div>
-            <h3 class="text-gray-700 text-xl font-medium text-center uppercase opacity-50">
+            <h3 class="text-gray-700 text-base font-medium text-center tracking-widest uppercase opacity-50">
                 Venue Features &amp; Highlights
             </h3>
 
-            <div class="grid grid-cols-2 gap-4">
-                <h3 class="text-right">
+            <div class="grid grid-cols-5 gap-4 text-sm">
+                <h3 class="col-span-3 text-right">
                     Avg Daily Payouts
                 </h3>
 
-                <h3>
+                <h3 class="col-span-2 font-medium">
                     $13.37
                 </h3>
             </div>
 
-            <p>
+            <p class="text-sm">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum dolorem doloremque voluptatum ratione iste dicta accusantium at eaque vero blanditiis laborum, ducimus nesciunt inventore culpa nisi natus in ipsa?
             </p>
         </div>
