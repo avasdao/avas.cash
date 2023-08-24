@@ -92,8 +92,8 @@ onMounted(() => {
     </div>
 
 
-    <section class="max-w-5xl mx-auto my-5 py-5 border-t border-gray-300">
-        <!-- <ReservationSchedule /> -->
+    <section class="max-w-5xl mx-auto my-10 py-5 border-t border-gray-300">
+        <ReservationSchedule />
     </section>
 
     <ReservationPrixFixe />

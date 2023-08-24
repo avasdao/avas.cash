@@ -57,6 +57,16 @@ let secp256k1
 /* Set ($AVAS) token id. */
 const AVAS_TOKENID = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000'
 
+// NOTE: This is the "optimized" version of the NexScript v0.1.0
+//       Stakehouse contract (w/out the use of `OP_SWAP`), which saves 1 byte.
+const STAKEHOUSE_SCRIPT = new Uint8Array([
+    OP.FROMALTSTACK,
+        OP.CHECKSEQUENCEVERIFY,
+            OP.DROP,
+    OP.FROMALTSTACK,
+        OP.CHECKSIGVERIFY,
+])
+
 /**
  * Wallet Store
  */
@@ -184,85 +194,35 @@ export const useWalletStore = defineStore('wallet', {
             }
 
             /* Initialize locals. */
-            let argsData
-            let blockHeight
-            let blockHeightScript
-            let coins
             let constraintData
             let constraintHash
-            let headersTip
-            let lockTime
             let nexaAddress
-            let nullData
             let publicKey
-            let receivers
-            let response
-            let script
+            // let script
             let scriptHash
             let scriptPubKey
-            let tokens
-            let txResult
-            let unspentTokens
-            let userData
             let wif
 
             /* Encode Private Key WIF. */
             wif = encodePrivateKeyWif({ hash: sha256 }, _state._wallet.privateKey, 'mainnet')
-            // console.log('WALLET IMPORT FORMAT', wif)
 
-            // NOTE: NexScript v0.1.0 offers a less-than optimized version
-            //       of _state (script) contract (w/ the addition of `OP_SWAP`).
-            script = new Uint8Array([
-                OP.FROMALTSTACK,
-                    OP.FROMALTSTACK,    // un-optimized version
-                    OP.SWAP,            // un-optimized version
-                    OP.CHECKSEQUENCEVERIFY,
-                        OP.DROP,
-                // OP.FROMALTSTACK,        // optimized version
-                    OP.CHECKSIGVERIFY,
-            ])
-            console.info('\n  Script / Contract:', binToHex(script))
-
-            scriptHash = ripemd160.hash(sha256(script))
-            // console.log('SCRIPT HASH:', scriptHash)
-            console.log('SCRIPT HASH (hex):', binToHex(scriptHash))
+            /* Hash (contract) script. */
+            scriptHash = ripemd160.hash(sha256(STAKEHOUSE_SCRIPT))
 
             /* Derive the corresponding public key. */
             publicKey = secp256k1.derivePublicKeyCompressed(_state._wallet.privateKey)
-            // console.log('PUBLIC KEY (hex)', binToHex(publicKey))
 
             /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
             constraintData = encodeDataPush(publicKey)
-            console.log('\n  Arguments Data:', constraintData)
 
             constraintHash = ripemd160.hash(sha256(constraintData))
             // console.log('CONSTRAINT HASH:', constraintHash)
-            console.log('CONSTRAINT HASH (hex):', binToHex(constraintHash))
-
-            /* Reques header's tip. */
-            // headersTip = await getTip()
-            // console.log('HEADERS TIP', headersTip)
-
-            /* Set block height. */
-            // blockHeight = Number(headersTip.height)
-            // blockHeight = 343350
-            // console.log('BLOCK HEIGHT', blockHeight)
-
-            /* Set block height (script). */
-            // FIXME Use a "better" method (but good until block 0xFFFFFF).
-            // blockHeightScript = hexToBin(reverseHex(
-            //     blockHeight
-            //         .toString(16)
-            //         .padStart(6, '0') // 12-bits
-            // ))
-            // console.log('BLOCK HEIGHT (script):', blockHeightScript)
 
             /* Build script public key. */
             scriptPubKey = new Uint8Array([
                 OP.ZERO, // script template
                 ...encodeDataPush(scriptHash), // script hash
                 ...encodeDataPush(constraintHash),  // arguments hash
-                // ...encodeDataPush(blockHeightScript), // block height (script)
                 ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
             ])
             console.info('\n  Script Public Key:', binToHex(scriptPubKey))
@@ -461,27 +421,15 @@ export const useWalletStore = defineStore('wallet', {
         },
 
         async makeReservation() {
-            let argsData
-            let blockHeight
-            let blockHeightScript
-            let coins
-            let constraintData
-            let constraintHash
             let headersTip
-            let lockTime
             let nexaAddress
-            let nullData
             let publicKey
             let publicKeyHash
             let receivers
             let response
-            let script
             let scriptData
             let scriptPubKey
-            let tokens
             let txResult
-            let unspentTokens
-            let userData
             let wif
 
             /* Encode Private Key WIF. */
@@ -545,19 +493,11 @@ export const useWalletStore = defineStore('wallet', {
             })
             console.log('\n  Receivers:', receivers)
 
-            lockTime = headersTip.height
+            // lockTime = headersTip.height
             // return console.log('LOCK TIME', lockTime)
 
             /* Send UTXO request. */
             response = await sendToken(scriptCoins, scriptTokens, receivers)
-            // response = await sendToken({
-            //     coins: scriptCoins,
-            //     tokens: scriptTokens,
-            //     receivers,
-            //     lockTime,
-            //     // sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
-            //     // script,
-            // })
             console.log('Send UTXO (response):', response)
 
             try {
@@ -574,47 +514,28 @@ export const useWalletStore = defineStore('wallet', {
             }
         },
 
-        async redeem() {
-            let argsData
-            let blockHeight
-            let blockHeightScript
-            let coins
+        async redeem(_token) {
+            let height
+            let outpoint
+
             let constraintData
             let constraintHash
             let headersTip
             let lockTime
             let nexaAddress
-            let nullData
             let publicKey
             let receivers
             let response
-            let script
             let scriptHash
             let scriptPubKey
-            let tokens
             let txResult
-            let unspentTokens
-            let userData
             let wif
 
             /* Encode Private Key WIF. */
             wif = encodePrivateKeyWif({ hash: sha256 }, this._wallet.privateKey, 'mainnet')
             // console.log('WALLET IMPORT FORMAT', wif)
 
-            // NOTE: NexScript v0.1.0 offers a less-than optimized version
-            //       of this (script) contract (w/ the addition of `OP_SWAP`).
-            script = new Uint8Array([
-                OP.FROMALTSTACK,
-                    OP.FROMALTSTACK,    // un-optimized version
-                    OP.SWAP,            // un-optimized version
-                    OP.CHECKSEQUENCEVERIFY,
-                        OP.DROP,
-                // OP.FROMALTSTACK,        // optimized version
-                    OP.CHECKSIGVERIFY,
-            ])
-            console.info('\n  Script / Contract:', binToHex(script))
-
-            scriptHash = ripemd160.hash(sha256(script))
+            scriptHash = ripemd160.hash(sha256(STAKEHOUSE_SCRIPT))
             // console.log('SCRIPT HASH:', scriptHash)
             console.log('SCRIPT HASH (hex):', binToHex(scriptHash))
 
@@ -665,14 +586,6 @@ export const useWalletStore = defineStore('wallet', {
             })
             console.log('REDEEM TOKEN', redeemToken)
 
-            /* Calculate the total balance of the unspent outputs. */
-            // FIXME: Add support for BigInt.
-            // unspentTokens = tokens
-            //     .reduce(
-            //         (totalValue, unspentOutput) => (totalValue + unspentOutput.tokens), BigInt(0)
-            //     )
-            // console.log('UNSPENT TOKENS', unspentTokens)
-
             receivers = [
                 {
                     address: this.address,
@@ -685,7 +598,7 @@ export const useWalletStore = defineStore('wallet', {
             receivers.push({
                 address: nexaAddress,
             })
-            console.log('\n  Receivers:', receivers)
+            return console.log('\n  Receivers:', receivers)
 
             lockTime = headersTip.height
             // return console.log('LOCK TIME', lockTime)
@@ -697,7 +610,7 @@ export const useWalletStore = defineStore('wallet', {
                 receivers,
                 lockTime,
                 sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
-                script,
+                script: STAKEHOUSE_SCRIPT,
             })
             console.log('Send UTXO (response):', response)
 

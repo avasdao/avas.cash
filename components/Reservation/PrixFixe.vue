@@ -10,15 +10,15 @@ const props = defineProps({
     satoshis: Number,
 })
 
+import { useWalletStore } from '@/stores/wallet'
+const Wallet = useWalletStore()
+
 /* Set ($AVAS) token id. */
 const AVAS_TOKENID = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
 
 const amount = ref(null)
 const error = ref(null)
 const txidem = ref(null)
-
-import { useWalletStore } from '@/stores/wallet'
-const Wallet = useWalletStore()
 
 
 const send = async () => {
@@ -68,49 +68,6 @@ const send = async () => {
     }
 }
 
-const redeem = async () => {
-    /* Set token id. */
-    Wallet.selectAsset(AVAS_TOKENID)
-
-    let receiver = Wallet.address
-    console.log('RECEIVER', receiver)
-
-    const satoshis = 1
-    amount.value = satoshis
-
-    if (!receiver) {
-        return alert('Enter a destination address.')
-    }
-
-    if (!satoshis) {
-        return alert('Enter an amount to send.')
-    }
-
-    if (confirm(`Are you sure you want to send ${numeral(amount.value).format('0,0.00')} ${Wallet.asset.ticker} to ${receiver}?`)) {
-        console.log(`Starting transfer of ${amount.value} ${Wallet.asset.ticker} to ${receiver}...`)
-
-        const response = await Wallet.redeem()
-        console.log('RESPONSE', response)
-
-        /* Validate transaction idem. */
-        if (response) {
-            /* Reset user inputs. */
-            amount.value = null
-            receiver = null
-
-            /* Set transaction idem. */
-            txidem.value = response.result
-
-            // TODO Add "proper" notification system.
-            // alert(`Transaction sent successfully!\n\n${response.result}`)
-        } else {
-            /* Set error. */
-            error.value = response
-
-            // alert(JSON.stringify(response, null, 2))
-        }
-    }
-}
 
 // onMounted(() => {
 //     console.log('Mounted!')
@@ -193,7 +150,7 @@ const redeem = async () => {
                             </div>
 
                             <button
-                                @click="send"
+                                @click="stake25"
                                 aria-describedby="tier-hobby"
                                 class="mt-8 py-5 block rounded-md bg-indigo-600 px-3.5 py-2 text-center text-3xl font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
@@ -246,7 +203,7 @@ const redeem = async () => {
                             </div>
 
                             <button
-                                @click="redeem"
+                                @click="stake50"
                                 aria-describedby="tier-team"
                                 class="mt-8 py-5 block rounded-md bg-indigo-600 px-3.5 py-2 text-center text-3xl font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
@@ -277,12 +234,12 @@ const redeem = async () => {
 
                             </div>
 
-                            <a
-                                href="javascript://"
+                            <button
+                                @click="send"
                                 class="rounded-md px-3.5 py-2 text-sm font-semibold leading-6 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Buy discounted license <span aria-hidden="true">&rarr;</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
