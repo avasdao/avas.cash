@@ -249,8 +249,8 @@ onMounted(() => {
                         <h3 class="col-span-2 text-lg font-medium text-right">
                             Completed
                         </h3>
-                        <h3 class="col-span-3 text-lg font-medium">
-                            <strong>{{completedDisplay(campaign)}}</strong>
+                        <h3 class="col-span-3 text-2xl text-rose-500 font-bold">
+                            {{completedDisplay(campaign)}}
                         </h3>
 
                         <h3 class="col-span-2 text-lg font-medium text-right">
