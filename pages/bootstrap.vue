@@ -112,6 +112,20 @@ const asking = (_campaign) => {
     ) / 100.0
 }
 
+const completedDisplay = (_campaign) => {
+    if (!_campaign.goals) {
+        return 0
+    }
+
+    // console.log('ASKING', asking(_campaign))
+    // console.log('RECEIVED',  (_campaign.received / 100.0))
+    const received = _campaign.received / 100.0
+
+    const pct = received / asking(_campaign)
+
+    return numeral(pct).format('0.00%')
+}
+
 const rewards = (_campaign) => {
     if (!_campaign.goals) {
         return 0
@@ -136,7 +150,7 @@ const cost = (_campaign) => {
     return cost
 }
 
-const costUsd = (_campaign) => {
+const costUsdDisplay = (_campaign) => {
     if (!cost(_campaign)) {
         return 0
     }
@@ -203,7 +217,7 @@ onMounted(() => {
                             {{receivedDisplay(campaign)}}
                         </span>
 
-                        <span class="text-sm font-semibold leading-6 text-gray-600">
+                        <span class="text-lg font-semibold leading-6 text-gray-600">
                             raised
                         </span>
                     </p>
@@ -233,6 +247,13 @@ onMounted(() => {
                         </h3>
 
                         <h3 class="col-span-2 text-lg font-medium text-right">
+                            Completed
+                        </h3>
+                        <h3 class="col-span-3 text-lg font-medium">
+                            <strong>{{completedDisplay(campaign)}}</strong>
+                        </h3>
+
+                        <h3 class="col-span-2 text-lg font-medium text-right">
                             Rewards
                         </h3>
                         <h3 class="col-span-3 text-lg font-medium">
@@ -247,7 +268,7 @@ onMounted(() => {
                             Cost
                         </h3>
                         <h3 class="col-span-3 text-lg font-medium">
-                            <strong>{{numeral(cost(campaign)).format('0,0[.]00')}}</strong> NEXA <strong>({{costUsd(campaign)}})</strong> per AVAS
+                            <strong>{{numeral(cost(campaign)).format('0,0[.]00')}}</strong> NEXA <strong>(~{{costUsdDisplay(campaign)}})</strong> <span class="text-base">per 1.0 AVAS</span>
 
                             <small class="-mt-2 block">
                                 @ {{numeral(System.usd).format('$0,0.00')}} mNEXA/USD
