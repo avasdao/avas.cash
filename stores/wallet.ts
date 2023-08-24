@@ -17,8 +17,10 @@ import {
 import { getCoins } from '@nexajs/purse'
 
 import {
+    getOutpoint,
     getTip,
     getTokenInfo,
+    getTransaction,
     subscribeAddress,
 } from '@nexajs/rostrum'
 
@@ -514,7 +516,9 @@ export const useWalletStore = defineStore('wallet', {
             }
         },
 
-        async redeem(_token) {
+        async redeem(_redeemToken) {
+            console.log('REDEEM TOKEN', _redeemToken)
+
             let height
             let outpoint
 
@@ -573,6 +577,23 @@ export const useWalletStore = defineStore('wallet', {
             console.info('\n  Nexa address:', nexaAddress)
             // return console.info('\n  Wallet address:', this.address)
 
+            // const scriptTokens = await getTokens(wif, scriptPubKey)
+            //     .catch(err => console.error(err))
+            // console.log('\n  Script Tokens:', scriptTokens)
+
+            const outpointDetails = await getOutpoint(_redeemToken.outpoint)
+                .catch(err => console.error(err))
+            console.log('OUTPIONT DETAILS', outpointDetails)
+
+            const outpointTx = await getTransaction(outpointDetails.tx_hash)
+                .catch(err => console.error(err))
+            console.log('OUTPIONT TX', outpointTx)
+
+            const coinOutpoint = outpointTx.vout.find(_output => {
+                return _output.value_satoshi === 1000
+            })
+            console.log('COIN OUTPOINT', coinOutpoint)
+
             const scriptCoins = await getCoins(wif, scriptPubKey)
                 .catch(err => console.error(err))
             console.log('\n  Script Coins:', scriptCoins)
@@ -582,15 +603,20 @@ export const useWalletStore = defineStore('wallet', {
             console.log('\n  Script Tokens:', scriptTokens)
 
             const redeemToken = scriptTokens.find(_token => {
-                return _token.tokens === BigInt(1)
+                return _token.outpoint === _redeemToken.outpoint
             })
-            console.log('REDEEM TOKEN', redeemToken)
+            console.log('REDEEM TOKEN (wif)', redeemToken)
+
+            const redeemCoin = scriptCoins.find(_coin => {
+                return _coin.outpoint === coinOutpoint.outpoint_hash
+            })
+            console.log('REDEEM COIN', redeemCoin)
 
             receivers = [
                 {
                     address: this.address,
                     tokenid: AVAS_TOKENID,
-                    tokens: BigInt(1),
+                    tokens: redeemToken.tokens,
                 },
             ]
 
@@ -598,14 +624,14 @@ export const useWalletStore = defineStore('wallet', {
             receivers.push({
                 address: nexaAddress,
             })
-            return console.log('\n  Receivers:', receivers)
+            console.log('\n  Receivers:', receivers)
 
             lockTime = headersTip.height
             // return console.log('LOCK TIME', lockTime)
 
             /* Send UTXO request. */
             response = await sendToken({
-                coins: scriptCoins,
+                coins: [redeemCoin],
                 tokens: [redeemToken],
                 receivers,
                 lockTime,

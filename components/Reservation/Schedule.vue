@@ -43,52 +43,22 @@ const tokens = computed(() => {
 })
 
 const init = async () => {
-    console.log('STAKEHOUSE', Wallet.stakehouse)
+    // console.log('STAKEHOUSE', Wallet.stakehouse)
     unspent.value = await listUnspent(Wallet.stakehouse)
         .catch(err => console.error(err))
-    console.log('UNSPENT', unspent.value)
+    // console.log('UNSPENT', unspent.value)
 }
 
 const redeem = async (_token) => {
-    /* Set token id. */
-    Wallet.selectAsset(AVAS_TOKENID)
-
-    let receiver = Wallet.address
-    console.log('RECEIVER', receiver)
-
-    const satoshis = 1
-    amount.value = satoshis
-
-    if (!receiver) {
-        return alert('Enter a destination address.')
-    }
-
-    if (!satoshis) {
-        return alert('Enter an amount to send.')
-    }
-
-    if (confirm(`Are you sure you want to send ${numeral(amount.value).format('0,0.00')} ${Wallet.asset.ticker} to ${receiver}?`)) {
-        console.log(`Starting transfer of ${amount.value} ${Wallet.asset.ticker} to ${receiver}...`)
-
+    if (confirm(`Are you sure you want to redeem ${numeral(_token.tokens).format('0,0.00')} AVAS to ${Wallet.address}?`)) {
         const response = await Wallet.redeem(_token)
         console.log('RESPONSE', response)
 
         /* Validate transaction idem. */
         if (response) {
-            /* Reset user inputs. */
-            amount.value = null
-            receiver = null
-
-            /* Set transaction idem. */
-            txidem.value = response.result
-
-            // TODO Add "proper" notification system.
-            // alert(`Transaction sent successfully!\n\n${response.result}`)
+            //
         } else {
-            /* Set error. */
-            error.value = response
-
-            // alert(JSON.stringify(response, null, 2))
+            //
         }
     }
 }
