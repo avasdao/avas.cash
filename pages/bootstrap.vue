@@ -259,7 +259,7 @@ onMounted(() => {
                         <h3 class="col-span-3 text-lg font-medium">
                             <strong>{{numeral(rewards(campaign)).format('0,0')}}</strong> AVAS
 
-                            <small class="">
+                            <small class="block">
                                 1% of 21M total
                             </small>
                         </h3>
