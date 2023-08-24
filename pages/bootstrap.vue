@@ -223,12 +223,12 @@ onMounted(() => {
                     </p>
 
                     <div v-if="campaign.asking !== 0" class="my-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
-                        <NuxtLink :to="'https://causes.cash/c/' + campaign.id" target="_blank" class="block w-full h-fit px-3 py-2 text-lg text-center text-amber-900 font-medium bg-amber-400 border-2 border-amber-600 hover:bg-amber-300 rounded-lg shadow">
+                        <NuxtLink :to="'https://causes.cash/c/' + campaign.id" target="_blank" class="block w-full h-fit px-3 py-2 text-lg text-center text-amber-900 font-medium bg-amber-400 border border-amber-600 hover:bg-amber-300 rounded-lg shadow">
                             Open Campaign
                         </NuxtLink>
 
                         <div>
-                            <button @click="copyToClipboard(campaign.receiver)" target="_blank" class="block w-full px-3 py-2 text-lg text-center text-sky-900 font-medium bg-sky-300 border-2 border-sky-600 hover:bg-sky-200 rounded-lg shadow">
+                            <button @click="copyToClipboard(campaign.receiver)" target="_blank" class="block w-full px-3 py-2 text-lg text-center text-sky-900 font-medium bg-sky-300 border border-sky-600 hover:bg-sky-200 rounded-lg shadow">
                                 Copy Pledge Address
                             </button>
                         </div>
@@ -279,23 +279,5 @@ onMounted(() => {
 
             </div>
         </div>
-
-        <!-- Logo cloud -->
-        <!-- <div class="mx-auto mt-24 max-w-7xl px-6 sm:mt-32 lg:px-8">
-            <div class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-                <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg" alt="Transistor" width="158" height="48" />
-                <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg" alt="Reform" width="158" height="48" />
-                <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg" alt="Tuple" width="158" height="48" />
-                <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/savvycal-logo-gray-900.svg" alt="SavvyCal" width="158" height="48" />
-                <img class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/statamic-logo-gray-900.svg" alt="Statamic" width="158" height="48" />
-            </div>
-            <div class="mt-16 flex justify-center">
-                <p class="relative rounded-full bg-gray-50 px-4 py-1.5 text-sm leading-6 text-gray-600 ring-1 ring-inset ring-gray-900/5">
-                    <span class="hidden md:inline">Transistor saves up to $40,000 per year, per employee by working with us.</span>
-                    <a href="javascript://" class="font-semibold text-indigo-600"><span class="absolute inset-0" aria-hidden="true"></span> See our case study <span aria-hidden="true">&rarr;</span></a>
-                </p>
-            </div>
-        </div> -->
-
     </main>
 </template>
