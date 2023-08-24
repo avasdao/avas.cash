@@ -238,7 +238,7 @@ onMounted(() => {
                         </NuxtLink>
                     </div>
 
-                    <div class="grid grid-cols-5 gap-4 text-sm leading-6 text-gray-600">
+                    <div class="grid grid-cols-5 gap-x-4 gap-y-2 text-sm leading-6 text-gray-600">
                         <h3 class="col-span-2 text-lg font-medium text-right">
                             Asking
                         </h3>
