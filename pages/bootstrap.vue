@@ -228,7 +228,7 @@ onMounted(() => {
                         </NuxtLink>
 
                         <div>
-                            <button @click="copyToClipboard(campaign.receiver)" target="_blank" class="block w-full px-3 py-2 text-lg text-center text-green-900 font-medium bg-green-400 border-2 border-green-600 hover:bg-green-300 rounded-lg shadow">
+                            <button @click="copyToClipboard(campaign.receiver)" target="_blank" class="block w-full px-3 py-2 text-lg text-center text-sky-900 font-medium bg-sky-300 border-2 border-sky-600 hover:bg-sky-200 rounded-lg shadow">
                                 Copy Pledge Address
                             </button>
                         </div>
