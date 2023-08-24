@@ -23,7 +23,7 @@ const System = useSystemStore()
 
 <template>
     <main class="overflow-hidden bg-white py-16">
-        <div class="mx-auto max-w-7xl px-6 lg:flex lg:px-8">
+        <div class="mx-auto max-w-7xl px-3 lg:flex lg:px-8">
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-12 gap-y-16 lg:mx-0 lg:min-w-full lg:max-w-none lg:flex-none lg:gap-y-8">
                 <div class="lg:col-end-1 lg:w-full lg:max-w-lg lg:pb-8">
 
@@ -32,7 +32,7 @@ const System = useSystemStore()
                             We're opening very soon
 
                             <NuxtLink to="/bootstrap" class="pl-3 whitespace-nowrap font-semibold text-indigo-600">
-                                <span class="absolute inset-0" aria-hidden="true"></span>Help us bootstrap <span aria-hidden="true">&rarr;</span>
+                                <span class="absolute inset-0" aria-hidden="true"></span>Help us Bootstrap <span aria-hidden="true">&rarr;</span>
                             </NuxtLink>
                         </div>
                     </div>
@@ -47,15 +47,15 @@ const System = useSystemStore()
 
                     <p class="mt-6 text-base leading-7 text-gray-600">
                         Our team is working very hard to open this Stakehouse location for the Nexican community ASAP.
-                        Please be patient and we promise that your next dining experience will be well worth the wait.
+                        Please be patient and we promise that your next <span class="text-indigo-500 font-medium">Payouts Experience</span> will be well worth the wait.
                     </p>
 
                     <div class="mt-10 flex">
                         <NuxtLink to="/bootstrap" class="rounded-xl bg-indigo-600 px-5 py-5 text-3xl lg:text-4xl font-semibold text-indigo-50 border-4 border-indigo-800 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
-                            Ready to help us Bootstrap Toshi's?
+                            Do you want to help us Bootstrap Toshi's?
 
-                            <span class="block text-sm">
+                            <span class="mt-2 block text-sm">
                                 Every NEXA you contribute to our Bootstrap campaigns goes towards building a stronger DAO community.
                             </span>
                         </NuxtLink>
