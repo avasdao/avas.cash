@@ -41,7 +41,7 @@ const send = async (_amount) => {
     let receiver = Wallet.stakehouse
     console.log('RECEIVER', receiver)
 
-    const displayAmount = parseFloat(_amount) / 1e6
+    const displayAmount = parseFloat(_amount) / 1e8
 
     if (confirm(`Are you sure you want to STAKE ${numeral(displayAmount).format('0,0.00[000000]')} $AVAS to your Stakehouse?`)) {
         const response = await Wallet.makeReservation(_amount)
@@ -79,7 +79,7 @@ const stake50 = () => {
 
 const stakeCustom = () => {
     /* Calculate stake amount. */
-    const stakeAmount = BigInt(amount.value * 1e6)
+    const stakeAmount = BigInt(amount.value * 1e8)
 
     /* Send stake amount. */
     send(stakeAmount)

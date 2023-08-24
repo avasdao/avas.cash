@@ -625,6 +625,7 @@ export const useWalletStore = defineStore('wallet', {
                 receivers,
                 lockTime,
                 // sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
+                // sequence: 0x4000a9, // set (timestamp) flag + 169 (512-second) cycles
                 sequence: 0x4013c7, // set (timestamp) flag + 5,063 (512-second) cycles
                 script: STAKEHOUSE_SCRIPT,
             })

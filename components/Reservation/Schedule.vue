@@ -52,7 +52,7 @@ const init = async () => {
 
 const amountDisplay = (_token) => {
     // FIXME: Format for BigInt
-    const amount = parseFloat(_token.tokens) / 1e6
+    const amount = parseFloat(_token.tokens) / 1e8
 
     return numeral(amount).format('0,0.00[000000]')
 }
