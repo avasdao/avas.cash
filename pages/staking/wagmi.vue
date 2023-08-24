@@ -81,12 +81,12 @@ onMounted(() => {
                 </h3>
 
                 <h3 class="col-span-2 font-medium">
-                    $13.37
+                    n/a
                 </h3>
             </div>
 
             <p class="text-sm">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Error harum dolorem doloremque voluptatum ratione iste dicta accusantium at eaque vero blanditiis laborum, ducimus nesciunt inventore culpa nisi natus in ipsa?
+                <em>TBD</em>
             </p>
         </div>
     </div>

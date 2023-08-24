@@ -21,6 +21,16 @@ const error = ref(null)
 const txidem = ref(null)
 
 
+const totalTokens = computed(() => {
+    if (!Wallet.tokens) {
+        return 0
+    }
+
+    return Wallet.tokens.reduce(
+        (total, token) => (token.tokens + total), BigInt(0)
+    )
+})
+
 const send = async (_amount) => {
     /* Set ($AVAS) token id. */
     const AVAS_TOKENID = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
@@ -31,43 +41,47 @@ const send = async (_amount) => {
     let receiver = Wallet.stakehouse
     console.log('RECEIVER', receiver)
 
-    const displayAmount = _amount / BigInt(1e6)
+    const displayAmount = parseFloat(_amount) / 1e6
 
     if (confirm(`Are you sure you want to STAKE ${numeral(displayAmount).format('0,0.00[000000]')} $AVAS to your Stakehouse?`)) {
         const response = await Wallet.makeReservation(_amount)
         console.log('RESPONSE', response)
+
+        /* Clear amount. */
+        amount.value = null
+
+        /* Validate response. */
+        if (response?.result) {
+            alert(`Your transaction completed successfully!\n\n${response.result}`)
+        }
+
+        if (response?.error) {
+            alert(response.error?.message)
+        }
     }
 }
 
 const stake25 = () => {
-    console.log('TOKENS', Wallet.tokens)
+    /* Calculate stake amount. */
+    const stakeAmount = totalTokens.value / BigInt(4)
 
-    const total = Wallet.tokens.reduce(
-        (total, token) => (token.tokens + total), BigInt(0)
-    )
-    console.log('TOTAL', total)
-
-    const stakeAmount = total / BigInt(4)
-
+    /* Send stake amount. */
     send(stakeAmount)
 }
 
 const stake50 = () => {
-    console.log('TOKENS', Wallet.tokens)
+    /* Calculate stake amount. */
+    const stakeAmount = totalTokens.value / BigInt(2)
 
-    const total = Wallet.tokens.reduce(
-        (total, token) => (token.tokens + total), BigInt(0)
-    )
-    console.log('TOTAL', total)
-
-    const stakeAmount = total / BigInt(2)
-
+    /* Send stake amount. */
     send(stakeAmount)
 }
 
 const stakeCustom = () => {
+    /* Calculate stake amount. */
     const stakeAmount = BigInt(amount.value * 1e6)
 
+    /* Send stake amount. */
     send(stakeAmount)
 }
 
@@ -92,13 +106,16 @@ const stakeCustom = () => {
                 </h2>
 
                 <p class="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-                    The right price for you, <br class="hidden sm:inline lg:hidden" />
+                    We guarantee 100% satisfaction, <br class="hidden sm:inline lg:hidden" />
                     whoever you are
                 </p>
             </div>
 
             <div class="relative mt-6">
-                <p class="mx-auto max-w-2xl text-lg leading-8 text-white/60">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit numquam eligendi quos odit doloribus molestiae voluptatum.</p>
+                <p class="mx-auto max-w-2xl text-lg leading-8 text-white/60">
+                    Relax and enjoy a selection from one of our Prix Fixe menus.
+                </p>
+
                 <svg viewBox="0 0 1208 1024" class="absolute -top-10 left-1/2 -z-10 h-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:-top-12 md:-top-20 lg:-top-12 xl:top-0">
                     <ellipse cx="604" cy="512" fill="url(#6d1bd035-0dd1-437e-93fa-59d316231eb0)" rx="604" ry="512" />
                     <defs>
@@ -122,8 +139,8 @@ const stakeCustom = () => {
                                 </h3>
 
                                 <div class="mt-4 flex items-baseline gap-x-2">
-                                    <span class="text-5xl font-bold tracking-tight text-gray-900">$33.88</span>
-                                    <span class="text-base font-semibold leading-7 text-gray-600">/ of $112.77</span>
+                                    <span class="text-5xl font-bold tracking-tight text-gray-900">{{numeral(parseFloat(totalTokens) / 1e6 / 4.0).format('0,0.00')}}</span>
+                                    <span class="text-base font-semibold leading-7 text-gray-600">/ of {{numeral(parseFloat(totalTokens) / 1e6).format('0,0.00[00]')}}</span>
                                 </div>
 
                                 <p class="mt-6 text-base leading-7 text-gray-600">
@@ -167,8 +184,8 @@ const stakeCustom = () => {
                                 </h3>
 
                                 <div class="mt-4 flex items-baseline gap-x-2">
-                                    <span class="text-5xl font-bold tracking-tight text-gray-900">$67.52</span>
-                                    <span class="text-base font-semibold leading-7 text-gray-600">/ of $112.77</span>
+                                    <span class="text-5xl font-bold tracking-tight text-gray-900">{{numeral(parseFloat(totalTokens) / 1e6 / 2.0).format('0,0.00')}}</span>
+                                    <span class="text-base font-semibold leading-7 text-gray-600">/ of {{numeral(parseFloat(totalTokens) / 1e6).format('0,0.00[00]')}}</span>
                                 </div>
 
                                 <p class="mt-6 text-base leading-7 text-gray-600">
@@ -216,20 +233,22 @@ const stakeCustom = () => {
                         <div class="flex flex-col items-start gap-x-8 gap-y-6 rounded-3xl p-8 ring-1 ring-gray-900/10 sm:gap-y-10 sm:p-10 lg:col-span-2 lg:flex-row lg:items-center">
                             <div class="lg:min-w-0 lg:flex-1">
                                 <h3 class="text-2xl font-semibold leading-8 tracking-tight text-indigo-600">
-                                    A-la-carte
+                                    À la carte
                                 </h3>
 
                                 <p class="mt-1 text-base leading-7 text-gray-600">
-                                    Customize your stake to your particular liking.
+                                    We always aim to please and are more than happy to customize your stake to your particular liking.
                                 </p>
 
-                                <p class="mt-1 text-base leading-7 text-gray-600">
-                                    Dolor dolores repudiandae doloribus. Rerum sunt aut eum. Odit omnis non voluptatem sunt eos nostrum.
-                                </p>
+                                <!-- <p class="mt-1 text-base leading-7 text-gray-600">
+                                    Do you have a particular request?
+                                    No problem, we aim to please.
+                                    What is your preferred stake amount?
+                                </p> -->
 
                                 <input
                                     type="number"
-                                    class="w-full px-5 py-5 text-2xl text-yellow-900 bg-yellow-100 border-b-8 border-yellow-400 rounded-xl shadow-md placeholder:text-yellow-600 focus:outline-none"
+                                    class="mt-3 w-full px-5 py-5 text-2xl text-yellow-900 bg-yellow-100 border-b-8 border-yellow-400 rounded-xl shadow-md placeholder:text-yellow-600 focus:outline-none"
                                     placeholder="enter amount of $AVAS"
                                     v-model="amount"
                                 />
@@ -238,9 +257,9 @@ const stakeCustom = () => {
 
                             <button
                                 @click="stakeCustom"
-                                class="rounded-md px-3.5 py-2 text-2xl font-semibold leading-6 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                class="rounded-md px-5 py-3 text-2xl font-semibold leading-6 bg-indigo-100 border border-indigo-300 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Submit A-la-carte
+                                Submit your request
                             </button>
                         </div>
                     </div>

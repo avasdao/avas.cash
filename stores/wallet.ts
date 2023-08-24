@@ -200,7 +200,6 @@ export const useWalletStore = defineStore('wallet', {
             let constraintHash
             let nexaAddress
             let publicKey
-            // let script
             let scriptHash
             let scriptPubKey
             let wif
@@ -225,9 +224,10 @@ export const useWalletStore = defineStore('wallet', {
                 OP.ZERO, // script template
                 ...encodeDataPush(scriptHash), // script hash
                 ...encodeDataPush(constraintHash),  // arguments hash
-                ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+                // ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+                // ...encodeDataPush(hexToBin('a90040')), // relative-time block (86,528 seconds ~1day)
+                ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
             ])
-            console.info('\n  Script Public Key:', binToHex(scriptPubKey))
 
             /* Encode the public key hash into a P2PKH nexa address. */
             nexaAddress = encodeAddress(
@@ -436,25 +436,20 @@ export const useWalletStore = defineStore('wallet', {
 
             /* Encode Private Key WIF. */
             wif = encodePrivateKeyWif({ hash: sha256 }, this._wallet.privateKey, 'mainnet')
-            // console.log('WALLET IMPORT FORMAT', wif)
 
             /* Derive the corresponding public key. */
             publicKey = secp256k1.derivePublicKeyCompressed(this._wallet.privateKey)
-            // console.log('PUBLIC KEY (hex)', binToHex(publicKey))
 
             /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
             scriptData = encodeDataPush(publicKey)
-            // console.log('\n  Script Data:', scriptData)
 
             publicKeyHash = ripemd160.hash(sha256(scriptData))
-            // console.log('PUBLIC KEY HASH (hex)', binToHex(publicKeyHash))
 
             scriptPubKey = new Uint8Array([
                 OP.ZERO,
                 OP.ONE,
                 ...encodeDataPush(publicKeyHash),
             ])
-            console.info('\n  Script Public Key:', binToHex(scriptPubKey))
 
             /* Reques header's tip. */
             headersTip = await getTip()
@@ -467,7 +462,6 @@ export const useWalletStore = defineStore('wallet', {
                 encodeDataPush(scriptPubKey),
             )
             console.info('\n  Nexa address:', nexaAddress)
-            // return console.info('\n  Wallet address:', this.address)
 
             const scriptCoins = await getCoins(wif, scriptPubKey)
                 .catch(err => console.error(err))
@@ -510,7 +504,7 @@ export const useWalletStore = defineStore('wallet', {
                     console.error(txResult.message)
                 }
 
-                // expect(txResult.result).to.have.length(64)
+                return txResult
             } catch (err) {
                 console.error(err)
             }
@@ -537,36 +531,29 @@ export const useWalletStore = defineStore('wallet', {
 
             /* Encode Private Key WIF. */
             wif = encodePrivateKeyWif({ hash: sha256 }, this._wallet.privateKey, 'mainnet')
-            // console.log('WALLET IMPORT FORMAT', wif)
 
             scriptHash = ripemd160.hash(sha256(STAKEHOUSE_SCRIPT))
-            // console.log('SCRIPT HASH:', scriptHash)
-            console.log('SCRIPT HASH (hex):', binToHex(scriptHash))
 
             /* Derive the corresponding public key. */
             publicKey = secp256k1.derivePublicKeyCompressed(this._wallet.privateKey)
-            // console.log('PUBLIC KEY (hex)', binToHex(publicKey))
 
             /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
             constraintData = encodeDataPush(publicKey)
-            console.log('\n  Arguments Data:', constraintData)
 
             constraintHash = ripemd160.hash(sha256(constraintData))
-            // console.log('CONSTRAINT HASH:', constraintHash)
-            console.log('CONSTRAINT HASH (hex):', binToHex(constraintHash))
 
             /* Reques header's tip. */
             headersTip = await getTip()
-            console.log('HEADERS TIP', headersTip)
 
             /* Build script public key. */
             scriptPubKey = new Uint8Array([
                 OP.ZERO, // script template
                 ...encodeDataPush(scriptHash), // script hash
                 ...encodeDataPush(constraintHash),  // arguments hash
-                ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+                // ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+                // ...encodeDataPush(hexToBin('a90040')), // relative-time block (86,528 seconds ~1day)
+                ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
             ])
-            console.info('\n  Script Public Key:', binToHex(scriptPubKey))
 
             /* Encode the public key hash into a P2PKH nexa address. */
             nexaAddress = encodeAddress(
@@ -575,24 +562,16 @@ export const useWalletStore = defineStore('wallet', {
                 encodeDataPush(scriptPubKey),
             )
             console.info('\n  Nexa address:', nexaAddress)
-            // return console.info('\n  Wallet address:', this.address)
-
-            // const scriptTokens = await getTokens(wif, scriptPubKey)
-            //     .catch(err => console.error(err))
-            // console.log('\n  Script Tokens:', scriptTokens)
 
             const outpointDetails = await getOutpoint(_redeemToken.outpoint)
                 .catch(err => console.error(err))
-            console.log('OUTPIONT DETAILS', outpointDetails)
 
             const outpointTx = await getTransaction(outpointDetails.tx_hash)
                 .catch(err => console.error(err))
-            console.log('OUTPIONT TX', outpointTx)
 
             const coinOutpoint = outpointTx.vout.find(_output => {
                 return _output.value_satoshi === 1000
             })
-            console.log('COIN OUTPOINT', coinOutpoint)
 
             const scriptCoins = await getCoins(wif, scriptPubKey)
                 .catch(err => console.error(err))
@@ -605,12 +584,10 @@ export const useWalletStore = defineStore('wallet', {
             const redeemToken = scriptTokens.find(_token => {
                 return _token.outpoint === _redeemToken.outpoint
             })
-            console.log('REDEEM TOKEN (wif)', redeemToken)
 
             const redeemCoin = scriptCoins.find(_coin => {
                 return _coin.outpoint === coinOutpoint.outpoint_hash
             })
-            console.log('REDEEM COIN', redeemCoin)
 
             receivers = [
                 {
@@ -649,6 +626,7 @@ export const useWalletStore = defineStore('wallet', {
                 }
 
                 // expect(txResult.result).to.have.length(64)
+                return txResult
             } catch (err) {
                 console.error(err)
             }

@@ -61,11 +61,13 @@ const redeem = async (_token) => {
         const response = await Wallet.redeem(_token)
         console.log('RESPONSE', response)
 
-        /* Validate transaction idem. */
-        if (response) {
-            //
-        } else {
-            //
+        /* Validate response. */
+        if (response?.result) {
+            alert(`Your transaction completed successfully!\n\n${response.result}`)
+        }
+
+        if (response?.error) {
+            alert(response.error?.message)
         }
     }
 }
