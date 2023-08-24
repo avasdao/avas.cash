@@ -58,7 +58,7 @@ const amountDisplay = (_token) => {
 }
 
 const redeem = async (_token) => {
-    if (confirm(`Are you sure you want to redeem ${numeral(_token.tokens).format('0,0.00')} AVAS to ${Wallet.address}?`)) {
+    if (confirm(`Are you sure you want to redeem ${amountDisplay(_token)} AVAS to ${Wallet.address}?`)) {
         const response = await Wallet.redeem(_token)
         console.log('RESPONSE', response)
 
