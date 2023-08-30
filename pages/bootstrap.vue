@@ -194,9 +194,12 @@ onMounted(() => {
 
                 <section
                     v-for="(campaign, index) of campaigns" :key="campaign.id"
-                    class="rounded-3xl p-8 ring-1 ring-gray-200 bg-gradient-to-b from-gray-200 to-gray-50 border border-gray-300 shadow-sm"
+                    class="relative rounded-3xl p-8 ring-1 ring-gray-200 bg-gradient-to-b from-gray-200 to-gray-50 border border-gray-300 shadow-sm"
                     :class="[ campaign.asking === 0 ? 'opacity-30 cursor-not-allowed' : '' ]"
                 >
+                    <!-- Overlay for completed campaigns -->
+                    <div v-if="campaign?.isActive === false" class="absolute -ml-8 -mt-8 bg-gray-500 w-full h-full rounded-3xl opacity-50 cursor-not-allowed" />
+
                     <div class="h-[160px] sm:h-[130px] lg:h-[160px]">
                         <h2 class="font-medium text-gray-900 h-[80px] sm:h-[50px] lg:h-[80px]">
                             <h4 class="text-sm uppercase sm:normal-case text-gray-600 sm:text-gray-900">
