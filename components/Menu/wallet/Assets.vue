@@ -70,24 +70,28 @@ const displayTokenName = (_tokenid) => {
 }
 
 const displayDecimalAmount = (_token) => {
-    if (!_token.decimals || _token.decimals === 0) {
-        return _token.tokens
-    }
+    // if (!_token.decimals || _token.decimals === 0) {
+    //     return _token.tokens
+    // }
 
     let decimalValue
     let bigIntValue
 
     decimalValue = _token.tokens * BigInt(1e4)
 
-    bigIntValue = decimalValue / BigInt(10**_token.decimals)
+    if (_token.decimals > 0) {
+        bigIntValue = decimalValue / BigInt(10**_token.decimals)
+    } else {
+        bigIntValue = decimalValue
+    }
 
     return numeral(parseFloat(bigIntValue) / 1e4).format('0,0.00[000000]')
 }
 
 const displayDecimalAmountUsd = (_token) => {
-    if (!_token.decimals || _token.decimals === 0) {
-        return _token.tokens
-    }
+    // if (!_token.decimals || _token.decimals === 0) {
+    //     return _token.tokens
+    // }
 
     let decimalValue
     let bigIntValue
@@ -96,7 +100,11 @@ const displayDecimalAmountUsd = (_token) => {
 
     decimalValue = _token.tokens * BigInt(1e4)
 
-    bigIntValue = decimalValue / BigInt(10**_token.decimals)
+    if (_token.decimals > 0) {
+        bigIntValue = decimalValue / BigInt(10**_token.decimals)
+    } else {
+        bigIntValue = decimalValue
+    }
 
     price = _token.ticker?.price || 0.00
 
@@ -205,8 +213,11 @@ onMounted(() => {
             <div class="flex flex-row items-start">
                 <img :src="displayIcon(token)" class="-mt-0.5 mr-1 h-12 w-auto p-2 opacity-80" />
 
-                <div class="flex flex-col">
-                    <h3 class="text-base text-amber-800 font-medium uppercase truncate">
+                <div class="flex flex-col truncate">
+                    <h3 class="sm:hidden w-32 text-base text-amber-800 font-medium uppercase truncate">
+                        {{displayTokenName(tokenid)}}
+                    </h3>
+                    <h3 class="hidden sm:flex text-base text-amber-800 font-medium uppercase truncate">
                         {{displayTokenName(tokenid)}}
                     </h3>
 
