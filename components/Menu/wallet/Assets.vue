@@ -70,10 +70,7 @@ const displayTokenName = (_tokenid) => {
 }
 
 const displayDecimalAmount = (_token) => {
-    // if (!_token.decimals || _token.decimals === 0) {
-    //     return _token.tokens
-    // }
-
+    /* Initialize locals. */
     let decimalValue
     let bigIntValue
 
@@ -85,14 +82,11 @@ const displayDecimalAmount = (_token) => {
         bigIntValue = decimalValue
     }
 
-    return numeral(parseFloat(bigIntValue) / 1e4).format('0,0.00[000000]')
+    return numeral(parseFloat(bigIntValue) / 1e4).format('0,0[.]00000000')
 }
 
 const displayDecimalAmountUsd = (_token) => {
-    // if (!_token.decimals || _token.decimals === 0) {
-    //     return _token.tokens
-    // }
-
+    /* Initialize locals. */
     let decimalValue
     let bigIntValue
     let price
