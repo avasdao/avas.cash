@@ -61,12 +61,15 @@ const AVAS_TOKENID = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af
 
 const TX_GAS_AMOUNT = 1000 // 10.00 NEXA
 
+/* Build (contract) script. */
 // NOTE: This is the "optimized" version of the NexScript v0.1.0
 //       Stakehouse contract (w/out the use of `OP_SWAP`), which saves 1 byte.
-const STAKEHOUSE_SCRIPT = new Uint8Array([
+// NOTE: Reversing the visible variables ALSO saves 1 byte.
+//       Version 2 will take advantage of this.
+const STAKEHOUSE_V1_SCRIPT = new Uint8Array([
     OP.FROMALTSTACK,
         OP.CHECKSEQUENCEVERIFY,
-            OP.DROP,
+        OP.DROP,
     OP.FROMALTSTACK,
         OP.CHECKSIGVERIFY,
 ])
@@ -191,6 +194,11 @@ export const useWalletStore = defineStore('wallet', {
             // return _state._balance
         },
 
+        /**
+         * Stakehouse
+         *
+         * Generates a stakehouse contract.
+         */
         stakehouse(_state) {
             /* Validate private key. */
             if (!_state._wallet?.privateKey) {
@@ -200,7 +208,7 @@ export const useWalletStore = defineStore('wallet', {
             /* Initialize locals. */
             let constraintData
             let constraintHash
-            let nexaAddress
+            let contractAddress
             let publicKey
             let scriptHash
             let scriptPubKey
@@ -210,7 +218,7 @@ export const useWalletStore = defineStore('wallet', {
             wif = encodePrivateKeyWif({ hash: sha256 }, _state._wallet.privateKey, 'mainnet')
 
             /* Hash (contract) script. */
-            scriptHash = ripemd160.hash(sha256(STAKEHOUSE_SCRIPT))
+            scriptHash = ripemd160.hash(sha256(STAKEHOUSE_V1_SCRIPT))
 
             /* Derive the corresponding public key. */
             publicKey = secp256k1.derivePublicKeyCompressed(_state._wallet.privateKey)
@@ -226,20 +234,20 @@ export const useWalletStore = defineStore('wallet', {
                 OP.ZERO, // script template
                 ...encodeDataPush(scriptHash), // script hash
                 ...encodeDataPush(constraintHash),  // arguments hash
-                // ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+                ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
                 // ...encodeDataPush(hexToBin('a90040')), // relative-time block (86,528 seconds ~1day)
-                ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
+                // ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
             ])
 
             /* Encode the public key hash into a P2PKH nexa address. */
-            nexaAddress = encodeAddress(
+            contractAddress = encodeAddress(
                 'nexa',
                 'TEMPLATE',
-                encodeDataPush(scriptPubKey),
+                scriptPubKey,
             )
-            console.info('\n  Nexa address:', nexaAddress)
+            console.info('CONTRACT ADDRESS', contractAddress)
 
-            return nexaAddress
+            return contractAddress
         },
     },
 
@@ -424,9 +432,14 @@ export const useWalletStore = defineStore('wallet', {
             }
         },
 
+        /**
+         * Make Reservation
+         *
+         * Creates a transaction and broadcasts on-chain.
+         */
         async makeReservation(_amount) {
             let headersTip
-            let nexaAddress
+            // let nexaAddress
             let publicKey
             let publicKeyHash
             let receivers
@@ -438,34 +451,35 @@ export const useWalletStore = defineStore('wallet', {
             let txResult
             let wif
 
+            console.info('\n  Nexa address:', this.address)
+
             /* Encode Private Key WIF. */
             wif = encodePrivateKeyWif({ hash: sha256 }, this._wallet.privateKey, 'mainnet')
 
             /* Derive the corresponding public key. */
-            publicKey = secp256k1.derivePublicKeyCompressed(this._wallet.privateKey)
+            // publicKey = secp256k1.derivePublicKeyCompressed(this._wallet.privateKey)
 
             /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
-            scriptData = encodeDataPush(publicKey)
+            // scriptData = encodeDataPush(publicKey)
 
-            publicKeyHash = ripemd160.hash(sha256(scriptData))
+            // publicKeyHash = ripemd160.hash(sha256(scriptData))
 
-            scriptPubKey = new Uint8Array([
-                OP.ZERO,
-                OP.ONE,
-                ...encodeDataPush(publicKeyHash),
-            ])
+            // scriptPubKey = new Uint8Array([
+            //     OP.ZERO,
+            //     OP.ONE,
+            //     ...encodeDataPush(publicKeyHash),
+            // ])
 
             /* Reques header's tip. */
             headersTip = await getTip()
             console.log('HEADERS TIP', headersTip)
 
             /* Encode the public key hash into a P2PKH nexa address. */
-            nexaAddress = encodeAddress(
-                'nexa',
-                'TEMPLATE',
-                encodeDataPush(scriptPubKey),
-            )
-            console.info('\n  Nexa address:', nexaAddress)
+            // nexaAddress = encodeAddress(
+            //     'nexa',
+            //     'TEMPLATE',
+            //     encodeDataPush(scriptPubKey),
+            // )
 
             scriptCoins = await getCoins(wif, scriptPubKey)
                 .catch(err => console.error(err))
@@ -493,7 +507,7 @@ export const useWalletStore = defineStore('wallet', {
 
             // FIXME: FOR DEV PURPOSES ONLY
             receivers.push({
-                address: nexaAddress,
+                address: this.address,
             })
             console.log('\n  Receivers:', receivers)
 
@@ -518,15 +532,20 @@ export const useWalletStore = defineStore('wallet', {
             }
         },
 
+        /**
+         * Redeem
+         *
+         * Recover your assets AFTER the staking expires.
+         */
         async redeem(_redeemToken) {
             // console.log('REDEEM TOKEN', _redeemToken)
 
             let coinOutpoint
             let constraintData
             let constraintHash
+            let contractAddress
             let headersTip
             let lockTime
-            let nexaAddress
             let outpointDetails
             let outpointTx
             let publicKey
@@ -544,7 +563,7 @@ export const useWalletStore = defineStore('wallet', {
             /* Encode Private Key WIF. */
             wif = encodePrivateKeyWif({ hash: sha256 }, this._wallet.privateKey, 'mainnet')
 
-            scriptHash = ripemd160.hash(sha256(STAKEHOUSE_SCRIPT))
+            scriptHash = ripemd160.hash(sha256(STAKEHOUSE_V1_SCRIPT))
 
             /* Derive the corresponding public key. */
             publicKey = secp256k1.derivePublicKeyCompressed(this._wallet.privateKey)
@@ -562,18 +581,18 @@ export const useWalletStore = defineStore('wallet', {
                 OP.ZERO, // script template
                 ...encodeDataPush(scriptHash), // script hash
                 ...encodeDataPush(constraintHash),  // arguments hash
-                // ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+                ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
                 // ...encodeDataPush(hexToBin('a90040')), // relative-time block (86,528 seconds ~1day)
-                ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
+                // ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
             ])
 
             /* Encode the public key hash into a P2PKH nexa address. */
-            nexaAddress = encodeAddress(
+            contractAddress = encodeAddress(
                 'nexa',
                 'TEMPLATE',
                 encodeDataPush(scriptPubKey),
             )
-            console.info('\n  Nexa address:', nexaAddress)
+            console.info('CONTRACT ADDRESS', contractAddress)
 
             outpointDetails = await getOutpoint(_redeemToken.outpoint)
                 .catch(err => console.error(err))
@@ -611,7 +630,7 @@ export const useWalletStore = defineStore('wallet', {
 
             // FIXME: FOR DEV PURPOSES ONLY
             receivers.push({
-                address: nexaAddress,
+                address: this.address,
             })
             console.log('\n  Receivers:', receivers)
 
@@ -624,10 +643,10 @@ export const useWalletStore = defineStore('wallet', {
                 tokens: [redeemToken],
                 receivers,
                 lockTime,
-                // sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
+                sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
                 // sequence: 0x4000a9, // set (timestamp) flag + 169 (512-second) cycles
-                sequence: 0x4013c7, // set (timestamp) flag + 5,063 (512-second) cycles
-                script: STAKEHOUSE_SCRIPT,
+                // sequence: 0x4013c7, // set (timestamp) flag + 5,063 (512-second) cycles
+                script: STAKEHOUSE_V1_SCRIPT,
             })
             console.log('Send UTXO (response):', response)
 
