@@ -1,6 +1,6 @@
 {
   "name": "avas-cash",
-  "version": "23.8.31",
+  "version": "23.10.20",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -14,7 +14,7 @@
     "@pinia/nuxt": "0.4.7",
     "firebase": "10.1.0",
     "moment": "2.29.4",
-    "nexajs": "23.8.30",
+    "nexajs": "23.10.16",
     "numeral": "2.0.6",
     "nuxt": "3.0.0",
     "pinia": "2.0.32",

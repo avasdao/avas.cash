@@ -234,9 +234,9 @@ export const useWalletStore = defineStore('wallet', {
                 OP.ZERO, // script template
                 ...encodeDataPush(scriptHash), // script hash
                 ...encodeDataPush(constraintHash),  // arguments hash
-                ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+                // ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
                 // ...encodeDataPush(hexToBin('a90040')), // relative-time block (86,528 seconds ~1day)
-                // ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
+                ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
             ])
 
             /* Encode the public key hash into a P2PKH nexa address. */
@@ -293,134 +293,6 @@ export const useWalletStore = defineStore('wallet', {
             this.init()
         },
 
-        /**
-         * Load Assets
-         *
-         * Retrieves all spendable UTXOs.
-         */
-        async loadAssets(_isReloading = false) {
-            // console.info('Wallet address:', this.address)
-            // console.info('Wallet address (1):', this.getAddress(1))
-            // console.info('Wallet address (2):', this.getAddress(2))
-            // console.info('Wallet address (3):', this.getAddress(3))
-
-            /* Initialize locals. */
-            let unspent
-
-            /* Validate coin re-loading. */
-            // FIXME: What happens if we re-subscribe??
-            if (_isReloading === false) {
-                /* Start monitoring address. */
-                await subscribeAddress(
-                    this.address,
-                    () => this.loadAssets.bind(this)(true),
-                )
-            }
-
-            /* Encode Private Key WIF. */
-            this._wif = encodePrivateKeyWif({ hash: sha256 }, this._wallet.privateKey, 'mainnet')
-
-            // Fetch all unspent transaction outputs for the temporary in-browser wallet.
-            unspent = await listUnspent(this.address)
-                .catch(err => console.error(err))
-            // console.log('UNSPENT', unspent)
-
-            /* Validate unspent outputs. */
-            if (unspent.length === 0) {
-                /* Clear (saved) coins. */
-                this._coins = []
-
-                /* Clear (saved) tokens. */
-                this._tokens = []
-
-                return console.error('There are NO unspent outputs available.')
-            }
-
-            /* Retrieve coins. */
-            this._coins = unspent
-                .filter(_unspent => _unspent.hasToken === false)
-                .map(_unspent => {
-                    const outpoint = _unspent.outpoint
-                    const satoshis = _unspent.satoshis
-
-                    return {
-                        outpoint,
-                        satoshis,
-                        wif: this._wif,
-                    }
-                })
-            // console.log('COINS', this.coins)
-
-            /* Retrieve tokens. */
-            this._tokens = unspent
-                .filter(_unspent => _unspent.hasToken === true)
-                .map(_unspent => {
-                    const outpoint = _unspent.outpoint
-                    const satoshis = _unspent.satoshis
-                    const tokenid = _unspent.tokenid
-                    const tokens = _unspent.tokens
-
-                    return {
-                        outpoint,
-                        satoshis,
-                        tokenid,
-                        tokens,
-                        wif: this._wif,
-                    }
-                })
-            // console.log('TOKENS', this.tokens)
-
-            /* Vaildate assets (directory) is initialized. */
-            if (!this.assets) {
-                this._assets = {}
-            }
-
-            console.log('ASSETS', this.assets)
-
-            /* Handle (metadata) token details. */
-            this.tokens.forEach(async _token => {
-                let doc
-                let docUrl
-                let iconUrl
-
-                // console.log('TOKEN', _token)
-                // FIXME: Update after ttl (24 hours).
-                // if (!this.assets[_token.tokenid]) {
-                if (!this.assets[_token.tokenid]?.iconUrl) {
-                    /* Set (genesis) token details to (saved) directory. */
-                    this._assets[_token.tokenid] = await getTokenInfo(_token.tokenid)
-                        .catch(err => console.error(err))
-                    // console.log('TOKEN DETAILS', this._assets[_token.tokenid])
-
-                    /* Set document URL. */
-                    docUrl = this.assets[_token.tokenid].document_url
-
-                    /* Validate document URL. */
-                    if (docUrl) {
-                        doc = await $fetch(docUrl)
-                            .catch(err => console.error(err))
-
-                        if (doc) {
-                            /* Set icon URL. */
-                            iconUrl = doc[0]?.icon
-
-                            /* Validate full URI. */
-                            if (!iconUrl.includes('http')) {
-                                // console.log('BASE URL', new URL(docUrl), docUrl, iconUrl)
-
-                                /* Re-set icon URL. */
-                                iconUrl = (new URL(docUrl)).origin + iconUrl
-                            }
-
-                            /* Save to assets. */
-                            this._assets[_token.tokenid].iconUrl = iconUrl
-                        }
-                    }
-
-                }
-            })
-        },
-
         async transfer(_receiver, _satoshis) {
             /* Validate transaction type. */
             if (this.asset.group === '0') {
@@ -456,30 +328,9 @@ export const useWalletStore = defineStore('wallet', {
             /* Encode Private Key WIF. */
             wif = encodePrivateKeyWif({ hash: sha256 }, this._wallet.privateKey, 'mainnet')
 
-            /* Derive the corresponding public key. */
-            // publicKey = secp256k1.derivePublicKeyCompressed(this._wallet.privateKey)
-
-            /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
-            // scriptData = encodeDataPush(publicKey)
-
-            // publicKeyHash = ripemd160.hash(sha256(scriptData))
-
-            // scriptPubKey = new Uint8Array([
-            //     OP.ZERO,
-            //     OP.ONE,
-            //     ...encodeDataPush(publicKeyHash),
-            // ])
-
             /* Reques header's tip. */
             headersTip = await getTip()
-            console.log('HEADERS TIP', headersTip)
-
-            /* Encode the public key hash into a P2PKH nexa address. */
-            // nexaAddress = encodeAddress(
-            //     'nexa',
-            //     'TEMPLATE',
-            //     encodeDataPush(scriptPubKey),
-            // )
+            // console.log('HEADERS TIP', headersTip)
 
             scriptCoins = await getCoins(wif, scriptPubKey)
                 .catch(err => console.error(err))
@@ -581,9 +432,9 @@ export const useWalletStore = defineStore('wallet', {
                 OP.ZERO, // script template
                 ...encodeDataPush(scriptHash), // script hash
                 ...encodeDataPush(constraintHash),  // arguments hash
-                ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+                // ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
                 // ...encodeDataPush(hexToBin('a90040')), // relative-time block (86,528 seconds ~1day)
-                // ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
+                ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
             ])
 
             /* Encode the public key hash into a P2PKH nexa address. */
@@ -643,10 +494,10 @@ export const useWalletStore = defineStore('wallet', {
                 tokens: [redeemToken],
                 receivers,
                 lockTime,
-                sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
+                // sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
                 // sequence: 0x4000a9, // set (timestamp) flag + 169 (512-second) cycles
-                // sequence: 0x4013c7, // set (timestamp) flag + 5,063 (512-second) cycles
-                script: STAKEHOUSE_V1_SCRIPT,
+                sequence: 0x4013c7, // set (timestamp) flag + 5,063 (512-second) cycles
+                locking: STAKEHOUSE_V1_SCRIPT,
             })
             console.log('Send UTXO (response):', response)
 
