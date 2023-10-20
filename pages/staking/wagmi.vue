@@ -29,7 +29,7 @@ const init = () => {
 }
 
 onMounted(() => {
-    setTimeout(init, 2000)
+    // setTimeout(init, 2000)
     // init()
 })
 

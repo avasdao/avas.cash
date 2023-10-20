@@ -44,10 +44,16 @@ const tokens = computed(() => {
 })
 
 const init = async () => {
-    // console.log('STAKEHOUSE', Wallet.stakehouse)
+    if (!Wallet.stakehouse) {
+        return setTimeout(() => {
+            init()
+        }, 100)
+    }
+    console.log('WALLET STAKEHOUSE', Wallet.stakehouse)
+
     unspent.value = await listUnspent(Wallet.stakehouse)
         .catch(err => console.error(err))
-    // console.log('UNSPENT', unspent.value)
+    console.log('UNSPENT', unspent.value)
 }
 
 const amountDisplay = (_token) => {
