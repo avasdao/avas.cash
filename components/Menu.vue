@@ -104,7 +104,7 @@ onMounted(() => {
                                     </NuxtLink>
                                 </div>
 
-                                <NuxtLink @click="toggleMenu" to="/bootstrap" class="-mt-1.5 w-full text-center my-0 px-2 py-1 bg-amber-200 border border-amber-300 rounded-b-lg tracking-widest hover:bg-amber-400">
+                                <NuxtLink @click="toggleMenu" to="/bootstrap" class="-mt-1.5 w-full text-center my-0 px-2 py-1 bg-amber-200 border border-amber-300 rounded-b-lg tracking-widest hover:bg-amber-400 uppercase">
                                     Bootstrap Nexa
                                 </NuxtLink>
                             </nav>

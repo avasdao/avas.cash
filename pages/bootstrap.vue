@@ -18,10 +18,6 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
-const campaign1History = ref(null)
-const campaign1HistoryDetails = ref(null)
-const campaign1HistorySender = ref(null)
-
 const campaigns = ref([])
 
 const campaign_1_id = '475b4cfc-ae95-419d-9681-cf378c083963'
@@ -40,25 +36,6 @@ const campaign5 = {
     costUsd: 0.00,
 }
 
-// campaigns.value.push(campaign1)
-// campaigns.value.push(campaign2)
-// campaigns.value.push(campaign3)
-// campaigns.value.push(campaign4)
-
-
-watch(() => campaign1History.value, async (_history) => {
-    let txid = _history[0].tx_hash
-
-    let tx = await getTransaction(txid)
-        .catch(err => console.error(err))
-    console.log('TX', tx)
-
-    campaign1HistoryDetails.value = tx
-
-    campaign1HistorySender.value = System.getSender(tx)
-})
-
-
 const copyToClipboard = (_text) => {
     /* Copy address to clipboard. */
     Clipboard.copy(_text)
@@ -67,19 +44,12 @@ const copyToClipboard = (_text) => {
 }
 
 
-// const loadCampaign1 = async () => {
-//     campaign1History.value = await getAddressHistory(campaign1.address)
-//         .catch(err => console.error(err))
-//     console.log('HISTORY', campaign1History.value)
-// }
-
 const init = async () => {
     let response
 
     response = await $fetch(`https://causes.cash/v1/campaign/${campaign_1_id}`)
         .catch(err => console.error(err))
     campaigns.value.push(response)
-    console.log('CAMPAIGN 1', response)
 
     response = await $fetch(`https://causes.cash/v1/campaign/${campaign_2_id}`)
         .catch(err => console.error(err))
@@ -92,6 +62,7 @@ const init = async () => {
     response = await $fetch(`https://causes.cash/v1/campaign/${campaign_4_id}`)
         .catch(err => console.error(err))
     campaigns.value.push(response)
+    console.log('CAMPAIGN 4', response)
 
     campaigns.value.push(campaign5)
 }
