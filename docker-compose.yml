@@ -1,12 +1,9 @@
-version: '3.7'
-
 services:
   app:
     build: .
     image: avas-cash
     container_name: avas-cash
     restart: unless-stopped
-    # network_mode: 'host'
     ports:
       - '127.0.0.1:3000:3000'
     environment:
