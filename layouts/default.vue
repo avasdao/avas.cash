@@ -1,7 +1,4 @@
 <script setup lang="ts">
-/* Import (Google) Firebase. */
-import { initializeApp } from 'firebase/app'
-
 /* Initialize stores. */
 import { useProfileStore } from '@/stores/profile'
 import { useSystemStore } from '@/stores/system'
@@ -9,16 +6,6 @@ import { useWalletStore } from '@/stores/wallet'
 const Profile = useProfileStore()
 const System = useSystemStore()
 const Wallet = useWalletStore()
-
-/* Firebase configuration. */
-const firebaseConfig = {
-    apiKey: 'AIzaSyDjig2lVO8V74vj3Wq6iwNgU1axo4B5cxA',
-    authDomain: 'avas--cash.firebaseapp.com',
-    projectId: 'avas--cash',
-    storageBucket: 'avas--cash.appspot.com',
-    messagingSenderId: '999087703954',
-    appId: '1:999087703954:web:e12f16978ad6a97bc5e34b',
-}
 
 onBeforeMount(() => {
     try {
@@ -75,16 +62,13 @@ const toggleMenu = () => {
     isShowingMenu.value = !isShowingMenu.value
 }
 
-onMounted(() => {
+onMounted(async () => {
     /* Initailize system. */
     System.init()
 
     /* Initialize wallet. */
     // await Wallet.init()
-    Wallet.init()
-
-
-    const app = initializeApp(firebaseConfig)
+    await Wallet.init()
 
     /* Initialize localization. */
     // const { locale, setLocale } = useI18n()

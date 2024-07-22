@@ -1,22 +1,21 @@
 /* Import modules. */
 import { encodeAddress } from '@nexajs/address'
-import { sha256 } from '@nexajs/crypto'
+
+import {
+    ripemd160,
+    sha256,
+} from '@nexajs/crypto'
+
+import {
+    encodeDataPush,
+    OP,
+} from '@nexajs/script'
+
 import {
     binToHex,
     hexToBin,
 } from '@nexajs/utils'
 
-/* Libauth helpers. */
-import {
-    encodeDataPush,
-    instantiateRipemd160,
-} from '@bitauth/libauth'
-
-let ripemd160
-
-;(async () => {
-    ripemd160 = await instantiateRipemd160()
-})()
 
 export default (_input) => {
     /* Retrieve the FIRST script signature. */
@@ -29,13 +28,21 @@ export default (_input) => {
     const scriptPushPubKey = encodeDataPush(publicKey)
 
     /* Generate public key hash. */
-    const publicKeyHash = ripemd160.hash(sha256(scriptPushPubKey))
+    const publicKeyHash = ripemd160(sha256(scriptPushPubKey))
 
-    /* Generate public key hash script. */
-    const pkhScript = hexToBin('17005114' + binToHex(publicKeyHash))
+    const scriptPubKey = new Uint8Array([
+        OP.ZERO,
+        OP.ONE,
+        ...encodeDataPush(publicKeyHash),
+    ])
+    // console.info('\n  Script Public Key:', binToHex(scriptPubKey))
 
     /* Generate address. */
-    const address = encodeAddress('nexa', 'TEMPLATE', pkhScript)
+    const address = encodeAddress(
+        'nexa',
+        'TEMPLATE',
+        scriptPubKey,
+    )
 
     /* Return (sender) address. */
     return address

@@ -6,7 +6,11 @@ import {
     listUnspent,
 } from '@nexajs/address'
 
-import { sha256 } from '@nexajs/crypto'
+import {
+    derivePublicKeyCompressed,
+    ripemd160,
+    sha256,
+} from '@nexajs/crypto'
 
 import {
     encodePrivateKeyWif,
@@ -24,7 +28,10 @@ import {
     subscribeAddress,
 } from '@nexajs/rostrum'
 
-import { OP } from '@nexajs/script'
+import {
+    encodeDataPush,
+    OP,
+} from '@nexajs/script'
 
 import {
     getTokens,
@@ -38,23 +45,7 @@ import {
 
 import { Wallet } from '@nexajs/wallet'
 
-/* Libauth helpers. */
-import {
-    encodeDataPush,
-    instantiateRipemd160,
-    instantiateSecp256k1,
-} from '@bitauth/libauth'
-
 import _createWallet from './wallet/create.ts'
-
-let ripemd160
-let secp256k1
-
-;(async () => {
-    /* Instantiate Libauth crypto interfaces. */
-    ripemd160 = await instantiateRipemd160()
-    secp256k1 = await instantiateSecp256k1()
-})()
 
 /* Set ($AVAS) token id. */
 const AVAS_TOKENID = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000'
@@ -79,27 +70,15 @@ const STAKEHOUSE_V1_SCRIPT = new Uint8Array([
  */
 export const useWalletStore = defineStore('wallet', {
     state: () => ({
-        /* Currently active asset id. */
-        // _assetid: null,
-
         /* Directory of (owned) asset details (metadata). */
-        // _assets: null,
-
-        /* List of all (value-based) UTXOs. */
-        // _coins: null,
+        _assets: null,
 
         /* Initialize entropy (used for HD wallet). */
         // NOTE: This is a cryptographically-secure "random" 32-byte (256-bit) value. */
         _entropy: null,
 
-        /* List of all (token-based) UTXOs. */
-        // _tokens: null,
-
         /* Wallet object. */
         _wallet: null,
-
-        /* Wallet import format (WIF) private key. */
-        // _wif: null,
     }),
 
     getters: {
@@ -158,15 +137,6 @@ export const useWalletStore = defineStore('wallet', {
             return WalletStatus
         },
 
-
-        // wallet(_state) {
-        //     return _state._wallet
-        // },
-
-        // wif(_state) {
-        //     return _state._wif
-        // },
-
         /**
          * Stakehouse
          *
@@ -188,18 +158,18 @@ export const useWalletStore = defineStore('wallet', {
             let wif
 
             /* Encode Private Key WIF. */
-            wif = encodePrivateKeyWif({ hash: sha256 }, _state._wallet.privateKey, 'mainnet')
+            wif = encodePrivateKeyWif(_state._wallet.privateKey, 'mainnet')
 
             /* Hash (contract) script. */
-            scriptHash = ripemd160.hash(sha256(STAKEHOUSE_V1_SCRIPT))
+            scriptHash = ripemd160(sha256(STAKEHOUSE_V1_SCRIPT))
 
             /* Derive the corresponding public key. */
-            publicKey = secp256k1.derivePublicKeyCompressed(_state._wallet.privateKey)
+            publicKey = derivePublicKeyCompressed(_state._wallet.privateKey)
 
             /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
             constraintData = encodeDataPush(publicKey)
 
-            constraintHash = ripemd160.hash(sha256(constraintData))
+            constraintHash = ripemd160(sha256(constraintData))
             // console.log('CONSTRAINT HASH:', constraintHash)
 
             /* Build script public key. */
@@ -298,7 +268,7 @@ export const useWalletStore = defineStore('wallet', {
             console.info('\n  Nexa address:', this.address)
 
             /* Encode Private Key WIF. */
-            wif = encodePrivateKeyWif({ hash: sha256 }, this._wallet.privateKey, 'mainnet')
+            wif = encodePrivateKeyWif(this._wallet.privateKey, 'mainnet')
 
             /* Reques header's tip. */
             headersTip = await getTip()
@@ -384,17 +354,17 @@ export const useWalletStore = defineStore('wallet', {
             let wif
 
             /* Encode Private Key WIF. */
-            wif = encodePrivateKeyWif({ hash: sha256 }, this._wallet.privateKey, 'mainnet')
+            wif = encodePrivateKeyWif(this._wallet.privateKey, 'mainnet')
 
-            scriptHash = ripemd160.hash(sha256(STAKEHOUSE_V1_SCRIPT))
+            scriptHash = ripemd160(sha256(STAKEHOUSE_V1_SCRIPT))
 
             /* Derive the corresponding public key. */
-            publicKey = secp256k1.derivePublicKeyCompressed(this._wallet.privateKey)
+            publicKey = derivePublicKeyCompressed(this._wallet.privateKey)
 
             /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
             constraintData = encodeDataPush(publicKey)
 
-            constraintHash = ripemd160.hash(sha256(constraintData))
+            constraintHash = ripemd160(sha256(constraintData))
 
             /* Reques header's tip. */
             headersTip = await getTip()
@@ -530,41 +500,6 @@ export const useWalletStore = defineStore('wallet', {
 
         getAddress(_accountIdx) {
             return this.wallet.getAddress(_accountIdx)
-        },
-
-        async groupTokens() {
-            const tokens = {}
-
-            for (let i = 0; i < this.tokens.length; i++) {
-                const token = this.tokens[i]
-                // console.log('TOKEN (grouped):', token)
-
-                // console.log('DETAILS', this.assets[token.tokenid])
-                if (!tokens[token.tokenid]) {
-                    let tokenidHex
-                    let ticker
-
-                    tokenidHex = this.assets[token.tokenid]?.token_id_hex
-
-                    if (tokenidHex) {
-                        ticker = await $fetch(`https://nexa.exchange/v1/ticker/quote/${tokenidHex}`)
-                            .catch(err => console.error(err))
-                    }
-
-                    tokens[token.tokenid] = {
-                        name: this.assets[token.tokenid]?.name || 'Unknown Asset',
-                        decimals: this.assets[token.tokenid]?.decimal_places || 0,
-                        iconUrl: this.assets[token.tokenid]?.iconUrl || '',
-                        tokens: token.tokens,
-                        tokenidHex,
-                        ticker,
-                    }
-                } else {
-                    tokens[token.tokenid].tokens += token.tokens
-                }
-            }
-
-            return tokens
         },
 
         destroy() {
