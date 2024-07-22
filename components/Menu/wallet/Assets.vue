@@ -67,13 +67,13 @@ const displayDecimalAmount = (_token) => {
     let decimalValue
     let bigIntValue
 
-    if (_token.group === '0') {
-        decimalValue = _token.satoshis * BigInt(1e4)
+// console.log('_token.amount', typeof _token.amount, _token.amount)
+    /* Validate value type. */
+    if (typeof _token.amount !== 'bigint' || typeof _token.satoshis !== 'bigint') {
+        decimalValue = BigInt(0)
     } else {
-console.log('_token.amount', typeof _token.amount, _token.amount)
-        /* Validate amount type. */
-        if (typeof _token.amount !== 'bigint') {
-            decimalValue = BigInt(0)
+        if (_token.group === '0') {
+            decimalValue = _token.satoshis * BigInt(1e4)
         } else {
             decimalValue = _token.amount * BigInt(1e4)
         }

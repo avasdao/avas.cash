@@ -36,14 +36,14 @@ const displayBalance = computed(() => {
     let decimalValue
     let bigIntValue
 
-    /* Validate asset group. */
-    if (Wallet.asset.group === '0') {
-        decimalValue = Wallet.asset.satoshis * BigInt(1e4)
+// console.log('Wallet.asset.amount', typeof Wallet.asset.amount, Wallet.asset.amount);
+    /* Validate amount type. */
+    if (typeof Wallet.asset.amount !== 'bigint' || typeof Wallet.asset.satoshis !== 'bigint') {
+        decimalValue = BigInt(0)
     } else {
-console.log('Wallet.asset.amount', typeof Wallet.asset.amount, Wallet.asset.amount);
-        /* Validate amount type. */
-        if (typeof Wallet.asset.amount !== 'bigint') {
-            decimalValue = BigInt(0)
+        /* Validate asset group. */
+        if (Wallet.asset.group === '0') {
+            decimalValue = Wallet.asset.satoshis * BigInt(1e4)
         } else {
             decimalValue = Wallet.asset.amount * BigInt(1e4)
         }
