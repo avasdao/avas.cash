@@ -63,12 +63,10 @@ const displayTokenName = (_tokenid) => {
 }
 
 const displayDecimalAmount = (_token) => {
-    console.log('_token', _token)
+    // console.log('_token', _token)
     let decimalValue
     let bigIntValue
 
-console.log('_token.satoshis', typeof _token.satoshis, _token.satoshis);
-console.log('_token.amount', typeof _token.amount, _token.amount);
     if (_token.group === '0') {
         decimalValue = _token.satoshis * BigInt(1e4)
     } else {
