@@ -63,7 +63,7 @@ const displayTokenName = (_tokenid) => {
 }
 
 const displayDecimalAmount = (_token) => {
-    // console.log('_token', _token)
+    console.log('_token', _token)
     let decimalValue
     let bigIntValue
 
