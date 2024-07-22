@@ -62,13 +62,13 @@ const toggleMenu = () => {
     isShowingMenu.value = !isShowingMenu.value
 }
 
-onMounted(async () => {
+onMounted(() => {
     /* Initailize system. */
     System.init()
 
     /* Initialize wallet. */
     // await Wallet.init()
-    await Wallet.init()
+    Wallet.init()
 
     /* Initialize localization. */
     // const { locale, setLocale } = useI18n()

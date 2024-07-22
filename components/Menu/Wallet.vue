@@ -35,6 +35,8 @@ const displayBalance = computed(() => {
     let decimalValue
     let bigIntValue
 
+console.log('Wallet.asset', Wallet.asset);
+console.log('Wallet.asset.satoshis', typeof Wallet.asset.satoshis, Wallet.asset.satoshis);
     if (Wallet.asset.group === '0') {
         decimalValue = Wallet.asset.satoshis * BigInt(1e4)
     } else {
