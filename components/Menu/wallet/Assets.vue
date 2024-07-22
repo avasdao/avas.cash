@@ -67,7 +67,7 @@ const displayDecimalAmount = (_token) => {
     let decimalValue
     let bigIntValue
 
-// console.log('_token.amount', typeof _token.amount, _token.amount)
+console.log('_token.satoshis', typeof _token.satoshis, _token.satoshis)
     /* Validate value type. */
     if (typeof _token.amount !== 'bigint' || typeof _token.satoshis !== 'bigint') {
         decimalValue = BigInt(0)
