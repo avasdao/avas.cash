@@ -36,7 +36,6 @@ const displayBalance = computed(() => {
     let decimalValue
     let bigIntValue
 
-// console.log('Wallet.asset.satoshis', typeof Wallet.asset.satoshis, Wallet.asset.satoshis);
     /* Validate amount type. */
     if (typeof Wallet.asset.amount !== 'bigint' || typeof Wallet.asset.satoshis !== 'bigint') {
         decimalValue = BigInt(0)
