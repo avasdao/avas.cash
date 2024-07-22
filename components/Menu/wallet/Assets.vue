@@ -70,6 +70,7 @@ const displayDecimalAmount = (_token) => {
     if (_token.group === '0') {
         decimalValue = _token.satoshis * BigInt(1e4)
     } else {
+console.log('_token.amount', typeof _token.amount, _token.amount)
         /* Validate amount type. */
         if (typeof _token.amount !== 'bigint') {
             decimalValue = BigInt(0)

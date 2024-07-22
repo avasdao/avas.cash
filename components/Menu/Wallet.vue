@@ -40,6 +40,7 @@ const displayBalance = computed(() => {
     if (Wallet.asset.group === '0') {
         decimalValue = Wallet.asset.satoshis * BigInt(1e4)
     } else {
+console.log('Wallet.asset.amount', typeof Wallet.asset.amount, Wallet.asset.amount);
         /* Validate amount type. */
         if (typeof Wallet.asset.amount !== 'bigint') {
             decimalValue = BigInt(0)
