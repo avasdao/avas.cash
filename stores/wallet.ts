@@ -160,9 +160,9 @@ export const useWalletStore = defineStore('wallet', {
                 OP.ZERO, // script template
                 ...encodeDataPush(scriptHash), // script hash
                 ...encodeDataPush(constraintHash),  // arguments hash
-                ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+                // ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
                 // ...encodeDataPush(hexToBin('a90040')), // relative-time block (86,528 seconds ~1day)
-                // ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
+                ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
             ])
 
             /* Encode the public key hash into a P2PKH nexa address. */
@@ -366,9 +366,9 @@ export const useWalletStore = defineStore('wallet', {
                 OP.ZERO, // script template
                 ...encodeDataPush(scriptHash), // script hash
                 ...encodeDataPush(constraintHash),  // arguments hash
-                ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+                // ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
                 // ...encodeDataPush(hexToBin('a90040')), // relative-time block (86,528 seconds ~1day)
-                // ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
+                ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
             ])
 
             /* Encode the public key hash into a P2PKH nexa address. */
@@ -428,9 +428,9 @@ export const useWalletStore = defineStore('wallet', {
                 tokens: [redeemToken],
                 receivers,
                 lockTime,
-                sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
+                // sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
                 // sequence: 0x4000a9, // set (timestamp) flag + 169 (512-second) cycles
-                // sequence: 0x4013c7, // set (timestamp) flag + 5,063 (512-second) cycles
+                sequence: 0x4013c7, // set (timestamp) flag + 5,063 (512-second) cycles
                 locking: STAKEHOUSE_V1_SCRIPT,
             })
             console.log('Send UTXO (response):', response)
