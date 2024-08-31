@@ -2,11 +2,6 @@
 /* Import modules. */
 import numeral from 'numeral'
 
-import {
-    getAddressHistory,
-    getTransaction,
-} from '@nexajs/rostrum'
-
 useHead({
     title: 'Bootstrap Campaigns',
     meta: [
@@ -18,15 +13,22 @@ useHead({
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
-const campaigns = ref([])
+const campaigns = ref(null)
 
-const campaign_1_id = '475b4cfc-ae95-419d-9681-cf378c083963'
-const campaign_2_id = 'b8fac25d-e619-4ddf-b474-af084e8250ce'
-const campaign_3_id = '707e2a8c-4eea-4c26-9ea2-c548e9e91726'
-const campaign_4_id = 'f900d1b8-1ae0-4e18-8a2f-212631b62562'
+const campaignList = [
+    { idx: 0, id: '475b4cfc-ae95-419d-9681-cf378c083963' }, // Causes Cash
+    { idx: 1, id: 'b8fac25d-e619-4ddf-b474-af084e8250ce' }, // Nexa Ledger
+    { idx: 2, id: '707e2a8c-4eea-4c26-9ea2-c548e9e91726' }, // Coin Mixer
+    { idx: 3, id: 'f900d1b8-1ae0-4e18-8a2f-212631b62562' }, // MetaNet
+]
+// const campaign_1_id =
+// const campaign_2_id =
+// const campaign_3_id =
+// const campaign_4_id =
 
+/* Create a campaign placeholder. */
 const campaign5 = {
-    id: null,
+    id: 'TBD',
     address: 'TBD',
     title: `Hackathon Festivals`,
     summary: ``,
@@ -41,30 +43,6 @@ const copyToClipboard = (_text) => {
     Clipboard.copy(_text)
 
     alert(`${_text} has been copied to the clipboard.`)
-}
-
-
-const init = async () => {
-    let response
-
-    response = await $fetch(`https://causes.cash/v1/campaign/${campaign_1_id}`)
-        .catch(err => console.error(err))
-    campaigns.value.push(response)
-
-    response = await $fetch(`https://causes.cash/v1/campaign/${campaign_2_id}`)
-        .catch(err => console.error(err))
-    campaigns.value.push(response)
-
-    response = await $fetch(`https://causes.cash/v1/campaign/${campaign_3_id}`)
-        .catch(err => console.error(err))
-    campaigns.value.push(response)
-
-    response = await $fetch(`https://causes.cash/v1/campaign/${campaign_4_id}`)
-        .catch(err => console.error(err))
-    campaigns.value.push(response)
-    console.log('CAMPAIGN 4', response)
-
-    campaigns.value.push(campaign5)
 }
 
 const receivedDisplay = (_campaign) => {
@@ -129,17 +107,33 @@ const discountUsdDisplay = (_campaign) => {
     return numeral(discount(_campaign) * System.nex).format('$0,0.00')
 }
 
+const init = async () => {
+    /* Initialize locals. */
+    let response
+
+    /* Initialize campaign holder. */
+    campaigns.value = new Array(5)
+    // console.log('CAMPAIGNS', campaigns.value)
+
+    campaignList.forEach(async _campaign => {
+        /* Add campaign. */
+        response = await $fetch(`https://causes.cash/v1/campaign/${_campaign.id}`)
+            .catch(err => console.error(err))
+        campaigns.value[_campaign.idx] = response
+    })
+
+    /* Add campaign #5. */
+    campaigns.value[4] = campaign5
+}
+
 onMounted(() => {
-    // loadCampaign1()
     init()
-    // campaign_1_id
 })
 
 // onBeforeUnmount(() => {
 //     console.log('Before Unmount!')
 //     // Now is the time to perform all cleanup operations.
 // })
-
 </script>
 
 <template>
@@ -161,8 +155,10 @@ onMounted(() => {
                 For every contribution, supporters will receive <span class="text-2xl text-rose-500 font-extrabold">$AVAS</span> sent to their Nexa wallet <span class="text-2xl text-indigo-500 font-extrabold">INSTANTLY!</span>
             </p>
 
-            <div class="isolate mx-auto mt-10 grid grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl lg:mx-0 lg:max-w-none xl:grid-cols-3">
-
+            <div
+                v-if="campaigns && typeof campaigns[0] !== 'undefined' && typeof campaigns[1] !== 'undefined' && typeof campaigns[2] !== 'undefined' && typeof campaigns[3] !== 'undefined' && typeof campaigns[4] !== 'undefined'"
+                class="isolate mx-auto mt-10 grid grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl lg:mx-0 lg:max-w-none xl:grid-cols-3"
+            >
                 <section
                     v-for="(campaign, index) of campaigns" :key="campaign.id"
                     class="relative rounded-3xl p-8 ring-1 ring-gray-200 bg-gradient-to-b from-gray-200 to-gray-50 border border-gray-300 shadow-sm"
@@ -251,8 +247,12 @@ onMounted(() => {
                         </h3>
                     </div>
                 </section>
-
             </div>
+
+            <h3 v-else class="isolate mx-auto mt-10 text-gray-500 text-4xl font-bold italic text-center">
+                LOADING.
+                PLEASE WAIT...
+            </h3>
         </div>
     </main>
 </template>
