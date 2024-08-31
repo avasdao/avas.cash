@@ -2,7 +2,7 @@
 useHead({
     title: `Staking — Ava's Cash`,
     meta: [
-        { name: 'description', content: `Ava's Cash makes building your next BIG idea effortless.` }
+        { name: 'description', content: `Ava's DAO is introducing UTXO staking with premium, on-chain rewards paid out each and every day.` }
     ],
 })
 

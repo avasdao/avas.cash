@@ -8,7 +8,7 @@ import {
 useHead({
     title: `Payyyouts! — Ava's Cash`,
     meta: [
-        { name: 'description', content: `Ava's Cash makes building your next BIG idea effortless.` }
+        { name: 'description', content: `Stake your $AVAS today and start receiving automatic Payyyouts! for up to 1-year.` }
     ],
 })
 

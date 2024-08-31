@@ -2,7 +2,7 @@
 useHead({
     title: `Toshi's Wagyu BBQ & Smoke — Ava's Cash`,
     meta: [
-        { name: 'description', content: `Ava's Cash makes building your next BIG idea effortless.` }
+        { name: 'description', content: `Our Tajima cattle is reared from birth in our own countryside; the result is a smooth and fatty Wagyu beef texture that simply melts in your mouth.` }
     ],
 })
 

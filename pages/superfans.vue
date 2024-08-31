@@ -2,7 +2,7 @@
 useHead({
     title: `Superfans! — Ava's Cash`,
     meta: [
-        { name: 'description', content: `Ava's Cash makes building your next BIG idea effortless.` }
+        { name: 'description', content: `Ava's Cash has the BEST fans!` }
     ],
 })
 

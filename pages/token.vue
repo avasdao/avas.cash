@@ -1,8 +1,8 @@
 <script setup lang="ts">
 useHead({
-    title: `Blank — Ava's Cash`,
+    title: `$AVAS — Ava's Cash`,
     meta: [
-        { name: 'description', content: `Ava's Cash makes building your next BIG idea effortless.` }
+        { name: 'description', content: `Official Governance Token of Ava's DAO.` }
     ],
 })
 

@@ -2,7 +2,7 @@
 useHead({
     title: `Palms d'Iamante — Ava's Cash`,
     meta: [
-        { name: 'description', content: `Ava's Cash makes building your next BIG idea effortless.` }
+        { name: 'description', content: `Our chef cooks the two fingers thick bone-in piece of meat right in front of you, so you can have a feast for your eyes, as well as for your taste buds.` }
     ],
 })
 
