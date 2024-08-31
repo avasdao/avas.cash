@@ -6,7 +6,6 @@ import numeral from 'numeral'
 // https://vuejs.org/guide/components/props.html#props-declaration
 const props = defineProps({
     receiver: String,
-    // amount: String,
     satoshis: Number,
 })
 
@@ -31,20 +30,42 @@ const totalTokens = computed(() => {
     )
 })
 
-const send = async (_amount) => {
-    /* Set ($AVAS) token id. */
-    const AVAS_TOKENID = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
+const petiteAmount = computed(() => {
+    if (!totalTokens.value) {
+        return 0
+    }
+
+    const total = parseFloat(totalTokens.value)
+
+    const calc = (total / 1e8 / 4.0)
+
+    const formatted = numeral(calc).format('0,0.00')
+
+    return formatted
+})
+
+/**
+ * Make (Reservation) Request
+ *
+ * Send NEXA to your stakehouse.
+ */
+const makeRequest = async (_amount) => {
+    /* Initialize locals. */
+    let displayAmount
+    let receiver
+    let response
 
     /* Set token id. */
     Wallet.selectAsset(AVAS_TOKENID)
 
-    let receiver = Wallet.stakehouse
-    console.log('RECEIVER', receiver)
+    receiver = Wallet.stakehouse
+    // console.log('RECEIVER', receiver)
 
-    const displayAmount = parseFloat(_amount) / 1e8
+    displayAmount = (parseFloat(_amount) / 1e8)
+    console.log('DISPLAY AMOUNT', displayAmount)
 
     if (confirm(`Are you sure you want to STAKE ${numeral(displayAmount).format('0,0.00[000000]')} $AVAS to your Stakehouse?`)) {
-        const response = await Wallet.makeReservation(_amount)
+        response = await Wallet.makeReservation(_amount)
         console.log('RESPONSE', response)
 
         /* Clear amount. */
@@ -63,18 +84,18 @@ const send = async (_amount) => {
 
 const stake25 = () => {
     /* Calculate stake amount. */
-    const stakeAmount = totalTokens.value / BigInt(4)
+    const stakeAmount = (totalTokens.value / BigInt(4))
 
     /* Send stake amount. */
-    send(stakeAmount)
+    makeRequest(stakeAmount)
 }
 
 const stake50 = () => {
     /* Calculate stake amount. */
-    const stakeAmount = totalTokens.value / BigInt(2)
+    const stakeAmount = (totalTokens.value / BigInt(2))
 
     /* Send stake amount. */
-    send(stakeAmount)
+    makeRequest(stakeAmount)
 }
 
 const stakeCustom = () => {
@@ -82,7 +103,7 @@ const stakeCustom = () => {
     const stakeAmount = BigInt(amount.value * 1e8)
 
     /* Send stake amount. */
-    send(stakeAmount)
+    makeRequest(stakeAmount)
 }
 
 // onMounted(() => {
@@ -94,7 +115,6 @@ const stakeCustom = () => {
 //     console.log('Before Unmount!')
 //     // Now is the time to perform all cleanup operations.
 // })
-
 </script>
 
 <template>
@@ -139,7 +159,7 @@ const stakeCustom = () => {
                                 </h3>
 
                                 <div class="mt-4 flex items-baseline gap-x-2">
-                                    <span class="text-5xl font-bold tracking-tight text-gray-900">{{numeral(parseFloat(totalTokens) / 1e8 / 4.0).format('0,0.00')}}</span>
+                                    <span class="text-5xl font-bold tracking-tight text-gray-900">{{petiteAmount}}</span>
                                     <span class="text-base font-semibold leading-7 text-gray-600">/ of {{numeral(parseFloat(totalTokens) / 1e8).format('0,0.00[00]')}}</span>
                                 </div>
 

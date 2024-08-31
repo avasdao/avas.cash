@@ -8,9 +8,7 @@ useHead({
 
 /* Initialize stores. */
 import { useWalletStore } from '@/stores/wallet'
-import { useSystemStore } from '@/stores/system'
 const Wallet = useWalletStore()
-const System = useSystemStore()
 
 const abbr = computed(() => {
     if (!Wallet.stakehouse) {
@@ -21,15 +19,10 @@ const abbr = computed(() => {
 })
 
 const init = () => {
-    console.log('WALLET', Wallet)
-    console.log('WALLET (privateKey)', Wallet.wallet.privateKey)
-    console.log('WALLET (address)', Wallet.address)
-
-    console.log('STAKEHOUSE ADDRESS', Wallet.stakehouse)
+    // TODO
 }
 
 onMounted(() => {
-    // setTimeout(init, 2000)
     // init()
 })
 
@@ -48,7 +41,7 @@ onMounted(() => {
                 </h1>
 
                 <h1 class="text-3xl font-bold text-amber-600 tracking-tight italic opacity-70">
-                    Cattle Ranch & Brewery
+                    Cattle Ranch &amp; Brewery
                 </h1>
             </div>
 

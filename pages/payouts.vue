@@ -67,7 +67,7 @@ const init = async () => {
         // console.log('TRANSACTION', tx)
 
         outputs = tx.vout
-        console.log('OUTPUTS', outputs)
+        // console.log('OUTPUTS', outputs)
 
         /* Handle outputs. */
         for (let j = 0; j < outputs.length; j++) {

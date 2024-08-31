@@ -30,7 +30,9 @@ const props = defineProps({
                 </svg>
             </button>
 
-            <div class="flex-auto text-sm font-semibold">January</div>
+            <div class="flex-auto text-sm font-semibold">
+                June
+            </div>
 
             <button type="button" class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500">
                 <span class="sr-only">Next month</span>
@@ -172,11 +174,11 @@ const props = defineProps({
             </button>
 
             <button type="button" class="bg-white py-1.5 text-gray-900 hover:bg-gray-100 focus:z-10">
-                <time datetime="2022-01-21" class="mx-auto flex h-7 w-7 items-center justify-center rounded-full">21</time>
+                <time datetime="2022-01-21" class="mx-auto flex h-7 w-7 items-center justify-center rounded-full bg-gray-900 font-semibold text-white">21</time>
             </button>
 
             <button type="button" class="bg-white py-1.5 text-gray-900 hover:bg-gray-100 focus:z-10">
-                <time datetime="2022-01-22" class="mx-auto flex h-7 w-7 items-center justify-center rounded-full bg-gray-900 font-semibold text-white">22</time>
+                <time datetime="2022-01-22" class="mx-auto flex h-7 w-7 items-center justify-center rounded-full">22</time>
             </button>
 
             <button type="button" class="bg-white py-1.5 text-gray-900 hover:bg-gray-100 focus:z-10">
