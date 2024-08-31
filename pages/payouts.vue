@@ -67,7 +67,7 @@ const init = async () => {
         // console.log('TRANSACTION', tx)
 
         outputs = tx.vout
-        // console.log('OUTPUTS', outputs)
+        console.log('OUTPUTS', outputs)
 
         /* Handle outputs. */
         for (let j = 0; j < outputs.length; j++) {
@@ -83,14 +83,14 @@ const init = async () => {
                 receivers[address] = true
             }
         }
-
-        /* Handle (unique) receivers. */
-        Object.keys(receivers).forEach(_receiver => {
-            /* Add address. */
-            addresses.value.push(_receiver)
-        })
-        // console.log('ADDRESSES', addresses.value)
     }
+
+    /* Handle (unique) receivers. */
+    Object.keys(receivers).forEach(_receiver => {
+        /* Add address. */
+        addresses.value.push(_receiver)
+    })
+    // console.log('ADDRESSES', addresses.value)
 }
 
 onMounted(() => {
@@ -193,9 +193,9 @@ onMounted(() => {
             </div>
         </div>
 
-        <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
+        <div class="mx-auto -mt-8 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-48">
 
-            <h2 class="text-3xl font-bold">
+            <h2 class="text-gray-600 text-3xl font-bold">
                 Streams Payyyout
             </h2>
 
@@ -204,13 +204,13 @@ onMounted(() => {
             </p>
 
             <div class="mt-5 flex">
-                <h2 class="text-3xl font-bold">
+                <h2 class="text-gray-600 text-3xl font-bold">
                     UBI Payyyout
                 </h2>
             </div>
 
             <p class="px-3 sm:px-10 py-3 text-xl">
-                <span class="font-bold">1,000,000 NEXA</span> to {{numUniqueAddr}} addresses
+                <span class="text-gray-600 font-bold">1,000,000 NEXA</span> to {{numUniqueAddr}} addresses
             </p>
 
             <section>
