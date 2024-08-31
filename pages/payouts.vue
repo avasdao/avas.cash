@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import numeral from 'numeral'
+import {
+    getAddressHistory,
+    getTransaction,
+} from '@nexajs/rostrum'
+
 useHead({
     title: `Payouts — Ava's Cash`,
     meta: [
@@ -8,14 +14,88 @@ useHead({
 
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'
-
-/* Initialize System. */
 const System = useSystemStore()
 
-// onMounted(() => {
-//     console.log('Mounted!')
-//     // Now it's safe to perform setup operations.
-// })
+const addresses = ref(null)
+const txidems = ref(null)
+
+const PAYOUT_ADDRESS = 'nexa:nqtsq5g5sp33aj07d808w8xvv7kuarwcrv3z2fvskw2ej7dj'
+
+const numUniqueAddr = computed(() => {
+    if (!addresses.value) {
+        return 0
+    }
+
+    return numeral(addresses.value.length).format('0,0')
+})
+
+const init = async () => {
+    /* Initialize locals. */
+    let address
+    let payout
+    let history
+    let outputs
+    let receivers
+    let tx
+
+    /* Initialize address handler. */
+    addresses.value = []
+
+    /* Initialize txidem handler. */
+    txidems.value = new Array(3)
+
+    /* Initialize receiver handler. */
+    receivers = {}
+
+    /* Request (FULL) address history. */
+    // NOTE: Return block heights and txidems.
+    history = await getAddressHistory(PAYOUT_ADDRESS)
+        .catch(err => console.error(err))
+    // console.log('HISTORY', history)
+
+    /* Handle most recent payouts. */
+    // NOTE: Tracking the last x3 transactions.
+    for (let i = 1; i < 4; i++) {
+        payout = history[history.length - i]
+        // console.log('PAYOUT', payout)
+
+        /* Set transaction idem. */
+        txidems.value[(i - 1)] = payout.tx_hash
+
+        tx = await getTransaction(payout.tx_hash)
+            .catch(err => console.error(err))
+        // console.log('TRANSACTION', tx)
+
+        outputs = tx.vout
+        // console.log('OUTPUTS', outputs)
+
+        /* Handle outputs. */
+        for (let j = 0; j < outputs.length; j++) {
+            /* Set output. */
+            const output = outputs[j]
+
+            /* Set address. */
+            address = output?.scriptPubKey?.addresses[0]
+
+            /* Validate address. */
+            if (address) {
+                /* Set address (to unique set). */
+                receivers[address] = true
+            }
+        }
+
+        /* Handle (unique) receivers. */
+        Object.keys(receivers).forEach(_receiver => {
+            /* Add address. */
+            addresses.value.push(_receiver)
+        })
+        // console.log('ADDRESSES', addresses.value)
+    }
+}
+
+onMounted(() => {
+    init()
+})
 
 // onBeforeUnmount(() => {
 //     console.log('Before Unmount!')
@@ -116,26 +196,51 @@ const System = useSystemStore()
         <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
 
             <h2 class="text-3xl font-bold">
-                Today's Treasury Pool
+                Streams Payyyout
             </h2>
 
             <p class="px-3 sm:px-10 py-3 text-xl">
-                <span class="font-bold">888 NEX</span> (payout in ~4 hours)
+                <span class="font-light">coming soon...</span>
             </p>
 
             <div class="mt-5 flex">
                 <h2 class="text-3xl font-bold">
-                    Yesterday's Payout
+                    UBI Payyyout
                 </h2>
             </div>
 
             <p class="px-3 sm:px-10 py-3 text-xl">
-                <span class="font-bold">1337 NEX</span> to 120 addresses
+                <span class="font-bold">1,000,000 NEXA</span> to {{numUniqueAddr}} addresses
             </p>
 
-            <!-- <p class="px-3 sm:px-10 py-3">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p> -->
+            <section>
+                <NuxtLink :to="'https://explorer.nexa.org/tx/' + txidem" target="_blank" v-for="txidem of txidems" :key="txidem" class="py-3 block hover:underline">
+                    <div class="flex flex-row items-center gap-2">
+                        <svg class="h-6 w-auto text-blue-600" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+                        </svg>
+
+                        <span class="text-xs text-blue-500 truncate">{{txidem}}</span>
+                    </div>
+                </NuxtLink>
+            </section>
+
+            <div class="my-5 border-t border-gray-300" />
+
+            <section>
+                <h3 class="text-medium tracking-widest">
+                    Most Recent Payout Receivers
+                </h3>
+
+                <div v-for="(address, index) in addresses" :key="address" class="py-3 grid grid-cols-[60px_auto]">
+                    <span class="font-bold">
+                        # {{(index + 1)}}
+                    </span>
+                    <NuxtLink :to="'https://explorer.nexa.org/address/' + address" target="_blank" class="text-blue-500 truncate hover:underline">
+                        {{address}}
+                    </NuxtLink>
+                </div>
+            </section>
 
         </div>
     </main>
