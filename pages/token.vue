@@ -1,3 +1,33 @@
+<script setup lang="ts">
+useHead({
+    title: `Blank — Ava's Cash`,
+    meta: [
+        { name: 'description', content: `Ava's Cash makes building your next BIG idea effortless.` }
+    ],
+})
+
+/* Initialize stores. */
+import { useSystemStore } from '@/stores/system'
+const System = useSystemStore()
+
+const copyToClipboard = () => {
+    /* Copy address to clipboard. */
+    Clipboard.copy('nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x')
+
+    alert('Token ID has been copied to your clipboard.')
+}
+
+// onMounted(() => {
+//     console.log('Mounted!')
+//     // Now it's safe to perform setup operations.
+// })
+
+// onBeforeUnmount(() => {
+//     console.log('Before Unmount!')
+//     // Now is the time to perform all cleanup operations.
+// })
+</script>
+
 <template>
     <main class="isolate">
         <!-- Hero section -->
@@ -100,7 +130,7 @@
 
                 <ul class="mt-2 flex flex-col gap-8 leading-6 sm:leading-8">
 
-                    <li class="flex items-center">
+                    <li class="flex flex-row gap-6 items-center">
                         <NuxtLink
                             class="px-3 py-2 w-full flex flex-col items-center bg-blue-300 border-2 border-blue-500 rounded-lg shadow hover:bg-blue-200"
                             to="https://nexa.exchange/token/57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000"
@@ -121,6 +151,12 @@
                             </span>
 
                         </NuxtLink>
+
+                        <button @click="copyToClipboard" class="px-5 py-2 bg-rose-300 border-2 border-rose-500 rounded-lg shadow hover:bg-rose-200">
+                            <span class="font-bold">
+                                Copy Token ID
+                            </span>
+                        </button>
                     </li>
 
                     <li>
@@ -135,6 +171,8 @@
                         </div>
                     </li>
                 </ul>
+
+                <Roadmap />
 
                 <div class="my-8 mx-10 border border-amber-500" />
 
