@@ -195,7 +195,7 @@ export const useWalletStore = defineStore('wallet', {
 
         tokens(_state) {
             if (!this.assets || !this.assets[AVAS_TOKENID]) {
-                return [{ tokens: 0n }]
+                return [{ tokens: BigInt(0) }]
             }
 
             return [{
