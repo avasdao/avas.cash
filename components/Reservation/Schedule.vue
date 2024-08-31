@@ -3,34 +3,14 @@
 import { listUnspent } from '@nexajs/address'
 import numeral from 'numeral'
 
-/* Define properties. */
-// https://vuejs.org/guide/components/props.html#props-declaration
-const props = defineProps({
-    data: {
-        type: [Object],
-    },
-})
-
 /* Initialize stores. */
-import { useSystemStore } from '@/stores/system'
 import { useWalletStore } from '@/stores/wallet'
-const System = useSystemStore()
 const Wallet = useWalletStore()
 
 /* Set ($AVAS) token id. */
 const AVAS_TOKENID = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
 
 const unspent = ref(null)
-
-const jsonStringify = (_data) => {
-    let data
-
-    data = JSON.stringify(_data, (key, value) =>
-        typeof value === 'bigint' ? value.toString() + 'n' : value
-    )
-
-    return data
-}
 
 const tokens = computed(() => {
     if (!unspent.value?.length) {
@@ -49,11 +29,12 @@ const init = async () => {
             init()
         }, 100)
     }
-    console.log('WALLET STAKEHOUSE', Wallet.stakehouse)
+    // console.log('WALLET STAKEHOUSE', Wallet.stakehouse)
 
+    /* Request unspent from stakehouse. */
     unspent.value = await listUnspent(Wallet.stakehouse)
         .catch(err => console.error(err))
-    console.log('UNSPENT', unspent.value)
+    // console.log('UNSPENT', unspent.value)
 }
 
 const amountDisplay = (_token) => {
@@ -80,11 +61,12 @@ const redeem = async (_token) => {
 }
 
 const renew = async (_token) => {
-    // TODO
+    alert('This feature is coming soon...')
 }
 
 onMounted(() => {
-    setTimeout(init, 2000)
+    init()
+    // setTimeout(init, 2000)
 })
 
 // onBeforeUnmount(() => {
