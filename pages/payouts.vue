@@ -195,22 +195,22 @@ onMounted(() => {
 
         <div class="mx-auto -mt-8 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-48">
 
-            <h2 class="text-gray-600 text-3xl font-bold">
-                Streams Payyyout
+            <h2 class="text-gray-600 text-3xl font-bold tracking-widest">
+                Daily Streams Payyyout
             </h2>
 
             <p class="px-3 sm:px-10 py-3 text-xl">
-                <span class="font-light">coming soon...</span>
+                <span class="font-light italic tracking-widest">coming soon...</span>
             </p>
 
             <div class="mt-5 flex">
-                <h2 class="text-gray-600 text-3xl font-bold">
-                    UBI Payyyout
+                <h2 class="text-gray-600 text-3xl font-bold tracking-widest">
+                    Daily UBI Payyyout
                 </h2>
             </div>
 
             <p class="px-3 sm:px-10 py-3 text-xl">
-                <span class="text-gray-600 font-bold">1,000,000 NEXA</span> to {{numUniqueAddr}} addresses
+                <span class="text-3xl text-fuchsia-600 font-bold tracking-wider">1,000,000</span> NEXA to <span class="text-3xl text-fuchsia-600 font-bold tracking-wider">{{numUniqueAddr}}</span> addresses
             </p>
 
             <section>
