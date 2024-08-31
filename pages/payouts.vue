@@ -6,7 +6,7 @@ import {
 } from '@nexajs/rostrum'
 
 useHead({
-    title: `Payouts — Ava's Cash`,
+    title: `Payyyouts! — Ava's Cash`,
     meta: [
         { name: 'description', content: `Ava's Cash makes building your next BIG idea effortless.` }
     ],
@@ -130,14 +130,14 @@ onMounted(() => {
                 <div class="mx-auto max-w-7xl px-6 pb-16 pt-8 sm:pt-16 lg:px-8 lg:pt-8">
                     <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
                         <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
-                            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl leading-[60px] lg:leading-[100px]">
                                 We’re changing the way people <em class="text-5xl sm:text-7xl text-lime-500">Get Paid!</em>
                             </h1>
 
-                            <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
-                                $AVAS HODLers are eligible to receive Daily $NEXA Payouts, sent each day at 04:20 UTC directly to their Nexa address.
-                                Stake your $AVAS today and start receiving automatic payouts for up to 1-year.
-                                Earn additional rewards along the way to compound your Payouts up to 10X.
+                            <p class="relative mt-6 text-xl text-gray-600 sm:max-w-md lg:max-w-none leading-[50px]">
+                                $AVAS HODLers are eligible to receive Daily $NEXA Payyyouts!, sent each day at 04:20 UTC directly to their Nexa address.
+                                Stake your $AVAS today and start receiving automatic Payyyouts! for up to 1-year.
+                                Earn additional rewards along the way to compound your Payyyouts! up to 10X.
                             </p>
                         </div>
                         <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
@@ -193,24 +193,30 @@ onMounted(() => {
             </div>
         </div>
 
-        <div class="mx-auto -mt-8 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-48">
+        <div class="mx-auto -mt-8 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-24">
 
             <h2 class="text-gray-600 text-3xl font-bold tracking-widest">
-                Daily Streams Payyyout
+                Daily Streams Payyyout!
             </h2>
 
             <p class="px-3 sm:px-10 py-3 text-xl">
                 <span class="font-light italic tracking-widest">coming soon...</span>
+
+                <NuxtLink to="https://docs.avasdao.org/category/streams" target="_blank" class="mt-3 block text-sm text-blue-500 hover:underline">
+                    Learn more about Ava's Streams?
+                </NuxtLink>
             </p>
 
-            <div class="mt-5 flex">
+            <div class="mt-14 flex">
                 <h2 class="text-gray-600 text-3xl font-bold tracking-widest">
-                    Daily UBI Payyyout
+                    Daily UBI Payyyout!
                 </h2>
             </div>
 
             <p class="px-3 sm:px-10 py-3 text-xl">
-                <span class="text-3xl text-fuchsia-600 font-bold tracking-wider">1,000,000</span> NEXA to <span class="text-3xl text-fuchsia-600 font-bold tracking-wider">{{numUniqueAddr}}</span> addresses
+                <span class="text-3xl text-fuchsia-600 font-bold tracking-wider">1,000,000</span> NEXA
+                <br class="sm:hidden" />
+                to <span class="text-3xl text-fuchsia-600 font-bold tracking-wider">{{numUniqueAddr}}</span> addresses
             </p>
 
             <section>
@@ -229,7 +235,7 @@ onMounted(() => {
 
             <section>
                 <h3 class="text-medium tracking-widest">
-                    Most Recent Payout Receivers
+                    Most Recent Payyyout! Receivers
                 </h3>
 
                 <div v-for="(address, index) in addresses" :key="address" class="py-3 grid grid-cols-[60px_auto]">
