@@ -1,55 +1,38 @@
 /* Import modules. */
 import { defineStore } from 'pinia'
 
-import {
-    encodeAddress,
-    listUnspent,
-} from '@nexajs/address'
-
+import { encodeAddress } from '@nexajs/address'
 import {
     derivePublicKeyCompressed,
     ripemd160,
     sha256,
 } from '@nexajs/crypto'
-
 import {
     encodePrivateKeyWif,
-    entropyToMnemonic,
     mnemonicToEntropy,
 } from '@nexajs/hdnode'
-
 import { getCoins } from '@nexajs/purse'
-
 import {
     getOutpoint,
     getTip,
-    getTokenInfo,
     getTransaction,
-    subscribeAddress,
 } from '@nexajs/rostrum'
-
 import {
     encodeDataPush,
     OP,
 } from '@nexajs/script'
-
 import {
     getTokens,
     sendToken,
 } from '@nexajs/token'
-
-import {
-    binToHex,
-    hexToBin,
-} from '@nexajs/utils'
-
+import { hexToBin } from '@nexajs/utils'
 import { Wallet } from '@nexajs/wallet'
 
-import _createWallet from './wallet/create.ts'
+/* Import (local) modules. */
+import _setEntropy from './wallet/setEntropy.ts'
 
-/* Set ($AVAS) token id. */
+/* Set constants. */
 const AVAS_TOKENID = '57f46c1766dc0087b207acde1b3372e9f90b18c7e67242657344dcd2af660000'
-
 const TX_GAS_AMOUNT = 1000 // 10.00 NEXA
 
 /* Build (contract) script. */
@@ -177,9 +160,9 @@ export const useWalletStore = defineStore('wallet', {
                 OP.ZERO, // script template
                 ...encodeDataPush(scriptHash), // script hash
                 ...encodeDataPush(constraintHash),  // arguments hash
-                // ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+                ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
                 // ...encodeDataPush(hexToBin('a90040')), // relative-time block (86,528 seconds ~1day)
-                ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
+                // ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
             ])
 
             /* Encode the public key hash into a P2PKH nexa address. */
@@ -220,16 +203,25 @@ export const useWalletStore = defineStore('wallet', {
             this._wallet.setAsset('0')
         },
 
+        /**
+         * Create Wallet
+         *
+         * Create a fresh wallet.
+         *
+         * @param _entropy A 32-byte (hex-encoded) random value.
+         */
         createWallet(_entropy) {
             /* Validate entropy. */
             // NOTE: Expect HEX value to be 32 or 64 characters.
-            if (_entropy.length !== 32 && _entropy.length !== 64) {
+            if (_entropy?.length !== 32 && _entropy?.length !== 64) {
                 console.error(_entropy, 'is NOT valid entropy.')
 
+                /* Clear (invalid) entropy. */
                 _entropy = null
             }
 
-            _createWallet.bind(this)(_entropy)
+            /* Set entropy. */
+            _setEntropy.bind(this)(_entropy)
 
             /* Initialize wallet. */
             this.init()
@@ -374,9 +366,9 @@ export const useWalletStore = defineStore('wallet', {
                 OP.ZERO, // script template
                 ...encodeDataPush(scriptHash), // script hash
                 ...encodeDataPush(constraintHash),  // arguments hash
-                // ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
+                ...encodeDataPush(hexToBin('010040')), // relative-time block (512 seconds ~8.5mins)
                 // ...encodeDataPush(hexToBin('a90040')), // relative-time block (86,528 seconds ~1day)
-                ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
+                // ...encodeDataPush(hexToBin('c71340')), // relative-time block (2,592,256 seconds ~30days)
             ])
 
             /* Encode the public key hash into a P2PKH nexa address. */
@@ -436,9 +428,9 @@ export const useWalletStore = defineStore('wallet', {
                 tokens: [redeemToken],
                 receivers,
                 lockTime,
-                // sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
+                sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
                 // sequence: 0x4000a9, // set (timestamp) flag + 169 (512-second) cycles
-                sequence: 0x4013c7, // set (timestamp) flag + 5,063 (512-second) cycles
+                // sequence: 0x4013c7, // set (timestamp) flag + 5,063 (512-second) cycles
                 locking: STAKEHOUSE_V1_SCRIPT,
             })
             console.log('Send UTXO (response):', response)
@@ -472,6 +464,7 @@ export const useWalletStore = defineStore('wallet', {
         },
 
         setMnemonic(_mnemonic) {
+            /* Initialize locals. */
             let entropy
             let error
 
@@ -504,11 +497,9 @@ export const useWalletStore = defineStore('wallet', {
 
         destroy() {
             /* Reset wallet. */
+            this._assets = null
             this._entropy = null
             this._wallet = null
-            this._wif = null
-            this._coins = null
-            this._tokens = null
 
             console.info('Wallet destroyed successfully!')
         },

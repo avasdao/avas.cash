@@ -9,8 +9,6 @@ import {
     sha256,
 } from '@nexajs/crypto'
 
-import { getTransaction } from '@nexajs/rostrum'
-
 import { encodeDataPush } from '@nexajs/script'
 
 import {

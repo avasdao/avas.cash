@@ -1,47 +1,22 @@
+/* Import ALL locales. */
+// NOTE: We utilize "lazy loading" for efficiency.
+import en_loc from './locales/en.js'
+import fr_loc from './locales/fr.js'
+import tr_loc from './locales/tr.js'
+import zh_loc from './locales/zh.js'
+
 export default defineI18nConfig(() => ({
     legacy: false,
     locale: 'en',
     defaultLocale: 'en',
+    fallbackLocale: 'en',
     lazy: true,
-    langDir: './locales',
-    // messages: {
-    //     en: {
-    //         welcome: 'Welcome',
-    //     },
-    //     fr: {
-    //         welcome: 'Bienvenue',
-    //     },
-    //     tr: {
-    //         welcome: 'Hoş geldin',
-    //     },
-    //     zh: {
-    //         welcome: '欢迎',
-    //     },
-    // },
-    locales: [
-        {
-            code: 'en',
-            file: 'en.json',
-        },
-        {
-            code: 'en-US',
-            file: 'en.json',
-        },
-        {
-            code: 'fr',
-            file: 'fr.json',
-        },
-        {
-            code: 'tr',
-            file: 'tr.json',
-        },
-        {
-            code: 'zh',
-            file: 'zh.json',
-        },
-        {
-            code: 'zh-CN',
-            file: 'zh.json',
-        },
-    ]
+    messages: {
+        en: en_loc,
+        'en-US': en_loc,
+        fr: fr_loc,
+        tr: tr_loc,
+        zh: zh_loc,
+        'zh-CN': zh_loc,
+    },
 }))

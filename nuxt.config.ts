@@ -37,4 +37,7 @@ export default defineNuxtConfig({
         // NOTE: We need this to make avas.json available to web apps.
         '/**': { cors: true },
     },
+
+    /* Set compatibility date. */
+    compatibilityDate: '2024-08-30',
 })

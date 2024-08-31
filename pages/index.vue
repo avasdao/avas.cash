@@ -6,7 +6,7 @@ import moment from 'moment'
 import { useSystemStore } from '@/stores/system'
 const System = useSystemStore()
 
-const GENESIS_TIMESTAMP = 1682532180
+const GENESIS_TIMESTAMP = 1682532180 // Wednesday, April 26, 2023 6:03:00 PM
 
 const richList = ref(null)
 
@@ -27,25 +27,24 @@ const timeSinceGenesisDisplay = computed(() => {
 })
 
 const walletsCreated = computed(() => {
-    if (!richList.value) {
-        return 'n/a'
-    }
+    // if (!richList.value) {
+    //     return 'n/a'
+    // }
 
     const numDays = Math.abs(((timeSinceGenesis.value / 60.0) / 60.0) / 24.0)
 
-    const numWallets = richList.value.length
+    // const numWallets = richList.value.length
+    const numWallets = 3356 // source -> https://explorer.nexa.org/token/nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x
 
     return (numWallets / numDays).toFixed(2)
 })
 
 const init = async () => {
-    richList.value = await $fetch('/api/getRichList')
-        .catch(err => console.error(err))
-    console.log('RICH LIST', richList.value)
+    // TODO
 }
 
 onMounted(() => {
-    init()
+    // init()
 })
 
 // onBeforeUnmount(() => {
@@ -193,7 +192,7 @@ onMounted(() => {
                                 </dt>
 
                                 <dd class="text-5xl font-semibold tracking-tight text-gray-900">
-                                    13.37 million
+                                    19.74 million
                                 </dd>
                             </div>
 
@@ -206,14 +205,15 @@ onMounted(() => {
                                 </dt>
 
                                 <dd class="text-5xl font-semibold tracking-tight text-gray-900">
-                                    1.23 million
+                                    $16,230.88
                                 </dd>
                             </div>
 
                             <div class="flex flex-col-reverse gap-y-4">
                                 <dt class="text-base leading-7 text-gray-600">
                                     New wallets per day since
-                                    <NuxtLink to="https://nexa.sh/tx/a61b7879fa31487f767eec5c895be3c68a6402f42ba96ad2d982d88453df7b39" target="_blank" class="block text-blue-500 font-extrabold hover:underline">
+                                    <!-- <NuxtLink to="https://nexa.sh/tx/a61b7879fa31487f767eec5c895be3c68a6402f42ba96ad2d982d88453df7b39" target="_blank" class="block text-blue-500 font-extrabold hover:underline"> -->
+                                    <NuxtLink to="https://explorer.nexa.org/tx/a61b7879fa31487f767eec5c895be3c68a6402f42ba96ad2d982d88453df7b39" target="_blank" class="block text-blue-500 font-extrabold hover:underline">
                                         Token Genesis <small>{{ timeSinceGenesisDisplay }}</small>
                                     </NuxtLink>
                                 </dt>
