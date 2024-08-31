@@ -8,14 +8,8 @@ const props = defineProps({
 })
 
 /* Initialize stores. */
-import { useProfileStore } from '@/stores/profile'
 import { useWalletStore } from '@/stores/wallet'
-import { useSystemStore } from '@/stores/system'
-const Profile = useProfileStore()
 const Wallet = useWalletStore()
-const System = useSystemStore()
-
-const AVAS = 'nexa:tptlgmqhvmwqppajq7kduxenwt5ljzcccln8ysn9wdzde540vcqqqcra40x0x'
 
 const mnemonic = ref(null)
 const tokens = ref(null)
@@ -32,23 +26,21 @@ const displayBalance = computed(() => {
         return '0.00'
     }
 
-    /* Initialize locals. */
     let decimalValue
     let bigIntValue
 
-    /* Validate amount type. */
-    if (typeof Wallet.asset.amount !== 'bigint' || typeof Wallet.asset.satoshis !== 'bigint') {
-        decimalValue = BigInt(0)
+    if (Wallet.asset.group === '0') {
+        decimalValue = Wallet.asset.satoshis * BigInt(1e4)
     } else {
-        /* Validate asset group. */
-        if (Wallet.asset.group === '0') {
-            decimalValue = Wallet.asset.satoshis * BigInt(1e4)
+        /* Validate amount type. */
+        if (typeof Wallet.asset.amount !== 'bigint') {
+            decimalValue = BigInt(0)
         } else {
             decimalValue = Wallet.asset.amount * BigInt(1e4)
         }
+        decimalValue = Wallet.asset.amount * BigInt(1e4)
     }
 
-    /* Validate asset decimals. */
     if (Wallet.asset?.decimal_places > 0) {
         bigIntValue = decimalValue / BigInt(10**Wallet.asset.decimal_places)
     } else {
@@ -107,11 +99,6 @@ const tokensBalanceUsd = computed(() => {
     return '~' + numeral(totalUsd).format('$0,0.00')
 })
 
-const importWallet = () => {
-    const response = Wallet.setMnemonic(mnemonic.value)
-    console.log('WALLET', response)
-}
-
 
 /**
  * Set Tab
@@ -149,20 +136,6 @@ const setTab = (_tab) => {
 const init = async () => {
     /* Set (default) tab. */
     setTab('assets')
-
-    // /* Initialize tokens. */
-    // tokens.value = {}
-
-    // /* Handle tokens. */
-    // Wallet.tokens.forEach(_token => {
-    //     if (!tokens.value[_token.tokenid]) {
-    //         tokens.value[_token.tokenid] = BigInt(0)
-    //     }
-
-    //     /* Add tokens to total. */
-    //     tokens.value[_token.tokenid] += _token.tokens
-    // })
-    // console.log('WALLET TOKENS', Wallet.tokens)
 }
 
 onMounted(() => {
@@ -175,32 +148,9 @@ onMounted(() => {
 </script>
 
 <template>
-    <main v-if="!Wallet.isReady" class="flex flex-col gap-5">
-        <p class="px-3 py-2 bg-yellow-100 text-base font-medium border-2 border-yellow-200 rounded-lg shadow-md">
-            Welcome to your Nexa Exchange wallet.
-            Click the button below to create a new wallet and begin trading.
-        </p>
+    <Loading v-if="Wallet.isLoading" />
 
-        <div @click="Wallet.createWallet" class="cursor-pointer px-3 py-2 text-2xl text-blue-100 font-medium bg-blue-500 border-2 border-blue-700 rounded-lg shadow hover:bg-blue-400">
-            Create New Wallet
-        </div>
-
-        <hr />
-
-        <p class="px-3 py-2 bg-yellow-100 text-base font-medium border-2 border-yellow-200 rounded-lg shadow-md">
-            Import your existing wallet into Nexa Exchange.
-        </p>
-
-        <textarea
-            placeholder="Seed #1 Seed #2 Seed #3 ..."
-            v-model="mnemonic"
-            class="px-3 py-2 border-2 border-amber-500 rounded-lg shadow"
-        />
-
-        <div @click="importWallet" class="cursor-pointer px-3 py-2 text-2xl text-blue-100 font-medium bg-blue-500 border-2 border-blue-700 rounded-lg shadow hover:bg-blue-400">
-            Import Existing Wallet
-        </div>
-    </main>
+    <Setup v-else-if="!Wallet.isReady" />
 
     <main v-else class="">
         <section @click="setTab('assets')" class="cursor-pointer group px-5 py-3 bg-gradient-to-b from-sky-100 to-sky-50 border-t border-x border-sky-400 rounded-t-lg rounded-x-lg shadow-md hover:bg-sky-100">

@@ -194,8 +194,6 @@ export const useWalletStore = defineStore('wallet', {
         },
 
         tokens(_state) {
-            console.log('TOKEN ASSETS', this.assets)
-
             if (!this.assets || !this.assets[AVAS_TOKENID]) {
                 return [{ tokens: 0n }]
             }
@@ -228,21 +226,16 @@ export const useWalletStore = defineStore('wallet', {
             this._wallet = await Wallet.init(this._entropy, true)
             console.log('(Initialized) wallet', this._wallet)
 
-            // this._assets = { ...this.wallet.assets } // cloned assets
-            console.log('WALLET ASSETS', this.wallet.assets)
-
             /* Set (default) asset. */
             this.wallet.setAsset('0')
 
             /* Handle balance updates. */
             this.wallet.on('balances', async (_assets) => {
-                console.log('Wallet Balances (onChanges):', _assets)
+                // console.log('Wallet Balances (onChanges):', _assets)
 
                 /* Close asset locally. */
 // FIXME Read ASSETS directly from library (getter).
                 this._assets = { ..._assets }
-                // console.log('UPDATED ASSETS-1', this._assets)
-                // console.log('UPDATED ASSETS-2', this.assets)
             })
         },
 
