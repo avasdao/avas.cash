@@ -20,6 +20,8 @@ const addresses = ref(null)
 const txidems = ref(null)
 
 const PAYOUT_ADDRESS = 'nexa:nqtsq5g5sp33aj07d808w8xvv7kuarwcrv3z2fvskw2ej7dj'
+const TOTAL_BLOCKS_PER_DAY = 720
+const TOTAL_PAYOUTS_PER_DAY = 3 // FIXME Calculate this from database.
 
 const numUniqueAddr = computed(() => {
     if (!addresses.value) {
@@ -32,8 +34,10 @@ const numUniqueAddr = computed(() => {
 const init = async () => {
     /* Initialize locals. */
     let address
+    let isPayout
     let payout
     let history
+    let numFound
     let outputs
     let receivers
     let tx
@@ -47,6 +51,8 @@ const init = async () => {
     /* Initialize receiver handler. */
     receivers = {}
 
+    numFound = 0
+
     /* Request (FULL) address history. */
     // NOTE: Return block heights and txidems.
     history = await getAddressHistory(PAYOUT_ADDRESS)
@@ -54,17 +60,35 @@ const init = async () => {
     // console.log('HISTORY', history)
 
     /* Handle most recent payouts. */
-    // NOTE: Tracking the last x3 transactions.
-    for (let i = 1; i < 4; i++) {
+    // NOTE: Tracking the recently (sent) transactions.
+    for (let i = 1; i <= TOTAL_BLOCKS_PER_DAY; i++) {
         payout = history[history.length - i]
         // console.log('PAYOUT', payout)
-
-        /* Set transaction idem. */
-        txidems.value[(i - 1)] = payout.tx_hash
 
         tx = await getTransaction(payout.tx_hash)
             .catch(err => console.error(err))
         // console.log('TRANSACTION', tx)
+
+        /* Set flag. */
+        isPayout = false
+
+        /* Validate inputs. */
+        if (tx.vin) {
+            for (let j = 0; j < tx.vin.length; j++) {
+                if (tx.vin[j].addresses.includes(PAYOUT_ADDRESS)) {
+                    /* Set flag. */
+                    isPayout = true
+                }
+            }
+        }
+
+        /* Validate payout. */
+        if (!isPayout) {
+            continue
+        }
+
+        /* Set transaction idem. */
+        txidems.value[numFound] = payout.tx_hash
 
         outputs = tx.vout
         // console.log('OUTPUTS', outputs)
@@ -82,6 +106,11 @@ const init = async () => {
                 /* Set address (to unique set). */
                 receivers[address] = true
             }
+        }
+
+        /* Validate found transactions (count). */
+        if (++numFound >= TOTAL_PAYOUTS_PER_DAY) {
+            break
         }
     }
 
