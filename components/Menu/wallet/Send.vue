@@ -2,11 +2,6 @@
 import numeral from 'numeral'
 import moment from 'moment'
 import QrScanner from 'qr-scanner'
-import {
-    getAddressBalance,
-    getAddressFirstUse,
-    getTransaction,
-} from '@nexajs/rostrum'
 
 /* Initialize stores. */
 import { useSystemStore } from '@/stores/system'
@@ -14,13 +9,80 @@ import { useWalletStore } from '@/stores/wallet'
 const System = useSystemStore()
 const Wallet = useWalletStore()
 
+/* Set (REST) API endpoints. */
+const ROSTRUM_ENDPOINT = 'https://nexa.sh/v1/rostrum'
+
+/* Set constants. */
+const ROSTRUM_METHOD = 'POST'
+
+/* Initialize globals. */
+let body
+let response
+
+const headers = new Headers()
+headers.append('Content-Type', 'application/json')
+
+const getAddressBalance = async (_address) => {
+    body = JSON.stringify({
+        request: 'blockchain.address.get_balance',
+        params: _address,
+    })
+
+    // NOTE: Native `fetch` requires Node v21+.
+    response = await fetch(ROSTRUM_ENDPOINT, {
+        method: ROSTRUM_METHOD,
+        headers,
+        body,
+    }).catch(err => console.error(err))
+    response = await response.json()
+    // console.log('RESPONSE', response)
+
+    return response
+}
+
+const getAddressFirstUse = async (_address) => {
+    body = JSON.stringify({
+        request: 'blockchain.address.get_first_use',
+        params: _address,
+    })
+
+    // NOTE: Native `fetch` requires Node v21+.
+    response = await fetch(ROSTRUM_ENDPOINT, {
+        method: ROSTRUM_METHOD,
+        headers,
+        body,
+    }).catch(err => console.error(err))
+    response = await response.json()
+    // console.log('RESPONSE', response)
+
+    return response
+}
+
+const getTransaction = async (_id) => {
+    body = JSON.stringify({
+        request: 'blockchain.transaction.get',
+        params: [_id, true],
+    })
+
+    // NOTE: Native `fetch` requires Node v21+.
+    response = await fetch(ROSTRUM_ENDPOINT, {
+        method: ROSTRUM_METHOD,
+        headers,
+        body,
+    }).catch(err => console.error(err))
+    response = await response.json()
+    // console.log('RESPONSE', response)
+
+    return response
+}
+
 
 const amount = ref(null)
 const receiver = ref(null)
 const currency = ref(null)
 const satoshis = ref(null)
 const txidem = ref(null)
-const error = ref(null)
+const errorMsgs = ref(null)
 
 const addressBalance = ref(null)
 const addressFirstUse = ref(null)
@@ -35,13 +97,19 @@ const isShowingVideoPreview = ref('hidden')
 
 
 watch(() => amount.value, (_amount) => {
-    // console.log('ADJUST SATOSHIS', Wallet.asset.decimal_places)
+    /* Clear errors. */
+    clearErrors()
+
+    console.log('ADJUST SATOSHIS', Wallet.asset.decimal_places)
 
     /* Convert to satoshis. */
     satoshis.value = parseInt(_amount * 10**Wallet.asset.decimal_places)
 })
 
 const openScanner = () => {
+    /* Clear errors. */
+    clearErrors()
+
     /* Start scanner. */
     startScanner()
 }
@@ -121,6 +189,10 @@ const startScanner = async () => {
 }
 
 const send = async () => {
+    /* Initialize locals. */
+    let error
+    let response
+
     if (!receiver.value) {
         return alert('Enter a destination address.')
     }
@@ -132,8 +204,21 @@ const send = async () => {
     if (confirm(`Are you sure you want to send ${numeral(amount.value).format('0,0.00')} ${Wallet.asset?.ticker} to ${receiver.value}?`)) {
         console.log(`Starting transfer of ${amount.value} ${Wallet.asset?.ticker} to ${receiver.value}...`)
 
-        const response = await Wallet.transfer(receiver.value, BigInt(satoshis.value))
+        response = await Wallet
+            .transfer(receiver.value, BigInt(satoshis.value))
+            .catch(err => {
+                console.error(err)
+                error = err
+            })
         console.log('RESPONSE', response)
+
+        /* Validate error. */
+        if (error) {
+            console.error('DISPLAY ERROR MESSAGE', error.message)
+            /* Set error. */
+            errorMsgs.value = error?.message || JSON.stringify(error)
+            return
+        }
 
         /* Validate transaction idem. */
         if (response?.txidem) {
@@ -145,7 +230,7 @@ const send = async () => {
             txidem.value = response.txidem
         } else if (response?.error) {
             /* Set error. */
-            error.value = response?.error?.message || JSON.stringify(response?.error)
+            errorMsgs.value = response?.error?.message || JSON.stringify(response?.error)
         }
     }
 }
@@ -156,25 +241,17 @@ const consolidate = async () => {
         const response = await Wallet.consolidate()
         // console.log('RESPONSE', response)
 
-        let json
-
-        try {
-            json = JSON.parse(response)
-        } catch (err) {
-            return alert(JSON.stringify(err))
-        }
-
         /* Validate transaction idem. */
-        if (json?.result) {
+        if (response?.result) {
             /* Reset user inputs. */
             amount.value = null
             receiver.value = null
 
             /* Set transaction idem. */
-            txidem.value = json.result
-        } else if (json?.error) {
+            txidem.value = response.result
+        } else if (response?.error) {
             /* Set error. */
-            error.value = json?.error?.message || JSON.stringify(json?.error)
+            errorMsgs.value = response?.error?.message || JSON.stringify(response?.error)
         }
     }
 }
@@ -182,17 +259,24 @@ const consolidate = async () => {
 const updateAddressDetails = async () => {
     console.log('RECEIVER', receiver.value)
 
+    /* Clear errors. */
+    clearErrors()
+
     addressBalance.value = await getAddressBalance(receiver.value)
         .catch(err => console.error(err))
-    console.log('ADDRESS BALANCE', addressBalance.value)
+    // console.log('ADDRESS BALANCE', addressBalance.value)
 
     addressFirstUse.value = await getAddressFirstUse(receiver.value)
         .catch(err => console.error(err))
-    console.log('ADDRESS FIRST USE', addressFirstUse.value)
+    // console.log('ADDRESS FIRST USE', addressFirstUse.value)
 
     firstTx.value = await getTransaction(addressFirstUse.value.tx_hash)
         .catch(err => console.error(err))
-    console.log('FIRST TX', firstTx.value)
+    // console.log('FIRST TX', firstTx.value)
+}
+
+const clearErrors = () => {
+    errorMsgs.value = null
 }
 
 const init = async () => {
@@ -222,9 +306,9 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="">
+    <main class="grid grid-cols-1 lg:grid-cols-7 gap-8 lg:divide-x-2 divide-solid divide-sky-200">
 
-        <div class="">
+        <div class="col-span-4">
             <section class="mt-5 flex flex-row gap-1">
                 <input
                     class="w-full px-3 py-1 text-xl sm:text-2xl bg-yellow-200 border-2 border-yellow-400 rounded-md shadow"
@@ -289,12 +373,35 @@ onMounted(() => {
                 </div>
             </section>
 
-            <section v-if="error" class="my-10">
-                <div>
-                    <h2>Transaction failed!</h2>
+            <section v-if="errorMsgs" class="my-10">
+                <div class="rounded-md bg-red-50 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </div>
 
-                    <pre>{{JSON.stringify(error, null, 2)}}</pre>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800">
+                                Transaction FAILED!
+                            </h3>
+
+                            <div class="mt-2 text-sm text-red-700">
+                                <!-- <ul role="list" class="list-disc space-y-1 pl-5">
+                                    <li>Your password must be at least 8 characters</li>
+                                    <li>Your password must include at least one pro wrestling finishing move</li>
+                                </ul> -->
+                                <pre>{{JSON.stringify(errorMsgs, null, 2)}}</pre>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </section>
 
             <div class="flex flex-col gap-6">
@@ -320,16 +427,16 @@ onMounted(() => {
                     <pre>{{addressFirstUse}}</pre>
                 </section> -->
 
-                <section v-if="firstTx">
+                <section v-if="firstTx?.blocktime">
                     <h2 class="text-xl font-medium tracking-widest">
                         First Transaction
                     </h2>
 
                     <h3>
-                        Block Time: {{firstTx?.blocktime}}
+                        Block Time: {{firstTx.blocktime}}
                         <span class="block text-rose-500 font-bold">
-                            {{moment.unix(firstTx?.blocktime).format('llll')}}
-                            <span class="italic text-rose-400">{{moment.unix(firstTx?.blocktime).fromNow()}}</span>
+                            {{moment.unix(firstTx.blocktime).format('llll')}}
+                            <span class="italic text-rose-400">{{moment.unix(firstTx.blocktime).fromNow()}}</span>
                         </span>
                     </h3>
 
@@ -338,7 +445,7 @@ onMounted(() => {
             </div>
         </div>
 
-        <section class="flex flex-col gap-6">
+        <section class="pl-0 lg:pl-5 col-span-3 flex flex-col gap-6">
             <div>
                 <h1 class="text-2xl font-medium">
                     Manage Assets

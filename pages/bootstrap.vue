@@ -168,14 +168,15 @@ onMounted(() => {
                     <div v-if="campaign?.isActive === false" class="absolute -ml-8 -mt-8 bg-gray-500 w-full h-full rounded-3xl opacity-50 cursor-not-allowed" />
 
                     <div class="h-[160px] sm:h-[130px] lg:h-[160px]">
-                        <h2 class="font-medium text-gray-900 h-[80px] sm:h-[50px] lg:h-[80px]">
+                        <span class="font-medium text-gray-900 h-[80px] sm:h-[50px] lg:h-[80px]">
                             <h4 class="text-sm uppercase sm:normal-case text-gray-600 sm:text-gray-900">
                                 Campaign {{(index + 1)}}/5
                             </h4>
+
                             <span class="block text-2xl sm:inline">
                                 {{campaign.title}}
                             </span>
-                        </h2>
+                        </span>
 
                         <p class="mt-4 text-sm leading-6 text-gray-600 summary-three-lines">
                             {{campaign.summary}}

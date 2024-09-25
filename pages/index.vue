@@ -88,7 +88,7 @@ onMounted(() => {
                                 a hybrid utility token delivering <em class="text-3xl sm:text-5xl text-lime-500">Daily</em> $NEXA <em class="text-3xl sm:text-5xl text-lime-500">Payouts</em> to HODLers
                             </h2>
 
-                            <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
+                            <div class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
                                 Enjoy an opportunity to share in the growth and success of <span class="font-extrabold">Nexa's Premier Decentralized Autonomous Organization (DAO),</span> working tirelessly to deliver critical infrastrucutrue to a nascent Nexican community.
 
                                 <ul class="list-disc pl-10 pt-2 leading-8 text-lg text-gray-600">
@@ -96,8 +96,9 @@ onMounted(() => {
                                     <li>HODL your $AVAS for payouts</li>
                                     <li>Receive future $TOKEN airdrops</li>
                                 </ul>
-                            </p>
+                            </div>
                         </div>
+
                         <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-20 lg:pl-0">
                             <div class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
                                 <div class="relative">
@@ -109,6 +110,7 @@ onMounted(() => {
                                     <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"></div>
                                 </div>
                             </div>
+
                             <div class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
                                 <div class="relative">
                                     <img
@@ -118,6 +120,7 @@ onMounted(() => {
                                     />
                                     <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"></div>
                                 </div>
+
                                 <div class="relative">
                                     <img
                                         src="https://images.unsplash.com/photo-1624789389787-91e252ff8dac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1261&q=80"
@@ -127,6 +130,7 @@ onMounted(() => {
                                     <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"></div>
                                 </div>
                             </div>
+
                             <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
                                 <div class="relative">
                                     <img
@@ -136,6 +140,7 @@ onMounted(() => {
                                     />
                                     <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"></div>
                                 </div>
+
                                 <div class="relative">
                                     <img
                                         src="https://images.unsplash.com/photo-1519419691348-3b3433c4c20e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=326&q=80"
@@ -163,12 +168,13 @@ onMounted(() => {
                 <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
                     <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
                         <p class="text-xl leading-8 text-gray-600">
-                            Ava's DAO is a non-profit organization on a mission to build and manage a comprehensive suite of products & services with the prime directive of assuring financial freedom for every man, woman and child.
+                            Ava's DAO is a non-profit organization on a mission to build and manage a comprehensive suite of products &amp; services with the prime directive of assuring financial freedom for every man, woman and child.
                         </p>
 
                         <div class="mt-10 max-w-xl text-base leading-7 text-gray-700">
                             <p>
-                                Every $AVAS holder is permitted to Vote (on-chain) for public proposals. 'Qualified' $AVAS holders receive Daily Payouts (to their respective Nexa or Meta address) from revenues deposited into Ava's Treasury.
+                                Every $AVAS holder is permitted to Vote (on-chain) for public proposals.
+                                'Qualified' $AVAS holders receive Daily Payouts (to their respective Nexa or Meta address) from revenues deposited into Ava's Treasury.
                             </p>
 
                             <!-- <p class="mt-10">
