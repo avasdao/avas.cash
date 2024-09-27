@@ -91,7 +91,7 @@ export const useSystemStore = defineStore('system', {
 
     getters: {
         avasUsd() {
-            if (!this._tickers?.AVAS) {
+            if (!this._tickers?.AVAS?.quote?.USD?.price) {
                 return null
             }
 
@@ -99,7 +99,7 @@ export const useSystemStore = defineStore('system', {
         },
 
         nex() {
-            if (!this._tickers?.NEXA) {
+            if (!this._tickers?.NEXA?.quote?.USD?.price) {
                 return null
             }
 

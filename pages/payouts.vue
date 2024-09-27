@@ -110,6 +110,12 @@ const init = async () => {
         payout = history[history.length - i]
         // console.log('PAYOUT', payout)
 
+        /* Validate payout. */
+        if (!payout) {
+            continue
+        }
+
+        /* Request transaction details. */
         tx = await getTransaction(payout.tx_hash)
             .catch(err => console.error(err))
         // console.log('TRANSACTION', tx)
