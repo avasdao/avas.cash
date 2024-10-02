@@ -254,8 +254,8 @@ onMounted(() => {
                 to <span class="text-3xl text-fuchsia-600 font-bold tracking-wider">{{numUniqueAddr}}</span> addresses
             </p>
 
-            <section>
-                <NuxtLink :to="'https://explorer.nexa.org/tx/' + txidem" target="_blank" v-for="txidem of txidems" :key="txidem" class="py-3 block hover:underline">
+            <section v-for="txidem of txidems" :key="txidem">
+                <NuxtLink v-if="txidem" :to="'https://explorer.nexa.org/tx/' + txidem" target="_blank" class="py-3 block hover:underline">
                     <div class="flex flex-row items-center gap-2">
                         <svg class="h-6 w-auto text-blue-600" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
@@ -264,6 +264,11 @@ onMounted(() => {
                         <span class="text-xs text-blue-500 truncate">{{txidem}}</span>
                     </div>
                 </NuxtLink>
+                <div v-else>
+                    <span class="text-gray-600 tracking-widest italic">
+                        loading please wait...
+                    </span>
+                </div>
             </section>
 
             <div class="my-5 border-t border-gray-300" />
