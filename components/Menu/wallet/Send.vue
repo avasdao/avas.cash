@@ -243,7 +243,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="grid grid-cols-1 lg:grid-cols-7 gap-8 lg:divide-x-2 divide-solid divide-sky-200">
+    <main class="grid grid-cols-1 gap-8 lg:divide-x-2 divide-solid divide-sky-200">
 
         <div class="col-span-4">
             <section class="mt-5 flex flex-row gap-1">
