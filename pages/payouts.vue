@@ -21,7 +21,7 @@ const txidems = ref(null)
 
 const PAYOUT_ADDRESS = 'nexa:nqtsq5g5sp33aj07d808w8xvv7kuarwcrv3z2fvskw2ej7dj'
 const TOTAL_BLOCKS_PER_DAY = 720
-const TOTAL_PAYOUTS_PER_DAY = 3 // FIXME Calculate this from database.
+const TOTAL_PAYOUTS_PER_DAY = 4 // FIXME Calculate this from database.
 
 const numUniqueAddr = computed(() => {
     if (!addresses.value) {
@@ -46,7 +46,7 @@ const init = async () => {
     addresses.value = []
 
     /* Initialize txidem handler. */
-    txidems.value = new Array(3)
+    txidems.value = new Array(TOTAL_PAYOUTS_PER_DAY)
 
     /* Initialize receiver handler. */
     receivers = {}
