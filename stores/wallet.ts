@@ -4,8 +4,7 @@ import { defineStore } from 'pinia'
 import { encodeAddress } from '@nexajs/address'
 import {
     derivePublicKeyCompressed,
-    ripemd160,
-    sha256,
+    hash160,
 } from '@nexajs/crypto'
 import {
     encodePrivateKeyWif,
@@ -155,13 +154,13 @@ export const useWalletStore = defineStore('wallet', {
             let publicKey
             let scriptHash
             let scriptPubKey
-            let wif
+            // let wif
 
             /* Encode Private Key WIF. */
-            wif = encodePrivateKeyWif(_state._wallet.privateKey, 'mainnet')
+            // wif = encodePrivateKeyWif(_state._wallet.privateKey, 'mainnet')
 
             /* Hash (contract) script. */
-            scriptHash = ripemd160(sha256(STAKEHOUSE_V1_SCRIPT))
+            scriptHash = hash160(STAKEHOUSE_V1_SCRIPT)
 
             /* Derive the corresponding public key. */
             publicKey = derivePublicKeyCompressed(_state._wallet.privateKey)
@@ -169,7 +168,7 @@ export const useWalletStore = defineStore('wallet', {
             /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
             constraintData = encodeDataPush(publicKey)
 
-            constraintHash = ripemd160(sha256(constraintData))
+            constraintHash = hash160(constraintData)
             // console.log('CONSTRAINT HASH:', constraintHash)
 
             /* Build script public key. */
@@ -280,20 +279,16 @@ export const useWalletStore = defineStore('wallet', {
          * Creates a transaction and broadcasts on-chain.
          */
         async makeReservation(_amount) {
+            /* Initialize locals. */
             let headersTip
-            // let nexaAddress
-            let publicKey
-            let publicKeyHash
             let receivers
-            let response
             let scriptCoins
-            let scriptData
             let scriptPubKey
             let scriptTokens
             let txResult
             let wif
 
-            console.info('\n  Nexa address:', this.address)
+            console.info('WALLET ADDRESS', this.address)
 
             /* Encode Private Key WIF. */
             wif = encodePrivateKeyWif(this._wallet.privateKey, 'mainnet')
@@ -304,11 +299,11 @@ export const useWalletStore = defineStore('wallet', {
 
             scriptCoins = await getCoins(wif, scriptPubKey)
                 .catch(err => console.error(err))
-            console.log('\n  Script Coins:', scriptCoins)
+            console.log('SCRIPT COINS', scriptCoins)
 
             scriptTokens = await getTokens(wif, scriptPubKey)
                 .catch(err => console.error(err))
-            console.log('\n  Script Tokens:', scriptTokens)
+            console.log('SCRIPT TOKENS', scriptTokens)
 
             scriptTokens = scriptTokens.filter(_token => {
                 return _token.tokenidHex === AVAS_TOKENID
@@ -330,27 +325,22 @@ export const useWalletStore = defineStore('wallet', {
             receivers.push({
                 address: this.address,
             })
-            console.log('\n  Receivers:', receivers)
+            console.log('RECEIVERS', receivers)
 
             // lockTime = headersTip.height
             // return console.log('LOCK TIME', lockTime)
 
             /* Send UTXO request. */
-            response = await sendTokens(scriptCoins, scriptTokens, receivers)
-            console.log('Send UTXO (response):', response)
+            txResult = await sendTokens(scriptCoins, scriptTokens, receivers)
+            console.log('TX RESULT', txResult)
 
-            try {
-                txResult = JSON.parse(response)
-                console.log('TX RESULT', txResult)
-
-                if (txResult.error) {
-                    console.error(txResult.message)
-                }
-
-                return txResult
-            } catch (err) {
-                console.error(err)
+            /* Validate transaction error. */
+            if (txResult.error) {
+                console.error(txResult.message)
             }
+
+            /* Return result. */
+            return txResult
         },
 
         /**
@@ -361,6 +351,7 @@ export const useWalletStore = defineStore('wallet', {
         async redeem(_redeemToken) {
             // console.log('REDEEM TOKEN', _redeemToken)
 
+            /* Initialize locals. */
             let coinOutpoint
             let constraintData
             let constraintHash
@@ -373,7 +364,6 @@ export const useWalletStore = defineStore('wallet', {
             let receivers
             let redeemCoin
             let redeemToken
-            let response
             let scriptCoins
             let scriptHash
             let scriptPubKey
@@ -384,7 +374,7 @@ export const useWalletStore = defineStore('wallet', {
             /* Encode Private Key WIF. */
             wif = encodePrivateKeyWif(this._wallet.privateKey, 'mainnet')
 
-            scriptHash = ripemd160(sha256(STAKEHOUSE_V1_SCRIPT))
+            scriptHash = hash160(STAKEHOUSE_V1_SCRIPT)
 
             /* Derive the corresponding public key. */
             publicKey = derivePublicKeyCompressed(this._wallet.privateKey)
@@ -392,7 +382,7 @@ export const useWalletStore = defineStore('wallet', {
             /* Hash the public key hash according to the P2PKH/P2PKT scheme. */
             constraintData = encodeDataPush(publicKey)
 
-            constraintHash = ripemd160(sha256(constraintData))
+            constraintHash = hash160(constraintData)
 
             /* Reques header's tip. */
             headersTip = await getTip()
@@ -427,11 +417,11 @@ export const useWalletStore = defineStore('wallet', {
 
             scriptCoins = await getCoins(wif, scriptPubKey)
                 .catch(err => console.error(err))
-            console.log('\n  Script Coins:', scriptCoins)
+            console.log('SCRIPT COINS', scriptCoins)
 
             scriptTokens = await getTokens(wif, scriptPubKey)
                 .catch(err => console.error(err))
-            console.log('\n  Script Tokens:', scriptTokens)
+            console.log('SCRIPT TOKENS', scriptTokens)
 
             redeemToken = scriptTokens.find(_token => {
                 return _token.outpoint === _redeemToken.outpoint
@@ -453,13 +443,13 @@ export const useWalletStore = defineStore('wallet', {
             receivers.push({
                 address: this.address,
             })
-            console.log('\n  Receivers:', receivers)
+            console.log('RECEIVERS', receivers)
 
             lockTime = headersTip.height
             // return console.log('LOCK TIME', lockTime)
 
             /* Send UTXO request. */
-            response = await sendTokens({
+            txResult = await sendTokens({
                 coins: [redeemCoin],
                 tokens: [redeemToken],
                 receivers,
@@ -469,21 +459,15 @@ export const useWalletStore = defineStore('wallet', {
                 sequence: 0x4013c7, // set (timestamp) flag + 5,063 (512-second) cycles
                 locking: STAKEHOUSE_V1_SCRIPT,
             })
-            console.log('Send UTXO (response):', response)
+            console.log('TX RESULT', txResult)
 
-            try {
-                txResult = JSON.parse(response)
-                console.log('TX RESULT', txResult)
-
-                if (txResult.error) {
-                    console.error(txResult.message)
-                }
-
-                // expect(txResult.result).to.have.length(64)
-                return txResult
-            } catch (err) {
-                console.error(err)
+            /* Validate transaction error. */
+            if (txResult.error) {
+                console.error(txResult.message)
             }
+
+            /* Return transaction result. */
+            return txResult
         },
 
         /**
