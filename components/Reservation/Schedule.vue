@@ -54,8 +54,9 @@ const redeem = async (_token) => {
             alert(`Your transaction completed successfully!\n\n${response.result}`)
         }
 
+        /* Validate error message. */
         if (response?.error) {
-            alert(response.error?.message)
+            alert(response.error?.message || response.error)
         }
     }
 }
