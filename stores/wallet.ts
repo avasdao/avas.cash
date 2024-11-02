@@ -11,6 +11,7 @@ import {
     mnemonicToEntropy,
 } from '@nexajs/hdnode'
 import {
+    broadcast,
     getOutpoint,
     getTip,
     getTransaction,
@@ -21,6 +22,7 @@ import {
     OP,
 } from '@nexajs/script'
 import {
+    buildTokens,
     getTokens,
     sendTokens,
 } from '@nexajs/token'
@@ -352,7 +354,6 @@ export const useWalletStore = defineStore('wallet', {
             // console.log('REDEEM TOKEN', _redeemToken)
 
             /* Initialize locals. */
-            let coinOutpoint
             let constraintData
             let constraintHash
             let contractAddress
@@ -361,14 +362,17 @@ export const useWalletStore = defineStore('wallet', {
             let outpointDetails
             let outpointTx
             let publicKey
+            let rawTx
             let receivers
             let redeemCoin
             let redeemToken
+            let safeFeeOutpoint
             let scriptCoins
             let scriptHash
             let scriptPubKey
             let scriptTokens
             let txResult
+            let walletCoins
             let wif
 
             /* Encode Private Key WIF. */
@@ -403,7 +407,6 @@ export const useWalletStore = defineStore('wallet', {
                 'TEMPLATE',
                 encodeDataPush(scriptPubKey),
             )
-            console.info('CONTRACT ADDRESS', contractAddress)
 
             outpointDetails = await getOutpoint(_redeemToken.outpoint)
                 .catch(err => console.error(err))
@@ -411,25 +414,40 @@ export const useWalletStore = defineStore('wallet', {
             outpointTx = await getTransaction(outpointDetails.tx_hash)
                 .catch(err => console.error(err))
 
-            coinOutpoint = outpointTx.vout.find(_output => {
+            scriptCoins = await getCoins(wif, scriptPubKey)
+                .catch(err => console.error(err))
+
+            safeFeeOutpoint = outpointTx.vout.find(_output => {
                 return _output.value_satoshi === TX_GAS_AMOUNT
             })
 
-            scriptCoins = await getCoins(wif, scriptPubKey)
-                .catch(err => console.error(err))
-            console.log('SCRIPT COINS', scriptCoins)
+            /* Validate safe fee outpoint. */
+            if (safeFeeOutpoint) {
+                redeemCoin = scriptCoins.find(_coin => {
+                    return _coin.outpoint === safeFeeOutpoint.outpoint_hash
+                })
+
+                /* Set locking script. */
+                redeemCoin.locking = STAKEHOUSE_V1_SCRIPT
+            } else {
+                /* Request ALL wallet coins. */
+                walletCoins = await getCoins(wif)
+                    .catch(err => console.error(err))
+
+                redeemCoin = walletCoins.find(_coin => {
+                    return _coin.satoshis >= BigInt(TX_GAS_AMOUNT)
+                })
+            }
 
             scriptTokens = await getTokens(wif, scriptPubKey)
                 .catch(err => console.error(err))
-            console.log('SCRIPT TOKENS', scriptTokens)
 
             redeemToken = scriptTokens.find(_token => {
                 return _token.outpoint === _redeemToken.outpoint
             })
 
-            redeemCoin = scriptCoins.find(_coin => {
-                return _coin.outpoint === coinOutpoint.outpoint_hash
-            })
+            /* Set locking script. */
+            redeemToken.locking = STAKEHOUSE_V1_SCRIPT
 
             receivers = [
                 {
@@ -443,13 +461,13 @@ export const useWalletStore = defineStore('wallet', {
             receivers.push({
                 address: this.address,
             })
-            console.log('RECEIVERS', receivers)
+            // console.log('RECEIVERS', receivers)
 
             lockTime = headersTip.height
             // return console.log('LOCK TIME', lockTime)
 
             /* Send UTXO request. */
-            txResult = await sendTokens({
+            rawTx = await buildTokens({
                 coins: [redeemCoin],
                 tokens: [redeemToken],
                 receivers,
@@ -457,8 +475,12 @@ export const useWalletStore = defineStore('wallet', {
                 // sequence: 0x400001, // set (timestamp) flag + 1 (512-second) cycle
                 // sequence: 0x4000a9, // set (timestamp) flag + 169 (512-second) cycles
                 sequence: 0x4013c7, // set (timestamp) flag + 5,063 (512-second) cycles
-                locking: STAKEHOUSE_V1_SCRIPT,
+                // locking: STAKEHOUSE_V1_SCRIPT,
             })
+            console.log('RAW TX', rawTx.hex)
+// return
+            txResult = await broadcast(rawTx.hex)
+                .catch(err => console.error(err))
             console.log('TX RESULT', txResult)
 
             /* Validate transaction error. */

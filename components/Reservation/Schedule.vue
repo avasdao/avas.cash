@@ -45,8 +45,12 @@ const amountDisplay = (_token) => {
 }
 
 const redeem = async (_token) => {
+    /* Initialize locals. */
+    let error
+    let response
+
     if (confirm(`Are you sure you want to redeem ${amountDisplay(_token)} AVAS to ${Wallet.address}?`)) {
-        const response = await Wallet.redeem(_token)
+        response = await Wallet.redeem(_token)
         console.log('RESPONSE', response)
 
         /* Validate response. */
@@ -56,6 +60,12 @@ const redeem = async (_token) => {
 
         /* Validate error message. */
         if (response?.error) {
+            error = response?.error
+
+            if (error === '64: non-BIP68-final') {
+                return alert('Oops! Your stake is NOT quite ready to be redeemed yet. Please try again later...')
+            }
+
             alert(response.error?.message || response.error)
         }
     }
