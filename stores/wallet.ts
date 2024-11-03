@@ -435,7 +435,9 @@ export const useWalletStore = defineStore('wallet', {
                     .catch(err => console.error(err))
 
                 redeemCoin = walletCoins.find(_coin => {
-                    return _coin.satoshis >= BigInt(TX_GAS_AMOUNT)
+                    // NOTE: We increase the GAS requirement, so that we DO NOT
+                    //       accidentally try to use the 10 NEX "staked" coins.
+                    return _coin.satoshis >= BigInt(TX_GAS_AMOUNT + 1)
                 })
             }
 
