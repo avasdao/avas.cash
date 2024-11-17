@@ -163,7 +163,7 @@ onMounted(() => {
                     Mission Statement
                 </h2>
 
-                <!-- <p>{{ $t('welcome') }}</p> -->
+                <p>{{ $t('welcome') }}</p>
 
                 <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
                     <div class="lg:w-full lg:max-w-2xl lg:flex-auto">

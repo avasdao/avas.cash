@@ -28,7 +28,7 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
 
         /* Internationalization for Nuxt */
-        // '@nuxtjs/i18n',
+        '@nuxtjs/i18n',
     ],
 
     /* Route Rules */

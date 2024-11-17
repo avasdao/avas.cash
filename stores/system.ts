@@ -145,17 +145,17 @@ export const useSystemStore = defineStore('system', {
             /* Update ticker. */
             this.updateTicker()
 
-            // if (this._locale === null) {
-            //     /* Set (library) locale from (store) locale. */
-            //     this._locale = navigator.language || navigator.userLanguage
-            //     console.log(`User's preferred language is:`, this.locale)
-            // }
+            if (this._locale === null) {
+                /* Set (library) locale from (store) locale. */
+                this._locale = navigator.language || navigator.userLanguage
+                console.log(`User's preferred language is:`, this.locale)
+            }
 
-            // /* Initialize (library) locale. */
-            // const { locale } = useI18n()
+            /* Initialize (library) locale. */
+            const { locale } = useI18n()
 
-            // /* Set (library) locale. */
-            // locale.value = this.locale
+            /* Set (library) locale. */
+            locale.value = this.locale
         },
 
         async updateTicker () {
