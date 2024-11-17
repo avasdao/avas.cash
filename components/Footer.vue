@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { locale } = useI18n()
+// const { locale } = useI18n()
 
 </script>
 
@@ -58,23 +58,6 @@ const { locale } = useI18n()
                         />
                     </svg>
                 </NuxtLink>
-            </div>
-
-            <div class="mt-5 flex justify-center">
-                <select v-model="locale">
-                    <!-- <option value="ar">Arabic</option> -->
-                    <option value="zh-CN">Chinese</option>
-                    <option value="en-US">English</option>
-                    <!-- <option value="fr">French</option> -->
-                    <!-- <option value="de">German</option> -->
-                    <!-- <option value="ja">Japanese</option> -->
-                    <!-- <option value="ko">Korean</option> -->
-                    <!-- <option value="pt">Portuguese</option> -->
-                    <!-- <option value="ru">Russian</option> -->
-                    <!-- <option value="es">Spanish</option> -->
-                    <option value="tr">Turkish</option>
-                </select>
-                {{locale}}
             </div>
 
             <p class="mt-10 text-center text-sm leading-5 text-gray-500">
