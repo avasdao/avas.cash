@@ -1,6 +1,6 @@
 {
   "name": "avas-cash",
-  "version": "25.1.13",
+  "version": "25.2.13",
   "license": "MIT",
   "scripts": {
     "build": "nuxt build",
@@ -20,6 +20,7 @@
     "pinia": "2.2.2",
     "qr-scanner": "1.4.2",
     "qrcode": "1.5.4",
+    "simple-analytics-vue": "3.0.2",
     "typescript": "5.6.3",
     "uuid": "10.0.0"
   },
